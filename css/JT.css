@@ -1,8 +1,5 @@
 body {
-    padding-top: 20px;
-    padding-bottom: 30px;
-    padding-right: 50px;
-    padding-left: 50px;
+    padding: 20px 50px 30px;
 }
 
 .theme-dropdown .dropdown-menu {
