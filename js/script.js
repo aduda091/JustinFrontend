@@ -2,6 +2,9 @@
 
 // Simple pure-React component so we don't have to remember
 // Bootstrap's classes
+
+
+
 var BootstrapButton = React.createClass({
     render: function() {
         return (
@@ -137,3 +140,4 @@ var Example = React.createClass({
 });
 
 ReactDOM.render(<Example />, document.getElementById('jqueryexample'));
+
