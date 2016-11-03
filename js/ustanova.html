@@ -68,7 +68,7 @@
 
     <div>
         <h3> Odaberi ustanovu</h3>
-        <div class="list-group">
+        <div class="list-group" id=mySelect" multiple="multiple">
             <button type="button" class="list-group-item">MUP</button>
             <button type="button" class="list-group-item">Sveučilište Jurja Dobrile</button>
             <button type="button" class="list-group-item">HZZO</button>
@@ -76,6 +76,14 @@
             <button type="button" class="list-group-item">FINA</button>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if (!$("#mySelect option:selected").length) {
+                $("#mySelect option[value='3']").attr('selected', 'selected');
+            }
+            if ($('#mySelect option:selected').length == 0) { alert('nothing selected'); }
+        });
+    </script>
 
     <div>
         <button type="button" class="btn btn-lg" onclick="window.location.href='red.html'">Dalje</button>

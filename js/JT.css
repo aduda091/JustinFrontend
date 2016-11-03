@@ -8,7 +8,7 @@ body {
 .theme-dropdown .dropdown-menu {
     position: static;
     display: block;
-    margin-bottom: 20px;
+    margin-outside: 20px;
 }
 
 .theme-showcase > p > .btn {
@@ -16,5 +16,7 @@ body {
 }
 
 .theme-showcase .navbar .container {
-    width: 70px;
+    width:70px;
+
 }
+
