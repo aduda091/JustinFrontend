@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
 
     <head>
         <meta charset="UTF-8">
@@ -30,7 +29,7 @@
         <link rel="stylesheet" type="text/css" href="css/simple-sidebar.css">
     </head>
 
-</head>
+
 
 <body>
 
@@ -61,34 +60,51 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Simple Sidebar</h1>
-                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                </div>
-            </div>
+            <h2>Postavke</h2>
+            <div></div>
+            <fieldset>
+                <legend>Izaberite koje funkcionalnosti želite</legend>
+                <input type="checkbox" />Sat <br />
+                <input type="checkbox" />Prikaz prosječnog vremena čekanja <br />
+                <input type="checkbox" />Prikaz mogućih klijenata <br />
+                <input type="checkbox" />Prikaz popisa klijenata <br />
+                <input type="checkbox" />Prikaz preostalog vremena <br />
+            </fieldset>
+        </div>
+        <div>
+        <br>
+        <br>
+        <fieldset>
+            <legend>Radni dani</legend>
+            <input type="checkbox" />Ponedjeljak <br />
+            <input type="checkbox" />Utorak <br />
+            <input type="checkbox" />Srijeda <br />
+            <input type="checkbox" />Četvrtak<br />
+            <input type="checkbox" />Petak <br />
+        </fieldset>
+    </div>
+        <div>
+            <br>
+            <br>
+
+                <legend>Radno vrijeme</legend>
+            <form action="demo_form.asp">
+                OD: <input type="text" name="fname"><br>
+                DO: <input type="text" name="lname"><br>
+                <input type="submit" value="Potvrdi">
+            </form>
+
+        </div>
+
         </div>
     </div>
-    <!-- /#page-content-wrapper -->
+    <!-- /#page-content-wrappr -->
 
 </div>
-<!-- /#wrapper -->
 
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
 
-<!-- Menu Toggle Script -->
-<script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
+
 
 </body>
 
