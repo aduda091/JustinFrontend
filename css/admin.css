@@ -100,6 +100,22 @@
     background: none;
 }
 
+/* admin css  */
+.admin-prozorcic {
+
+    border: 2px solid gray;
+    border-radius: 20px;
+    text-align: center;
+
+}
+
+#next-button {
+    display: block;
+    width:100%;
+    font-size: 5em;
+}
+
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
@@ -127,3 +143,4 @@
         margin-right: 0;
     }
 }
+
