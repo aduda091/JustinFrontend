@@ -15,6 +15,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!--custom css-->
     <link rel="stylesheet" type="text/css" href="css/JT.css">
+
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
 <body>
 <div>
@@ -54,17 +57,17 @@
 
     <div>
         <h2> Odaberi ustanovu</h2>
-        <ul class="list-group" id=mySelect" multiple="multiple">
+        <ul class="list-group" id="popisUstanova">
 
 
-            <li class="list-group-item" ><a href="red.html">MUP</a> <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a> </li>
+            <li class="list-group-item" v-for="ustanova in ustanove" ><a href="red.html">{{ustanova.naziv}}</a> <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign pull-right" aria-hidden="true" ></a> </li>
 
 
 
-            <li  class="list-group-item">Sveučilište Jurja Dobrile <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>
-            <li  class="list-group-item">HZZO <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>
-            <li  class="list-group-item">Zagrebačka banka <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>
-            <li  class="list-group-item">FINA <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>
+            <!--<li  class="list-group-item">Sveučilište Jurja Dobrile <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>-->
+            <!--<li  class="list-group-item">HZZO <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>-->
+            <!--<li  class="list-group-item">Zagrebačka banka <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>-->
+            <!--<li  class="list-group-item">FINA <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>-->
         </ul>
     </div>
 
@@ -77,5 +80,20 @@
 </div>
 
 </div>
+
+<script>
+    var ustanove = new Vue({
+        el: '#popisUstanova',
+        data: {
+            ustanove: [
+                { naziv: 'MUP' },
+                { naziv: 'HZZO' },
+                { naziv: 'Zagrebačka banka' },
+                { naziv: 'FINA'}
+            ]
+        }
+    })
+
+</script>
 </body>
 </html>
