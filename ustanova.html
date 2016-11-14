@@ -60,7 +60,7 @@
         <ul class="list-group" id="popisUstanova">
 
 
-            <li class="list-group-item" v-for="ustanova in ustanove" ><a href="red.html">{{ustanova.naziv}}</a> <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign pull-right" aria-hidden="true" ></a> </li>
+            <li class="list-group-item" v-for="ustanova in ustanove" ><a href="red.html">{{ustanova.name}}</a> <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign pull-right" aria-hidden="true" ></a> </li>
 
 
 
@@ -86,13 +86,31 @@
         el: '#popisUstanova',
         data: {
             ustanove: [
-                { naziv: 'MUP' },
-                { naziv: 'HZZO' },
-                { naziv: 'Zagrebačka banka' },
-                { naziv: 'FINA'}
+                { name: 'MUP' },
+                { name: 'HZZO' },
+                { name: 'Zagrebačka banka' },
+                { name: 'FINA'}
             ]
         }
+    });
+
+    //var url = 'http://duda-toshiba:8080/facility/read-all?callback=?';
+    var url = "http://localhost:3000/ustanove";
+    $.getJSON(url, function (data) {
+        var stavke = [];
+        for(var i=0;i<data.length;i++) {
+            stavke.push(data[i]);
+        }
+        ustanove.ustanove = stavke;
+
+
     })
+    .fail(function(jqxhr, textStatus, error) {
+        console.log( textStatus );
+    })
+    .always(function() {
+
+    });
 
 </script>
 </body>
