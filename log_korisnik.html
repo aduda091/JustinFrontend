@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- JQuery-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--custom css-->
+    <link rel="stylesheet" type="text/css" href="css/JT.css">
+</head>
+<body>
+<div class="header-nightsky">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <a class="navbar-brand" href="#">JUSTIN TIME</a>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="us.html">O nama</a></li>
+                    <li><a href="ustanova.html">Uzmi broj</a></li>
+                    <li><a href="trenutni.html">Moj broj</a></li>
+                    <li><a href="log_korisnik.html">Profil</a></li>
+                    <li><a href="log.html">Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <h3>Prijavi se</h3>
+    <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">@</span>
+        <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+    </div>
+    <p>
+
+    </p>
+    <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon2">$</span>
+        <input type="text" class="form-control" placeholder="Password" aria-describedby="sizing-addon1">
+    </div>
+    <div>
+        <p>
+
+        </p>
+        <button type="button" class="btn btn-lg" onclick="window.location.href='postavke_korisnik.html'">Potvrdi</button>
+    </div>
+</div>
+<h3>ili registriraj</h3>
+<div class="row">
+    <div class="col-md-6">
+        <div class="well well-sm">
+            <form class="form-horizontal" action="" method="post">
+                <fieldset>
+                    <legend class="text-left">JUSTIN TIME</legend>
+
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="name">Ime</label>
+                        <div class="col-md-9">
+                            <input id="name" name="name" type="text" placeholder="Ime" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="name">Prezime</label>
+                        <div class="col-md-9">
+                            <input id="surname" name="surname" type="text" placeholder="Prezime" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="email">E-mail</label>
+                        <div class="col-md-9">
+                            <input id="email" name="email" type="text" placeholder="Upisi e-mail" class="form-control">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="name">Lozinka</label>
+                        <div class="col-md-9">
+                            <input id="pass" name="pass" type="password" placeholder="lozinka" class="form-control">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary btn-lg">Pošalji</button>
+                        </div>
+                    </div>
+</fieldset>
+</body>
+</html>
