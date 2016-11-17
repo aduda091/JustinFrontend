@@ -55,19 +55,19 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-    <div>
+    <div id="popisUstanova">
         <h2> Odaberi ustanovu</h2>
-        <ul class="list-group" id="popisUstanova">
-
-
-            <li class="list-group-item" v-for="ustanova in ustanove" ><a href="red.html">{{ustanova.name}}</a> <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign pull-right" aria-hidden="true" ></a> </li>
-
-
-
-            <!--<li  class="list-group-item">Sveučilište Jurja Dobrile <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>-->
-            <!--<li  class="list-group-item">HZZO <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>-->
-            <!--<li  class="list-group-item">Zagrebačka banka <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>-->
-            <!--<li  class="list-group-item">FINA <a href="Ustanova_info.html" class="glyphicon glyphicon-info-sign" aria-hidden="true" ></a></li>-->
+        <ul class="list-group">
+            <li class="list-group-item" v-for="ustanova in ustanove" >
+                <a :href="'red.html?ustanova_id=' + ustanova.id" :title="ustanova.name" style="display: inline-block; width: 80%;font-size: 1.4em;">
+                    {{ustanova.name}}
+                </a>
+                <a :href="'Ustanova_info.html?ustanova_id=' + ustanova.id"
+                   :title="'Informacije o ustanovi ' + ustanova.name"
+                   class="glyphicon glyphicon-info-sign pull-right"
+                   style="display: inline-block; width: 40px;font-size: 1.4em;" >
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -82,6 +82,11 @@
 </div>
 
 <script>
+    window.postaviUstanove = function (data) {
+        console.log("Dohvacene ustanove: ");
+        console.log(data);
+        ustanove.ustanove = data;//postavi ustanove na dohvaćene podatke iz ajax requesta
+    };
     var ustanove = new Vue({
         el: '#popisUstanova',
         data: {
@@ -94,23 +99,44 @@
         }
     });
 
-    //var url = 'http://duda-toshiba:8080/facility/read-all?callback=?';
+
+
+    //var url = 'http://duda-toshiba:8080/facility/read-all';
     var url = "http://localhost:3000/ustanove";
-    $.getJSON(url, function (data) {
-        var stavke = [];
-        for(var i=0;i<data.length;i++) {
-            stavke.push(data[i]);
-        }
-        ustanove.ustanove = stavke;
-
-
-    })
-    .fail(function(jqxhr, textStatus, error) {
-        console.log( textStatus );
-    })
-    .always(function() {
-
+    $.ajax({
+        method: "GET",
+        contentType: 'application/json',
+        //jsonp : true,
+        dataType: "jsonp",
+        //crossDomain : true,
+        jsonpCallback: "postaviUstanove",
+        cache: true,
+        url: url
+    }).done(function( data ) {
+        //console.log("Funkcija done kaže:");
+        //console.log(data);
+    }).fail(function(jqxhr, textStatus, error) {
+        console.log( textStatus + " " + error);
     });
+//    $.getJSON(url, function (data, textStatus, jqxhr) {
+////        var stavke = [];
+////        for(var i=0;i<data.length;i++) {
+////            stavke.push(data[i]);
+////        }
+////        ustanove.ustanove = stavke;
+//        console.log(data);
+//        console.log(textStatus);
+//
+//
+//    })
+//    .fail(function(jqxhr, textStatus, error) {
+//        console.log( textStatus + " " + error);
+//    })
+//    .always(function() {
+//
+//    });
+
+
 
 </script>
 </body>
