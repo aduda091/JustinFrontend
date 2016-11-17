@@ -19,52 +19,45 @@
 </head>
 <body>
 
-<div class="header-nightsky">
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <a class="navbar-brand" href="#">JUSTIN TIME</a>
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="us.html">O nama</a></li>
-                    <li><a href="ustanova.html">Uzmi broj</a></li>
-                    <li><a href="trenutni.html">Moj broj</a></li>
-                    <li><a href="log_korisnik.html">Profil</a></li>
-                    <li><a href="log.html">Admin</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<div id="navigacija"></div>
 
-    <h2>Imenko Imenić - Postavke</h2>
+<h2>Imenko Prezimenić - Postavke</h2>
 
-<h3>Promijena osobnh podataka</h3>
-        <div class="input-group input-group-m">
-            <span class="input-group-addon" id="sizing-addon1"></span>
-            <input type="text" class="form-control" placeholder="Imenko" aria-describedby="sizing-addon1">
-            <input type="text" class="form-control" placeholder="Imenić" aria-describedby="sizing-addon1">
-            <input type="text" class="form-control" placeholder="imenko@gmail.com" aria-describedby="sizing-addon1">
-            <input type="password" class="form-control" placeholder="Lozinka" aria-describedby="sizing-addon1">
-</div>
-    <br>
+<h3>Osobne informacije</h3>
 
-<h3>Podsjetnici</h3>
-        </div>
         <div>
+            <div class="input-group input-group-l">
+
+                <div class="input-group">
+                <label class="input-group-addon" style="width: 13ex"><b>Ime:</b> </label>
+                <input type="text" class="form-control" value="Imenko" aria-describedby="sizing-addon2">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-group-addon" style="width: 13ex"><b>Prezime:</b> </label>
+                <input type="text" class="form-control" value="Prezimenić" aria-describedby="sizing-addon1">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-group-addon" style="width: 13ex"><b>E-mail:</b> </label>
+                <input type="text" class="form-control" value="imenko@gmail.com" aria-describedby="sizing-addon1">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-group-addon" style="width: 13ex"><b>Šifra:</b> </label>
+                <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1">
+                    </div>
+            </div>
             <br>
+            <h3>Podsjetnici</h3>
+            <div>
+
             <fieldset>
                 <legend>Podsjeti me kad sam na redu: </legend>
-                <input type="checkbox" />drugi <br />
-                <input type="checkbox" />treći <br />
-                <input type="checkbox" />šesti <br />
-                <input type="checkbox" />osmi<br />
-                <input type="checkbox" />deseti <br />
+                <input type="checkbox" /> Prvi. <br />
+                <input type="checkbox" /> Treći. <br />
+                <input type="checkbox" /> Šesti. <br />
+                <input type="checkbox" /> <input type="number" placeholder="Upisi broj"/>
             </fieldset>
         </div>
         <div>
@@ -78,6 +71,16 @@
 
             </fieldset>
         </div>
+
+            <div>
+            <input type="submit" />
+            </div>
 </div>
+
+<script>
+    $('#navigacija').load('navigacija.html');
+
+</script>
+
 </body>
 </html>

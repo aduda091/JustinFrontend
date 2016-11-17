@@ -18,28 +18,7 @@
     <link rel="stylesheet" type="text/css" href="css/JT.css">
 </head>
 <body>
-<div class="header-nightsky">
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <a class="navbar-brand" href="#">JUSTIN TIME</a>
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="us.html">O nama</a></li>
-                    <li><a href="ustanova.html">Uzmi broj</a></li>
-                    <li><a href="trenutni.html">Moj broj</a></li>
-                    <li><a href="log_korisnik.html">Profil</a></li>
-                    <li><a href="log.html">Admin</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<div id="navigacija"></div>
 
     <h3>Prijavi se</h3>
     <div class="input-group input-group-lg">
@@ -104,6 +83,14 @@
                             <button type="submit" class="btn btn-primary btn-lg">Pošalji</button>
                         </div>
                     </div>
-</fieldset>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+<script>
+    $('#navigacija').load('navigacija.html');
+
+</script>
 </body>
 </html>
