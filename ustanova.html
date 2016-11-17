@@ -62,18 +62,19 @@
 
 <script>
     window.postaviUstanove = function (data) {
-        console.log("Dohvacene ustanove: ");
-        console.log(data);
-        ustanove.ustanove = data;//postavi ustanove na dohvaćene podatke iz ajax requesta
+//        console.log("Dohvacene ustanove: ");
+//        console.log(data);
+        //postavi ustanove na dohvaćene podatke iz ajax requesta
+        ustanove.ustanove = data;
     };
     var ustanove = new Vue({
         el: '#popisUstanova',
         data: {
-            ustanove: [
-                { name: 'MUP' },
-                { name: 'HZZO' },
-                { name: 'Zagrebačka banka' },
-                { name: 'FINA'}
+            ustanove: [//placeholder ustanove kad ne radi baza
+                { id:1, name: 'MUP' },
+                { id:2, name: 'HZZO' },
+                { id:3, name: 'Zagrebačka banka' },
+                { id:4, name: 'FINA'}
             ],
             searchString: ""
         },
@@ -98,40 +99,24 @@
 
 
 
-    //var url = 'http://duda-toshiba:8080/facility/read-all';
-    var url = "http://localhost:3000/ustanove";
+    var url = 'http://duda-toshiba:8080/facility/read-all';
+    //var url = "http://localhost:3000/ustanove";
     $.ajax({
         method: "GET",
         contentType: 'application/json',
         //jsonp : true,
-        dataType: "jsonp",
+        dataType: "json",
         //crossDomain : true,
-        jsonpCallback: "postaviUstanove",
+        //jsonpCallback: "postaviUstanove",
         cache: true,
         url: url
     }).done(function( data ) {
-        //console.log("Funkcija done kaže:");
-        //console.log(data);
+        console.log("Funkcija done kaže:");
+        console.log(data);
+        postaviUstanove(data);
     }).fail(function(jqxhr, textStatus, error) {
         console.log( textStatus + " " + error);
     });
-//    $.getJSON(url, function (data, textStatus, jqxhr) {
-////        var stavke = [];
-////        for(var i=0;i<data.length;i++) {
-////            stavke.push(data[i]);
-////        }
-////        ustanove.ustanove = stavke;
-//        console.log(data);
-//        console.log(textStatus);
-//
-//
-//    })
-//    .fail(function(jqxhr, textStatus, error) {
-//        console.log( textStatus + " " + error);
-//    })
-//    .always(function() {
-//
-//    });
 
     $('#navigacija').load('navigacija.html');
 
