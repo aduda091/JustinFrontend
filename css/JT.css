@@ -1,6 +1,10 @@
+
 body {
     padding: 20px 50px 30px;
+    font-family: Calibri;
+    background-color:rgba(223, 228, 255, 0.15);
 }
+
 
 .theme-dropdown .dropdown-menu {
     position: static;
@@ -19,5 +23,10 @@ body {
 h2 {
     text-align: center;
     padding: 15px;
-    text-decoration: underline;
+    text-decoration:blink;
+    border: dotted;
+    background: linear-gradient(to left,rgba(214, 12, 210, 0.33),rgba(33, 121, 214, 0.33));
+
 }
+
+
