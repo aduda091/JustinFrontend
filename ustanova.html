@@ -56,9 +56,15 @@
     </nav>
 
     <div id="popisUstanova">
+
+        <div class="input-group">
+
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+            <input type="search" v-model="searchString" placeholder="Pretraga ustanova..." class="form-control"/>
+        </div>
         <h2> Odaberi ustanovu</h2>
         <ul class="list-group">
-            <li class="list-group-item" v-for="ustanova in ustanove" >
+            <li class="list-group-item" v-for="ustanova in nadjeneUstanove" >
                 <a :href="'red.html?ustanova_id=' + ustanova.id" :title="ustanova.name" style="display: inline-block; width: 80%;font-size: 1.4em;">
                     {{ustanova.name}}
                 </a>
@@ -95,7 +101,25 @@
                 { name: 'HZZO' },
                 { name: 'Zagrebačka banka' },
                 { name: 'FINA'}
-            ]
+            ],
+            searchString: ""
+        },
+        computed: {
+            nadjeneUstanove: function () {
+                var ustanove_array = this.ustanove,
+                        searchString = this.searchString;
+
+                if(!searchString){
+                    return ustanove_array;
+                }
+                searchString = searchString.trim().toLowerCase();
+                ustanove_array = ustanove_array.filter(function(item){
+                    if(item.name.toLowerCase().indexOf(searchString) !== -1){
+                        return item;
+                    }
+                });
+                return ustanove_array;
+            }
         }
     });
 
