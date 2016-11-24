@@ -1,9 +1,10 @@
 
 body {
     /*padding: 20px 50px 30px;*/
-    margin: 5px 10px;
+    margin: 5px auto;
     font-family: Calibri, sans-serif;
     background-color:rgba(223, 228, 255, 0.15);
+    width: 90%;
 }
 
 
@@ -136,11 +137,18 @@ h3 {
 }
 
 footer {
-    text-align: center;
-    color: black;
     font-size: 15px;
-    font-variant-caps: all-petite-caps;
-    line-height: 1.5;
-    margin-top: 3em;
+    color: black;
     background:linear-gradient(to left,rgba(214, 12, 210, 0.33) ,rgba(33, 121, 214, 0.33));
+    /*position: fixed;*/
+    /*bottom: 0;*/
+    width: 90%;
+    text-align: center;
+    font-variant-caps: all-petite-caps;
+    margin: 5px auto;
+}
+
+.container{
+    min-height: 350px;
+
 }
