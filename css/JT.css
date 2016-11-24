@@ -1,7 +1,7 @@
 
 body {
     padding: 20px 50px 30px;
-    font-family: Calibri;
+    font-family: Calibri, sans-serif;
     background-color:rgba(223, 228, 255, 0.15);
 }
 
@@ -58,8 +58,15 @@ h3 {
 
 }
 
-.input-group
-{
+.input-group {
     padding: 2px;
 }
 
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:active,
+.navbar-default .navbar-toggle:focus {
+    background-color: transparent;
+}
