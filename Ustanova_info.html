@@ -1,3 +1,5 @@
+<!doctype html>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,19 +27,20 @@
 
 <div style="font-size: 3em;margin: 5px auto;"><span class="glyphicon glyphicon-info-sign" ></span><span style="margin-left: 10px"></span></div>
 
-<h3>{{name}}</h3>
+<h2>{{name}}</h2>
 <h5><b>Adresa:</b> {{address}}</h5>
-<h5><b>Telefon:</b><tel> {{telephone}}</tel></h5>
+<h5><b>Telefon:</b> {{telephone}}</h5>
 <h5><b>Email:</b> {{mail}}</h5>
 <h5><b>Radno vrijeme:</b> {{hours}}</h5>
-<div>
-    <iframe :src="'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2827.844689574528!2d13.848334850051081!3d44.86545647899584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477cd3210b40b665%3A0x3b2510d29cdea0b3!2s' + addressUrl + '%2C+52100%2C+Pula!5e0!3m2!1shr!2shr!4v1478817260667'"  width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-</div></div>
+<div id="map">
+    <iframe :src="'https://www.google.com/maps/embed/v1/place?key=AIzaSyCOH4D1-jGK0--ISKvtCpVX0anhQMhKZSc&q=' + addressUrl + '%2C+52100%2C+Pula'" width="90%" height="350px" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+</div>
 
 <div><br>
     <button type="button" class="btn btn-m" onclick="window.location.href='ustanova.html'"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Natrag</button>
 </div>
-
+</div>
 <script>
 
     function postaviUstanovu(data) {
@@ -45,7 +48,10 @@
         ustanovaInfo.address = data.address;
         ustanovaInfo.telephone = data.telephone;
         ustanovaInfo.mail = data.mail;
+        document.title = data.name;
     }
+
+    // pronalazi GET parametre iz url-a
     $.urlParam = function(name){
         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
         if (results==null){
@@ -59,22 +65,27 @@
     var ustanovaInfo = new Vue({
        el: '#ustanovaInfo',
         data: {
-            name : "MUP",
-            address : "Trg Republike 1",
-            telephone : "052 522 511",
-            mail : "mup@hrvatska.hr",
-            hours : "08-15"
+            name : "",
+            address : "",
+            telephone : "",
+            mail : "",
+            hours : ""
 
         },
         computed: {
             addressUrl: function() {
-                return this.address.replace(" ","+");
+                return this.address.replace(" ","+");//ako bude koristilo za google maps pretragu
             }
         }
     });
 
     var url = 'https://justin-time.herokuapp.com/facility/';
     var idUstanove = $.urlParam('ustanova_id');//izvući iz adrese GET
+
+    if(idUstanove == null) {
+        //nije proslijeđen id ustanove, vrati na popis ustanova
+        window.location = "ustanova.html";
+    }
 
     url += idUstanove;
 
@@ -86,8 +97,6 @@
         cache: true,
         url: url
     }).done(function( data ) {
-        console.log("Funkcija done kaže:");
-        console.log(data);
         postaviUstanovu(data);
     }).fail(function(jqxhr, textStatus, error) {
         console.log( textStatus + " " + error);
