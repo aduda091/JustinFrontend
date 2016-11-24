@@ -134,3 +134,13 @@ h3 {
         column-count:         1;
     }
 }
+
+footer {
+    text-align: center;
+    color: black;
+    font-size: 15px;
+    font-variant-caps: all-petite-caps;
+    line-height: 1.5;
+    margin-top: 3em;
+    background:linear-gradient(to left,rgba(214, 12, 210, 0.33) ,rgba(33, 121, 214, 0.33));
+}

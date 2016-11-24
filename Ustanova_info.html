@@ -25,9 +25,7 @@
 <div id="ustanovaInfo">
 <div id="navigacija"></div>
 
-<div style="font-size: 3em;margin: 5px auto;"><span class="glyphicon glyphicon-info-sign" ></span><span style="margin-left: 10px"></span></div>
-
-<h2>{{name}}</h2>
+<h2 style="color: rgba(93, 17, 77, 0.69);">{{name}}</h2>
 <h5><b>Adresa:</b> {{address}}</h5>
 <h5><b>Telefon:</b> {{telephone}}</h5>
 <h5><b>Email:</b> {{mail}}</h5>
@@ -43,6 +41,8 @@
     <button type="button" class="btn btn-m" onclick="window.location.href='ustanova.html'"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Natrag</button>
 </div>
 </div>
+
+<div id="footer"></div>
 <script>
 
     function postaviUstanovu(data) {
@@ -105,6 +105,7 @@
     });
 
     $('#navigacija').load('navigacija.html');
+    $('#footer').load('Footer.html');
 
 </script>
 </body>
