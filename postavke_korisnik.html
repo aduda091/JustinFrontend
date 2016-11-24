@@ -22,10 +22,10 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
 <body>
-
+<div id="postavke">
 <div id="navigacija"></div>
 
-<h1>Imenko Prezimenić</h1>
+<h1>{{firstName}} {{lastName}}</h1>
 
 <h2>Osobne informacije:</h2>
 <h3>Izmijeni osobne informacije ovdje</h3>
@@ -34,17 +34,17 @@
 
                 <div class="input-group">
                 <label class="input-group-addon" style="width: 13ex"><b>Ime:</b> </label>
-                <input type="text" class="form-control" value="Imenko" aria-describedby="sizing-addon1">
+                <input type="text" class="form-control" :value="firstName" aria-describedby="sizing-addon1">
                 </div>
 
                 <div class="input-group">
                     <label class="input-group-addon" style="width: 13ex"><b>Prezime:</b> </label>
-                <input type="text" class="form-control" value="Prezimenić" aria-describedby="sizing-addon1">
+                <input type="text" class="form-control" :value="lastName" aria-describedby="sizing-addon1">
                 </div>
 
                 <div class="input-group">
                     <label class="input-group-addon" style="width: 13ex"><b>E-mail:</b> </label>
-                <input type="text" class="form-control" value="imenko@gmail.com" aria-describedby="sizing-addon1">
+                <input type="text" class="form-control" :value="email" aria-describedby="sizing-addon1">
                 </div>
 
                 <div class="input-group">
@@ -84,7 +84,38 @@
 
 <div id="footer"></div>
 
+</div>
 <script>
+
+
+    var postavke = new Vue({
+        el: '#postavke',
+        data: {
+            firstName : "",
+            lastName : "",
+            email : ""
+        }
+    });
+
+    var url = 'https://justin-time.herokuapp.com/user/';
+    //var email = $.urlParam('email');//izvući iz adrese GET
+    var email = "aduda@unipu.hr";
+    url += email;
+
+    $.ajax({
+        method: "GET",
+        contentType: 'application/json',
+        dataType: "json",
+        cache: true,
+        url: url
+    }).done(function( data ) {
+        postavke.firstName = data.firstName;
+        postavke.lastName = data.lastName;
+        postavke.email = data.mail;
+    }).fail(function(jqxhr, textStatus, error) {
+        console.log( textStatus + " " + error);
+    });
+
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');
 
