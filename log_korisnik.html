@@ -23,74 +23,25 @@
 <body>
 <div id="navigacija"></div>
 
-    <h3>Prijavi se</h3>
+    <h2>Prijavi se</h2>
     <div class="input-group input-group-lg">
-        <span class="input-group-addon" id="sizing-addon1">@</span>
+        <span class="input-group-addon" id="sizing-addon1" style="width: 7ex">@</span>
         <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
     </div>
     <p>
 
     </p>
     <div class="input-group input-group-lg">
-        <span class="input-group-addon" id="sizing-addon2">$</span>
+        <span class="input-group-addon" id="sizing-addon2" style="width: 7ex">$</span>
         <input type="text" class="form-control" placeholder="Password" aria-describedby="sizing-addon1">
     </div>
     <div>
-        <p>
-
-        </p>
-        <button type="button" class="btn btn-lg" onclick="window.location.href='postavke_korisnik.html'">Potvrdi</button>
+    <br>
+        <button type="button" class="btn btn-lg" onclick="window.location.href='postavke_korisnik.html'">Potvrdi</button> <br>
+        <p> Nemaš račun? Registriraj se <a href="registracija.html">ovdje!</a></p>
     </div>
 </div>
-<h3>ili registriraj</h3>
-<div class="row">
-    <div class="col-md-6">
-        <div class="well well-sm">
-            <form class="form-horizontal" action="" method="post">
-                <fieldset>
-                    <legend class="text-left">JUSTIN TIME</legend>
 
-
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="name">Ime</label>
-                        <div class="col-md-9">
-                            <input id="name" name="name" type="text" placeholder="Ime" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="name">Prezime</label>
-                        <div class="col-md-9">
-                            <input id="surname" name="surname" type="text" placeholder="Prezime" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="email">E-mail</label>
-                        <div class="col-md-9">
-                            <input id="email" name="email" type="text" placeholder="Upisi e-mail" class="form-control">
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="name">Lozinka</label>
-                        <div class="col-md-9">
-                            <input id="pass" name="pass" type="password" placeholder="lozinka" class="form-control">
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <div class="col-md-12 text-right">
-                            <button type="submit" class="btn btn-primary btn-lg">Pošalji</button>
-                        </div>
-                    </div>
-                </fieldset>
-                </form>
-            </div>
-        </div>
-    </div>
 <script>
     $('#navigacija').load('navigacija.html');
 
