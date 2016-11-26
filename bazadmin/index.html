@@ -2,7 +2,7 @@
 <html lang="hr">
 <head>
     <meta charset="UTF-8">
-    <title>Bazadmin</title>
+    <title>BazAdmin</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -69,7 +69,7 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Baza Admin</h1>
+            <h1 class="page-header" id="naslovStranice">Korisnici</h1>
 
             <div class="row" id="sadrzaj">
                 <div class="table-responsive table-bordered" id="popisKorisnika">
@@ -115,7 +115,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Dodaj/uredi korisnika</h4>
+                <h4 class="modal-title">{{opcija}} korisnika</h4>
             </div>
             <div class="modal-body">
                 <form action="#">
@@ -127,9 +127,9 @@
                         <label>Prezime:</label>
                         <input type="text" name="lastName" placeholder="Last Name" class="form-control" v-model="lastName"/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-feedback">
                         <label>E-mail:</label>
-                        <input type="email" name="mail" placeholder="E-mail" class="form-control" v-model="mail"/>
+                        <input type="email" name="mail" placeholder="E-mail" class="form-control" v-model="mail" id="mailInput"/>
                     </div>
                     <div class="form-group">
                         <label>Lozinka:</label>
@@ -140,7 +140,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
-                <button type="button" class="btn btn-primary" @click="spremi()">Spremi promjene</button>
+                <button type="button" class="btn btn-primary" @click="spremi()" id="spremiKorisnikaBtn">Spremi promjene</button>
             </div>
         </div>
     </div>

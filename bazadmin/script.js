@@ -1,4 +1,7 @@
 $(function () {
+    $('#navDodajKorisnika').click(function () {
+        korisnik.resetirajPolja();
+    });
 
     var korisnici = new Vue({
         el: '#popisKorisnika',
@@ -47,20 +50,27 @@ $(function () {
             obrisiKorisnika: function (id) {
                 var url = "https://justin-time.herokuapp.com/user/delete/";
                 url += id;
-                var potvrdi = confirm("Zelite izbrisati korisnika koristeci url:\n " + url + "\nJeste li sigurni?");
+                var potvrdi = confirm("Potvrdi brisanje korisnika?");
                 if(potvrdi==true) {
-                    alert("Brisem korisnika");
-                } else {
-                    alert("Odustajem");
+                    $.ajax({
+                        method: "GET",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        cache: true,
+                        url: url
+                    }).done(function( data ) {
+                        alert("Korisnik obrisan!");
+                        korisnici.popuniKorisnike();
+                    }).fail(function(jqxhr, textStatus, error) {
+                        console.log( textStatus + " " + error);
+                        alert("Greška prilikom brisanja: \n" +error);
+                        console.log("Url: " + url);
+                    });
                 }
             },
             urediKorisnika: function (id) {
-                var url = "https://justin-time.herokuapp.com/user/update/";
-                url += id;
-                //alert("Zelite urediti korisnika koristeci url:\n " + url);
-                //dodati i sva polja odvojena upitnicima za svaki podatak i odvojiti & znakovima
-
                 korisnik.pronadjiKorisnika(id);
+                korisnik.opcija = "Uredi";
                 $('#dodajKorisnikaModal').modal('show');
             }
         },
@@ -78,7 +88,8 @@ $(function () {
             firstName: "",
             lastName: "",
             mail: "",
-            password: ""
+            password: "",
+            opcija: "Dodaj"
         },
         methods: {
             pronadjiKorisnika: function (id) {
@@ -102,6 +113,7 @@ $(function () {
                 });
             },
             spremi: function () {
+                //ako objekt ima id znači da su pročitani podaci postojećeg korisnika
                 if(this.id) {
                     this.update();
                 } else {
@@ -109,11 +121,92 @@ $(function () {
                 }
             },
             update: function () {
-                alert("Postojeći korisnik - mijenjam");
-                //todo:paziti da ne bude duplikat po mailu u bazi prije dodavanja i mijenjanja
+                var url = "https://justin-time.herokuapp.com/user/update/";
+                url += this.id;
+                url += "?firstName=" + this.firstName;
+                url += "&lastName=" + this.lastName;
+                url += "&mail=" + this.mail;
+                url += "&password=" + this.password;
+                var app = this;
+                $.ajax({
+                    method: "GET",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url
+                }).done(function( data ) {
+                    console.log(data);
+                    alert("Podaci spremljeni");
+                    app.id = data.id;
+                    app.firstName = data.firstName;
+                    app.lastName = data.lastName;
+                    app.mail = data.mail;
+                    app.password = data.password;
+
+                    korisnici.popuniKorisnike();
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.log( textStatus + " " + error);
+                    alert("Greška prilikom spremanja: \n" +error);
+                });
             },
             dodaj: function () {
-                alert("Novi korisnik - dodajem!");
+                var url = "https://justin-time.herokuapp.com/user/create";
+                url += "?firstName=" + this.firstName;
+                url += "&lastName=" + this.lastName;
+                url += "&mail=" + this.mail;
+                url += "&password=" + this.password;
+                var app = this;
+                $.ajax({
+                    method: "GET",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url
+                }).done(function( data ) {
+                    alert("Podaci spremljeni");
+                    app.id = data.id;
+                    app.pronadjiKorisnika(data.id);
+                    korisnici.popuniKorisnike();
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.log( textStatus + " " + error);
+                    alert("Greška prilikom spremanja: \n" +error);
+                });
+            },
+            resetirajPolja: function () {
+                this.id = "";
+                this.firstName = "";
+                this.lastName = "";
+                this.mail = "";
+                this.password = "";
+                this.opcija = "Dodaj";
+            }
+        },
+        watch: {
+            mail: function () {
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                var test = re.test(this.mail);//ispituje ispravnost email adrese tako da se donji kod izvrši tek nakon provjere
+                var postojeci = false;
+                if(test) {
+                    for(var i=0; i< korisnici.korisnici.length;i++) {
+                        if(korisnici.korisnici[i].id != this.id) {
+                            if(korisnici.korisnici[i].mail == this.mail) {
+                                postojeci = true;
+                            }
+                        }
+                    }
+                }
+                if(postojeci) {
+                    $("#email_error").remove();
+                    $("#mailInput").parent().addClass('has-error')
+                        .append('<span id="email_error" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>')
+                        .attr("title", "Email adresa već pripada postojećem korisniku");
+                    $("#spremiKorisnikaBtn").attr("disabled", true).attr("title", "");
+                }
+                else {
+                    $("#mailInput").parent().removeClass('has-error');
+                    $("#email_error").remove();
+                    $("#spremiKorisnikaBtn").attr("disabled", false);
+                }
             }
         }
     });
