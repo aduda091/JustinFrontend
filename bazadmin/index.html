@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bazadmin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="http://getbootstrap.com/examples/dashboard/dashboard.css">
+
+    <!-- JQuery-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">JustIn Time</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../index.html">Početna frontenda</a></li>
+                <li><a href="../ustanova.html">Popis ustanova</a></li>
+                <li><a href="../log_korisnik.html">Login korisnika</a></li>
+                <li><a href="../registracija.html">Registracija</a></li>
+                <li><a href="../log.html">Admin login</a></li>
+                <li><a href="../admin.html">Administracija</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li id="navPopisKorisnika" class="active"><a href="#">Popis korisnika</a></li>
+                <li id="navDodajKorisnika"><a href="#" data-toggle="modal" data-target="#dodajKorisnikaModal">Dodaj korisnika</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li id="navPopisUstanova"><a href="">Popis ustanova</a></li>
+                <li id="navDodajUstanovu"><a href="">Dodaj ustanovu</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><a href="">Popis redova</a></li>
+                <li><a href="">Dodaj red</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Baza Admin</h1>
+
+            <div class="row" id="sadrzaj">
+                <div class="table-responsive table-bordered" id="popisKorisnika">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon glyphicon glyphicon-search" id="sizing-addon1"></span>
+                        <input type="search" class="form-control" placeholder="Pretraga" v-model="searchString">
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Mail</th>
+                            <th>Password</th>
+                            <th>Uredi</th>
+                            <th>Obriši</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="korisnik in dohvaceniKorisnici">
+                            <td>{{korisnik.id}}</td>
+                            <td>{{korisnik.firstName}}</td>
+                            <td>{{korisnik.lastName}}</td>
+                            <td>{{korisnik.mail}}</td>
+                            <td>{{korisnik.password}}</td>
+                            <td><button type="button" class="btn btn-warning" @click="urediKorisnika(korisnik.id)"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                            <td><button type="button" class="btn btn-danger" @click="obrisiKorisnika(korisnik.id)"><span class="glyphicon glyphicon-trash"></span></button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+    <!--modalni prozor za dodavanje korisnika-->
+<div class="modal fade" id="dodajKorisnikaModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Dodaj/uredi korisnika</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#">
+                    <div class="form-group">
+                        <label>Ime:</label>
+                        <input type="text" name="firstName" placeholder="First Name" class="form-control" v-model="firstName"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Prezime:</label>
+                        <input type="text" name="lastName" placeholder="Last Name" class="form-control" v-model="lastName"/>
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail:</label>
+                        <input type="email" name="mail" placeholder="E-mail" class="form-control" v-model="mail"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Lozinka:</label>
+                        <input type="text" name="password" placeholder="Lozinka" class="form-control" v-model="password"/>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+                <button type="button" class="btn btn-primary" @click="spremi()">Spremi promjene</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--kraj modalnog prozora-->
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
