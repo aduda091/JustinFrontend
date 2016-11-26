@@ -1,5 +1,5 @@
 $(function () {
-    $('#navDodajKorisnika').click(function () {
+    $('[data-target="#dodajKorisnikaModal"]').click(function () {
         korisnik.resetirajPolja();
     });
 
@@ -121,6 +121,15 @@ $(function () {
                 }
             },
             update: function () {
+                var uvjet = this.firstName != "";
+                uvjet = uvjet && this.lastName != "";
+                uvjet = uvjet && this.mail != "";
+                uvjet = uvjet && this.provjeriMail();
+                uvjet = uvjet && this.password != "";
+                if(!uvjet) {
+                    alert("Nisu (ispravno) popunjena sva polja!");
+                    return;
+                }
                 var url = "https://justin-time.herokuapp.com/user/update/";
                 url += this.id;
                 url += "?firstName=" + this.firstName;
@@ -135,14 +144,12 @@ $(function () {
                     cache: true,
                     url: url
                 }).done(function( data ) {
-                    console.log(data);
                     alert("Podaci spremljeni");
                     app.id = data.id;
                     app.firstName = data.firstName;
                     app.lastName = data.lastName;
                     app.mail = data.mail;
                     app.password = data.password;
-
                     korisnici.popuniKorisnike();
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
@@ -150,6 +157,15 @@ $(function () {
                 });
             },
             dodaj: function () {
+                var uvjet = this.firstName != "";
+                uvjet = uvjet && this.lastName != "";
+                uvjet = uvjet && this.mail != "";
+                uvjet = uvjet && this.provjeriMail();
+                uvjet = uvjet && this.password != "";
+                if(!uvjet) {
+                    alert("Nisu (ispravno) popunjena sva polja!");
+                    return;
+                }
                 var url = "https://justin-time.herokuapp.com/user/create";
                 url += "?firstName=" + this.firstName;
                 url += "&lastName=" + this.lastName;
@@ -164,8 +180,9 @@ $(function () {
                     url: url
                 }).done(function( data ) {
                     alert("Podaci spremljeni");
-                    app.id = data.id;
-                    app.pronadjiKorisnika(data.id);
+                    //app.id = data.id;
+                    //app.pronadjiKorisnika(data.id);
+                    app.resetirajPolja();
                     korisnici.popuniKorisnike();
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
@@ -179,12 +196,15 @@ $(function () {
                 this.mail = "";
                 this.password = "";
                 this.opcija = "Dodaj";
+            },
+            provjeriMail: function () {
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(this.mail);//ispituje ispravnost email adrese tako da se donji kod izvrši tek nakon provjere
             }
         },
         watch: {
             mail: function () {
-                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                var test = re.test(this.mail);//ispituje ispravnost email adrese tako da se donji kod izvrši tek nakon provjere
+                var test = this.provjeriMail();
                 var postojeci = false;
                 if(test) {
                     for(var i=0; i< korisnici.korisnici.length;i++) {
@@ -207,6 +227,8 @@ $(function () {
                     $("#email_error").remove();
                     $("#spremiKorisnikaBtn").attr("disabled", false);
                 }
+
+
             }
         }
     });
