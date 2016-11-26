@@ -3,6 +3,8 @@ $(function () {
         korisnik.resetirajPolja();
     });
 
+    $('.sidebar').hide();
+
     var korisnici = new Vue({
         el: '#popisKorisnika',
         data: {
