@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in</title>
+    <title>Registracija</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -29,7 +29,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="well well-sm">
-            <form class="form-horizontal" action="" method="post">
+            <form class="form-horizontal" action="" method="post" id="registracija">
                 <fieldset>
                     <legend class="text-left"><b>JUSTIN TIME</b></legend>
 
@@ -37,38 +37,49 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="name">Ime</label>
                         <div class="col-md-9">
-                            <input id="name" name="name" type="text" placeholder="Ime" class="form-control">
+                            <input id="name" name="name" type="text" placeholder="Ime" class="form-control" v-model="firstName">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="name">Prezime</label>
+                        <label class="col-md-3 control-label" for="surname">Prezime</label>
                         <div class="col-md-9">
-                            <input id="surname" name="surname" type="text" placeholder="Prezime" class="form-control">
+                            <input id="surname" name="surname" type="text" placeholder="Prezime" class="form-control" v-model="lastName">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="email">E-mail</label>
                         <div class="col-md-9">
-                            <input id="email" name="email" type="text" placeholder="Upisi e-mail" class="form-control">
+                            <input id="email" name="email" type="text" placeholder="Upisi e-mail" class="form-control" v-model="mail">
                         </div>
                     </div>
 
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="name">Lozinka</label>
+                        <label class="col-md-3 control-label" for="pass">Lozinka</label>
                         <div class="col-md-9">
-                            <input id="pass" name="pass" type="password" placeholder="lozinka" class="form-control">
+                            <input id="pass" name="pass" type="password" placeholder="lozinka" class="form-control" v-model="password">
                         </div>
                     </div>
-
 
                     <div class="form-group">
-                        <div class="col-md-12 text-right">
-                            <button type="submit" class="btn btn-primary btn-lg">Pošalji</button>
+                        <label class="col-md-3 control-label" for="pass2">Potvrdi lozinku</label>
+                        <div class="col-md-9">
+                            <input id="pass2" name="pass2" type="password" placeholder="lozinka" class="form-control" v-model="potvrdiPassword">
                         </div>
                     </div>
+
+                    <div class="col-md-6 text-left text-danger">
+                        <div id="informacije"></div>
+                    </div>
+
+
+
+                    <div class="col-md-6 text-right">
+                        <button type="button" id="submit" class="btn btn-primary btn-lg" @click="registriraj()">Registriraj se</button>
+                    </div>
+
                 </fieldset>
             </form>
         </div>
@@ -78,6 +89,108 @@
 <div id="footer"></div>
 
 <script>
+
+    var preloader = '<div class="loader loader-default"></div>';
+    $('body').append(preloader);
+    $(document).ajaxStart(function () {
+        $(".loader").addClass("is-active");
+    });
+    $(document).ajaxComplete(function () {
+        setTimeout(function () {
+            $(".loader").removeClass("is-active");
+        }, 800)
+    });
+
+    var regForma = new Vue({
+        el: '#registracija',
+        data: {
+            firstName: "",
+            lastName: "",
+            mail: "",
+            password: "",
+            potvrdiPassword: ""
+        },
+        methods: {
+            provjeriMail: function () {
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(this.mail);
+            },
+            registriraj: function () {
+                var uvjet = this.firstName != "";
+                uvjet = uvjet && this.lastName != "";
+                uvjet = uvjet && this.mail != "";
+                uvjet = uvjet && this.provjeriMail();
+                uvjet = uvjet && this.password != "";
+                if(!uvjet) {
+                    alert("Nisu (ispravno) popunjena sva polja!");
+                    return;
+                }
+                var url = "https://justin-time.herokuapp.com/user/create";
+                url += "?firstName=" + this.firstName;
+                url += "&lastName=" + this.lastName;
+                url += "&mail=" + this.mail;
+                url += "&password=" + this.password;
+                var app = this;
+                $.ajax({
+                    method: "GET",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url
+                }).done(function( data ) {
+                    alert("Hvala na registraciji");
+                    window.location ="log_korisnik.html";
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.log( textStatus + " " + error);
+                    alert("Greška prilikom registracije: \n" +error);
+                });
+            }
+        },
+        watch: {
+            mail: function () {
+                if(!this.provjeriMail()) {
+                    $("#informacije").text("Neispravna mail adresa");
+                    $("#email").parent().addClass("has-error");
+                    $("#submit").prop("disabled", true);
+                } else {
+                    $("#informacije").text("");
+                    $("#email").parent().removeClass("has-error");
+                    $("#submit").prop("disabled", false);
+                }
+            },
+            password: function () {
+                if(this.password != this.potvrdiPassword) {
+                    $("#informacije").text("Lozinke se ne podudaraju");
+                    $("#pass").parent().addClass("has-error");
+                    $("#pass2").parent().addClass("has-error");
+                    $("#submit").prop("disabled", true);
+                } else {
+                    $("#informacije").text("");
+                    $("#pass").parent().removeClass("has-error");
+                    $("#submit").prop("disabled", false);
+                }
+
+            },
+            potvrdiPassword: function () {
+                if(this.password != this.potvrdiPassword) {
+                    $("#informacije").text("Lozinke se ne podudaraju");
+                    $("#pass2").parent().addClass("has-error");
+                    $("#submit").prop("disabled", true);
+                } else {
+                    $("#informacije").text("");
+                    $("#pass").parent().removeClass("has-error");
+                    $("#pass2").parent().removeClass("has-error");
+                    $("#submit").prop("disabled", false);
+                }
+            }
+
+        },
+        computed: {
+
+        }
+
+    });
+
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');
 
