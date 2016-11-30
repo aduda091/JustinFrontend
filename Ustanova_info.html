@@ -45,6 +45,17 @@
 <div id="footer"></div>
 <script>
 
+    var preloader = '<div class="loader loader-default"></div>';
+    $('body').append(preloader);
+    $(document).ajaxStart(function () {
+        $(".loader").addClass("is-active");
+    });
+    $(document).ajaxComplete(function () {
+        setTimeout(function () {
+            $(".loader").removeClass("is-active");
+        }, 800)
+    });
+
     function postaviUstanovu(data) {
         ustanovaInfo.name = data.name;
         ustanovaInfo.address = data.address;

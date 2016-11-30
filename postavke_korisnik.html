@@ -85,8 +85,18 @@
 <div id="footer"></div>
 
 </div>
-<script>
 
+<script>
+    var preloader = '<div class="loader loader-default"></div>';
+    $('body').append(preloader);
+    $(document).ajaxStart(function () {
+        $(".loader").addClass("is-active");
+    });
+    $(document).ajaxComplete(function () {
+        setTimeout(function () {
+            $(".loader").removeClass("is-active");
+        }, 800)
+    });
 
     var postavke = new Vue({
         el: '#postavke',
