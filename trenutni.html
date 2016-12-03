@@ -25,10 +25,10 @@
 <div>
 
     <div id="navigacija"></div>
-<div class="container">
+<div class="container" id="redPodaci">
 
  <h2>Moj red</h2>
-<h3>MUP - osobne iskaznice.</h3>
+<h3>{{nazivUstanove}} - {{red.name}}</h3>
 
     <!--<div class="progress">-->
         <!--<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 100%">-->
@@ -77,6 +77,74 @@
 <div id="footer"></div>
 
 <script>
+
+    var preloader = '<div class="loader loader-default"></div>';
+    $('body').append(preloader);
+
+    // pronalazi GET parametre iz url-a
+    $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results==null){
+            return null;
+        }
+        else{
+            return results[1] || 0;
+        }
+    };
+
+
+    var redPodaci = new Vue({
+        el: '#redPodaci',
+        data: {
+            nazivUstanove : "MUP",
+            idUstanove : "",
+            red : []
+
+        },
+        methods: {
+            postaviRed : function (data) {
+                this.idUstanove = data.id;
+                this.nazivUstanove = data.name;
+                var redovi = data.queues;
+                var idReda = $.urlParam('red_id');
+                for(var i = 0; i<data.queues.length;i++) {
+                    if(data.queues[i].id == idReda) this.red = data.queues[i];
+                }
+
+            }
+        },
+        created: function () {
+            var url = 'https://justin-time.herokuapp.com/facility/';
+            var idUstanove = $.urlParam('ustanova_id');//izvući iz adrese GET
+
+            if(idUstanove == null) {
+                //nije proslijeđen id ustanove, vrati na popis ustanova
+                //window.location = "ustanova.html";
+            }
+
+            url += idUstanove;
+
+            $(".loader").addClass("is-active");//ručno animiraj preloader
+
+            var app = this;
+            $.ajax({
+                method: "GET",
+                contentType: 'application/json',
+                dataType: "json",
+                cache: true,
+                url: url
+            }).done(function( data ) {
+                $(".loader").removeClass("is-active");
+                app.postaviRed(data);
+            }).fail(function(jqxhr, textStatus, error) {
+                console.log( textStatus + " " + error);
+                $(".loader").removeClass("is-active");
+            });
+
+        }
+    });
+
+
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');
 

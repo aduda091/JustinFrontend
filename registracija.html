@@ -92,14 +92,7 @@
 
     var preloader = '<div class="loader loader-default"></div>';
     $('body').append(preloader);
-    $(document).ajaxStart(function () {
-        $(".loader").addClass("is-active");
-    });
-    $(document).ajaxComplete(function () {
-        setTimeout(function () {
-            $(".loader").removeClass("is-active");
-        }, 800)
-    });
+
 
     var regForma = new Vue({
         el: '#registracija',
@@ -130,6 +123,7 @@
                 url += "&lastName=" + this.lastName;
                 url += "&mail=" + this.mail;
                 url += "&password=" + this.password;
+                $(".loader").addClass("is-active");
                 var app = this;
                 $.ajax({
                     method: "GET",
@@ -143,6 +137,8 @@
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
                     alert("Greška prilikom registracije: \n" +error);
+                }).always(function () {
+                    $(".loader").removeClass("is-active");
                 });
             }
         },

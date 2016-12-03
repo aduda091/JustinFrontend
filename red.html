@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Justin Time- red</title>
+    <title>Justin Time - red</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -26,28 +26,17 @@
     <div id="navigacija"></div>
 
 
-    <div>
-        <h2> Odaberi red</h2>
-        <!--<div class="list-group">-->
-            <!--<button type="button" class="list-group-item" onclick="window.location.href='trenutni.html'">Osobne iskaznice</button>-->
-            <!--<button type="button" class="list-group-item" onclick="window.location.href='trenutni.html'">Putovnice</button>-->
-            <!--<button type="button" class="list-group-item" onclick="window.location.href='trenutni.html'">Registracija</button>-->
-            <!--<button type="button" class="list-group-item" onclick="window.location.href='trenutni.html'">Prijava boravišta/prebivališta</button>-->
-        <!--</div>-->
+    <div id="popisRedova">
+        <h2> Odaberi red  ({{nazivUstanove}})</h2>
 
-        <ul class="list-group">
-            <li class="list-group-item">
-                <span class="badge">14</span>
-                <a href="trenutni.html"> Osobne</a>
-            </li>
-            <li class="list-group-item">
-                <span class="badge">4</span>
-                <a href="trenutni.html"> Putovnice </a>
-            </li>
-            <li class="list-group-item">
-                <span class="badge">220</span>
-                <a href="trenutni.html"> Oružja </a>
-            </li>
+        <ul class="list-group" >
+            <template v-for="red in redovi">
+                <li class="list-group-item">
+                    <span class="badge">14</span><!-- todo: pročitati broj ljudi u redu iz baze kad bude dostupan -->
+                    <a :href="'trenutni.html?ustanova_id=' +idUstanove + '&red_id=' + red.id "> {{red.name}}</a>
+                </li>
+            </template>
+
         </ul>
     </div>
 
@@ -63,6 +52,68 @@
 <div id="footer"></div>
 
 <script>
+
+    var preloader = '<div class="loader loader-default"></div>';
+    $('body').append(preloader);
+
+    // pronalazi GET parametre iz url-a
+    $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results==null){
+            return null;
+        }
+        else{
+            return results[1] || 0;
+        }
+    };
+
+    var popisRedova = new Vue({
+        el: '#popisRedova',
+        data: {
+            nazivUstanove : "",
+            idUstanove : "",
+            redovi : []
+
+        },
+        methods: {
+            postaviRed : function (data) {
+                this.idUstanove = data.id;
+                this.nazivUstanove = data.name;
+                this.redovi = data.queues;
+            }
+        },
+        created: function () {
+            var url = 'https://justin-time.herokuapp.com/facility/';
+            var idUstanove = $.urlParam('ustanova_id');//izvući iz adrese GET
+
+            if(idUstanove == null) {
+                //nije proslijeđen id ustanove, vrati na popis ustanova
+                window.location = "ustanova.html";
+            }
+
+            url += idUstanove;
+
+            $(".loader").addClass("is-active");//ručno animiraj preloader
+
+            var app = this;
+            $.ajax({
+                method: "GET",
+                contentType: 'application/json',
+                dataType: "json",
+                cache: true,
+                url: url
+            }).done(function( data ) {
+                $(".loader").removeClass("is-active");
+                app.postaviRed(data);
+            }).fail(function(jqxhr, textStatus, error) {
+                console.log( textStatus + " " + error);
+                $(".loader").removeClass("is-active");
+            });
+
+        }
+    });
+
+
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');
 

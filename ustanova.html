@@ -64,14 +64,6 @@
 <script>
     var preloader = '<div class="loader loader-default"></div>';
     $('body').append(preloader);
-    $(document).ajaxStart(function () {
-        $(".loader").addClass("is-active");
-    });
-    $(document).ajaxComplete(function () {
-        setTimeout(function () {
-            $(".loader").removeClass("is-active");
-        }, 800)
-    });
 
     window.postaviUstanove = function (data) {
 //        console.log("Dohvacene ustanove: ");
@@ -111,6 +103,7 @@
 //    var url = 'http://duda-toshiba:8080/facility/read-all';
     //var url = "http://localhost:3000/ustanove";
     var url = "https://justin-time.herokuapp.com/facility/read-all";
+    $(".loader").addClass("is-active");
     $.ajax({
         method: "GET",
         contentType: 'application/json',
@@ -121,10 +114,12 @@
         cache: true,
         url: url
     }).done(function( data ) {
-        console.log("Funkcija done kaže:");
-        console.log(data);
+        $(".loader").removeClass("is-active");
+//        console.log("Funkcija done kaže:");
+//        console.log(data);
         postaviUstanove(data);
     }).fail(function(jqxhr, textStatus, error) {
+        $(".loader").removeClass("is-active");
         console.log( textStatus + " " + error);
     });
 
