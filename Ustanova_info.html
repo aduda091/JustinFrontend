@@ -29,7 +29,7 @@
 <h5><b>Adresa:</b> {{address}}</h5>
 <h5><b>Telefon:</b> {{telephone}}</h5>
 <h5><b>Email:</b> {{mail}}</h5>
-<h5><b>Radno vrijeme:</b> {{hours}}</h5>
+<!--<h5><b>Radno vrijeme:</b> {{hours}}</h5>-->
 <div id="map">
     <iframe :src="'https://www.google.com/maps/embed/v1/place?key=AIzaSyCOH4D1-jGK0--ISKvtCpVX0anhQMhKZSc&q='
     + addressUrl + '%2C+52100%2C+Pula'"
@@ -47,14 +47,6 @@
 
     var preloader = '<div class="loader loader-default"></div>';
     $('body').append(preloader);
-    $(document).ajaxStart(function () {
-        $(".loader").addClass("is-active");
-    });
-    $(document).ajaxComplete(function () {
-        setTimeout(function () {
-            $(".loader").removeClass("is-active");
-        }, 800)
-    });
 
     function postaviUstanovu(data) {
         ustanovaInfo.name = data.name;
@@ -102,7 +94,7 @@
 
     url += idUstanove;
 
-
+    $(".loader").addClass("is-active");//ručno animiraj preloader
     $.ajax({
         method: "GET",
         contentType: 'application/json',
@@ -113,6 +105,8 @@
         postaviUstanovu(data);
     }).fail(function(jqxhr, textStatus, error) {
         console.log( textStatus + " " + error);
+    }).always(function () {
+        $(".loader").removeClass("is-active");
     });
 
     $('#navigacija').load('navigacija.html');

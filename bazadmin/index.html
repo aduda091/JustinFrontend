@@ -48,14 +48,14 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
 
-                <li id="navPopisKorisnika" class="active"><a href="#">Popis korisnika</a></li>
+                <li id="navPopisKorisnika"><a href="#korisniciHeader">Popis korisnika</a></li>
                 <li id="navDodajKorisnika"><a href="#" data-toggle="modal" data-target="#dodajKorisnikaModal">Dodaj korisnika</a></li>
 
-                <li id="navPopisUstanova"><a href="">Popis ustanova</a></li>
-                <li id="navDodajUstanovu"><a href="">Dodaj ustanovu</a></li>
+                <li id="navPopisUstanova"><a href="#ustanoveHeader">Popis ustanova</a></li>
+                <li id="navDodajUstanovu"><a href="#" data-toggle="modal" data-target="#dodajUstanovuModal">Dodaj ustanovu</a></li>
 
-                <li><a href="">Popis redova</a></li>
-                <li><a href="">Dodaj red</a></li>
+                <li><a href="#">Popis redova</a></li>
+                <li><a href="#">Dodaj red</a></li>
             </ul>
         </div>
     </div>
@@ -78,43 +78,85 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 70px;">
-            <h1 class="page-header">Korisnici</h1>
+        <h1 class="page-header" id="korisniciHeader">Korisnici</h1>
 
-            <div class="row" id="sadrzaj">
-                <div class="table-responsive table-bordered" id="popisKorisnika">
+        <div class="row">
+            <div class="table-responsive table-bordered" id="popisKorisnika">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon glyphicon glyphicon-search"></span>
+                    <input type="search" class="form-control" placeholder="Pretraga korisnika" v-model="searchString">
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Mail</th>
+                        <th>Password</th>
+                        <th>Uredi</th>
+                        <th>Obriši</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="korisnik in dohvaceniKorisnici">
+                        <td>{{korisnik.id}}</td>
+                        <td>{{korisnik.firstName}}</td>
+                        <td>{{korisnik.lastName}}</td>
+                        <td>{{korisnik.mail}}</td>
+                        <td>{{korisnik.password}}</td>
+                        <td><button type="button" class="btn btn-warning" @click="urediKorisnika(korisnik.id)"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                        <td><button type="button" class="btn btn-danger" @click="obrisiKorisnika(korisnik.id)"><span class="glyphicon glyphicon-trash"></span></button></td>
+                    </tr>
+                    <tr><td colspan="5" class="text-center"><a href="#" class="btn btn-success" data-toggle="modal" data-target="#dodajKorisnikaModal">Dodaj korisnika</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+        <!-- KRAJ POPISA KORISNIKA -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 70px;">
+            <h1 class="page-header" id="ustanoveHeader">Ustanove</h1>
+
+            <div class="row">
+                <div class="table-responsive table-bordered" id="popisUstanova">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon glyphicon glyphicon-search" id="sizing-addon1"></span>
-                        <input type="search" class="form-control" placeholder="Pretraga" v-model="searchString">
+                        <span class="input-group-addon glyphicon glyphicon-search"></span>
+                        <input type="search" class="form-control" placeholder="Pretraga ustanova" v-model="searchString">
                     </div>
                     <table class="table table-striped">
                         <thead>
                         <tr>
                             <th>id</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Name</th>
+                            <th>Address</th>
                             <th>Mail</th>
-                            <th>Password</th>
+                            <th>Telephone</th>
                             <th>Uredi</th>
                             <th>Obriši</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="korisnik in dohvaceniKorisnici">
-                            <td>{{korisnik.id}}</td>
-                            <td>{{korisnik.firstName}}</td>
-                            <td>{{korisnik.lastName}}</td>
-                            <td>{{korisnik.mail}}</td>
-                            <td>{{korisnik.password}}</td>
-                            <td><button type="button" class="btn btn-warning" @click="urediKorisnika(korisnik.id)"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                            <td><button type="button" class="btn btn-danger" @click="obrisiKorisnika(korisnik.id)"><span class="glyphicon glyphicon-trash"></span></button></td>
+                        <tr v-for="ustanova in dohvaceneUstanove">
+                            <td>{{ustanova.id}}</td>
+                            <td>{{ustanova.name}}</td>
+                            <td>{{ustanova.address}}</td>
+                            <td>{{ustanova.mail}}</td>
+                            <td>{{ustanova.telephone}}</td>
+                            <td><button type="button" class="btn btn-warning" @click="urediUstanovu(ustanova.id)"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                            <td><button type="button" class="btn btn-danger" @click="obrisiUstanovu(ustanova.id)"><span class="glyphicon glyphicon-trash"></span></button></td>
                         </tr>
-                        <tr><td colspan="5" class="text-center"><a href="#" class="btn btn-success" data-toggle="modal" data-target="#dodajKorisnikaModal">Dodaj korisnika</a></td></tr>
+                        <tr><td colspan="5" class="text-center"><a href="#" class="btn btn-success" data-toggle="modal" data-target="#dodajUstanovuModal">Dodaj ustanovu</a></td></tr>
                         </tbody>
                     </table>
                 </div>
-        </div>
+            </div>
 
-    </div>
+         </div>
+
+
 
 
 </div>
@@ -155,6 +197,45 @@
         </div>
     </div>
 </div>
+    <!--kraj modalnog prozora-->
+
+
+    <!--modalni prozor za dodavanje ustanova-->
+    <div class="modal fade" id="dodajUstanovuModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{{opcija}} ustanovu</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="form-group">
+                            <label>Naziv:</label>
+                            <input type="text" name="naziv" placeholder="Naziv ustanove" class="form-control" v-model="name" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Adresa:</label>
+                            <input type="text" name="adresa" placeholder="Adresa" class="form-control" v-model="address" required/>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label>E-mail:</label>
+                            <input type="email" name="mail" placeholder="E-mail" class="form-control" v-model="mail" id="mailInputUstanova" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Telefon:</label>
+                            <input type="text" name="telephone" placeholder="Telefon" class="form-control" v-model="telephone" required/>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+                    <button type="button" class="btn btn-primary" @click="spremi()" id="spremiUstanovuBtn">Spremi promjene</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--kraj modalnog prozora-->
 
 </div>
