@@ -89,7 +89,11 @@
                 }
                 searchString = searchString.trim().toLowerCase();
                 ustanove_array = ustanove_array.filter(function(item){
-                    if(item.name.toLowerCase().indexOf(searchString) !== -1){
+                    var uvjet = item.name.toLowerCase().indexOf(searchString) !== -1;
+                    uvjet = uvjet || item.address.toLowerCase().indexOf(searchString) !== -1;
+                    uvjet = uvjet || item.mail.toLowerCase().indexOf(searchString) !== -1;
+                    uvjet = uvjet || item.telephone.toLowerCase().indexOf(searchString) !== -1;
+                    if(uvjet){
                         return item;
                     }
                 });
