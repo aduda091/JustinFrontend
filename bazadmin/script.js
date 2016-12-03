@@ -1,7 +1,4 @@
 $(function () {
-    $('[data-target="#dodajKorisnikaModal"]').click(function () {
-        korisnik.resetirajPolja();
-    });
 
     $('.sidebar').hide();
     //preloader
@@ -479,5 +476,14 @@ $(function () {
     });
 
 
+
+
+
+    $('[data-target="#dodajKorisnikaModal"]').click(function () {
+        korisnik.resetirajPolja();
+    });
+    $('[data-target="#dodajUstanovuModal"]').click(function () {
+        ustanova.resetirajPolja();
+    });
 
 });
