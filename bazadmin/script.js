@@ -303,6 +303,7 @@ $(function () {
                     }).done(function( data ) {
                         alert("Ustanova obrisana!");
                         ustanove.popuniUstanove();
+                        redovi.popuniUstanove();
                     }).fail(function(jqxhr, textStatus, error) {
                         console.log( textStatus + " " + error);
                         alert("Greška prilikom brisanja: \n" +error);
@@ -474,16 +475,127 @@ $(function () {
             }*/
         }
     });
+/*   kraj ustanova   */
+
+    var redovi = new Vue({
+        el: '#popisRedova',
+        data: {
+            ustanove: [],
+            noviRed: "",
+            noviRedUstanovaId: ""
+
+        },
+        methods: {
+            popuniUstanove: function () {
+                var url = "https://justin-time.herokuapp.com/facility/read-all";
+                var app = this;
+                $.ajax({
+                    method: "GET",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url
+                }).done(function (data) {
+                    app.ustanove = data;
+                }).fail(function (jqxhr, textStatus, error) {
+                    console.log(textStatus + " " + error);
+                });
+            },
+            urediRed: function (ustanova_id, red_id, ustanova_naziv, red_naziv) {
+                var novoIme = prompt("Unesi novo ime za red " + red_naziv + " koji pripada ustanovi " + ustanova_naziv, red_naziv);
+                if(novoIme != "") {
+                    var url = "https://justin-time.herokuapp.com/facility/";
+                    url += ustanova_id;
+                    url += "/update/queue/";
+                    url += red_id;
+                    url += "?name=" + novoIme;
+
+                    $.ajax({
+                        method: "GET",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        cache: true,
+                        url: url
+                    }).done(function( data ) {
+                        alert("Red uspješno preimenovan!");
+                        redovi.popuniUstanove();
+                    }).fail(function(jqxhr, textStatus, error) {
+                        console.log( textStatus + " " + error);
+                        alert("Greška prilikom uređivanja: \n" +error);
+                        console.log("Url: " + url);
+                    });
+                }
+            },
+            obrisiRed: function (ustanova_id, red_id) {
+                var url = "https://justin-time.herokuapp.com/facility/";
+                url += ustanova_id;
+                url += "/delete/queue/";
+                url += red_id;
+                var potvrdi = confirm("Potvrdi brisanje reda?");
+                if(potvrdi==true) {
+                    $.ajax({
+                        method: "GET",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        cache: true,
+                        url: url
+                    }).done(function( data ) {
+                        alert("Red obrisan!");
+                        redovi.popuniUstanove();
+                    }).fail(function(jqxhr, textStatus, error) {
+                        console.log( textStatus + " " + error);
+                        alert("Greška prilikom brisanja: \n" +error);
+                        console.log("Url: " + url);
+                    });
+                }
+            },
+            dodajRed: function () {
+                var url = "https://justin-time.herokuapp.com/facility/";
+                url += this.noviRedUstanovaId;
+                url += "/create/queue?name=";
+                url += this.noviRed;
+                var app = this;
+                if(this.noviRedUstanovaId != "" && this.noviRed != "") {
+                    $.ajax({
+                        method: "GET",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        cache: true,
+                        url: url
+                    }).done(function( data ) {
+                        alert("Red dodan!");
+                        app.noviRed = "";
+                        app.noviRedUstanovaId = "";
+                        redovi.popuniUstanove();
+                    }).fail(function(jqxhr, textStatus, error) {
+                        console.log( textStatus + " " + error);
+                        alert("Greška prilikom dodavanja: \n" +error);
+                        console.log("Url: " + url);
+                    });
+                } else {
+                    alert("Neispravno popunjena polja");
+                }
+
+
+            }
+        },
+        created: function () {
+            this.popuniUstanove();
+        }
+    });
 
 
 
-
-
+//resetiranje input polja koja se popune u trenutku editiranja nečega
     $('[data-target="#dodajKorisnikaModal"]').click(function () {
         korisnik.resetirajPolja();
     });
     $('[data-target="#dodajUstanovuModal"]').click(function () {
         ustanova.resetirajPolja();
+    });
+
+    $('[href="#noviRedHeader"]').click(function () {
+        $("#noviRedInput").focus();
     });
 
 });

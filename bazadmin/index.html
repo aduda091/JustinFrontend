@@ -26,13 +26,101 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
     <style>
-        .loader{color:#fff;position:fixed;box-sizing:border-box;left:-9999px;top:-9999px;width:0;height:0;overflow:hidden;z-index:999999}.loader:after,.loader:before{box-sizing:border-box}.loader.is-active{background-color:rgba(0,0,0,0.85);width:100%;height:100%;left:0;top:0}@keyframes rotation{from{transform:rotate(0)}to{transform:rotate(359deg)}}@keyframes blink{from{opacity:.5}to{opacity:1}}.loader[data-text]:before{position:fixed;left:0;top:50%;color:currentColor;font-family:Helvetica,Arial,sans-serif;text-align:center;width:100%;font-size:14px}.loader[data-text='']:before{content:'Loading'}.loader[data-text]:not([data-text='']):before{content:attr(data-text)}.loader[data-text][data-blink]:before{animation:blink 1s linear infinite alternate}.loader-default[data-text]:before{top:calc(50% - 63px)}.loader-default:after{content:'';position:fixed;width:48px;height:48px;border:solid 8px #fff;border-left-color:transparent;border-radius:50%;top:calc(50% - 24px);left:calc(50% - 24px);animation:rotation 1s linear infinite}.loader-default[data-half]:after{border-right-color:transparent}.loader-default[data-inverse]:after{animation-direction:reverse}
+        .loader {
+            color: #fff;
+            position: fixed;
+            box-sizing: border-box;
+            left: -9999px;
+            top: -9999px;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            z-index: 999999
+        }
+
+        .loader:after, .loader:before {
+            box-sizing: border-box
+        }
+
+        .loader.is-active {
+            background-color: rgba(0, 0, 0, 0.85);
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0
+        }
+
+        @keyframes rotation {
+            from {
+                transform: rotate(0)
+            }
+            to {
+                transform: rotate(359deg)
+            }
+        }
+
+        @keyframes blink {
+            from {
+                opacity: .5
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .loader[data-text]:before {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            color: currentColor;
+            font-family: Helvetica, Arial, sans-serif;
+            text-align: center;
+            width: 100%;
+            font-size: 14px
+        }
+
+        .loader[data-text='']:before {
+            content: 'Loading'
+        }
+
+        .loader[data-text]:not([data-text='']):before {
+            content: attr(data-text)
+        }
+
+        .loader[data-text][data-blink]:before {
+            animation: blink 1s linear infinite alternate
+        }
+
+        .loader-default[data-text]:before {
+            top: calc(50% - 63px)
+        }
+
+        .loader-default:after {
+            content: '';
+            position: fixed;
+            width: 48px;
+            height: 48px;
+            border: solid 8px #fff;
+            border-left-color: transparent;
+            border-radius: 50%;
+            top: calc(50% - 24px);
+            left: calc(50% - 24px);
+            animation: rotation 1s linear infinite
+        }
+
+        .loader-default[data-half]:after {
+            border-right-color: transparent
+        }
+
+        .loader-default[data-inverse]:after {
+            animation-direction: reverse
+        }
 
     </style>
 
 
 </head>
-<body>
+<body style="padding-top: 70px;">
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -43,19 +131,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../index.html">JustIn Time</a>
+            <a class="navbar-brand" href="../index.html"><img alt="JustIn Time" src="../images/logo.png" height="30px" style="padding-bottom: 5px;" /></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
 
                 <li id="navPopisKorisnika"><a href="#korisniciHeader">Popis korisnika</a></li>
-                <li id="navDodajKorisnika"><a href="#" data-toggle="modal" data-target="#dodajKorisnikaModal">Dodaj korisnika</a></li>
+                <li id="navDodajKorisnika"><a href="#" data-toggle="modal" data-target="#dodajKorisnikaModal">Dodaj
+                    korisnika <span class="glyphicon glyphicon-plus text-success"></span></a></li>
 
                 <li id="navPopisUstanova"><a href="#ustanoveHeader">Popis ustanova</a></li>
-                <li id="navDodajUstanovu"><a href="#" data-toggle="modal" data-target="#dodajUstanovuModal">Dodaj ustanovu</a></li>
+                <li id="navDodajUstanovu"><a href="#" data-toggle="modal" data-target="#dodajUstanovuModal">Dodaj
+                    ustanovu <span class="glyphicon glyphicon-plus text-success"></span></a></li>
 
-                <li><a href="#">Popis redova</a></li>
-                <li><a href="#">Dodaj red</a></li>
+                <li><a href="#redoviHeader">Popis redova</a></li>
+                <li><a href="#noviRedHeader">Dodaj red <span class="glyphicon glyphicon-plus text-success"></span></a></li>
             </ul>
         </div>
     </div>
@@ -77,54 +167,66 @@
                 <li><a href="">Dodaj red</a></li>
             </ul>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 70px;">
-        <h1 class="page-header" id="korisniciHeader">Korisnici</h1>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header" id="korisniciHeader">Korisnici</h1>
 
-        <div class="row">
-            <div class="table-responsive table-bordered" id="popisKorisnika">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon glyphicon glyphicon-search"></span>
-                    <input type="search" class="form-control" placeholder="Pretraga korisnika" v-model="searchString">
+            <div class="row">
+                <div class="table-responsive table-bordered" id="popisKorisnika">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon glyphicon glyphicon-search"></span>
+                        <input type="search" class="form-control" placeholder="Pretraga korisnika"
+                               v-model="searchString">
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Mail</th>
+                            <th>Password</th>
+                            <th>Uredi</th>
+                            <th>Obriši</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="korisnik in dohvaceniKorisnici">
+                            <td>{{korisnik.id}}</td>
+                            <td>{{korisnik.firstName}}</td>
+                            <td>{{korisnik.lastName}}</td>
+                            <td>{{korisnik.mail}}</td>
+                            <td>{{korisnik.password}}</td>
+                            <td>
+                                <button type="button" class="btn btn-warning" @click="urediKorisnika(korisnik.id)"><span
+                                        class="glyphicon glyphicon-pencil"></span></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" @click="obrisiKorisnika(korisnik.id)"><span
+                                        class="glyphicon glyphicon-trash"></span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="text-center"><a href="#" class="btn btn-success" data-toggle="modal"
+                                                                   data-target="#dodajKorisnikaModal">Dodaj
+                                korisnika</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Mail</th>
-                        <th>Password</th>
-                        <th>Uredi</th>
-                        <th>Obriši</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="korisnik in dohvaceniKorisnici">
-                        <td>{{korisnik.id}}</td>
-                        <td>{{korisnik.firstName}}</td>
-                        <td>{{korisnik.lastName}}</td>
-                        <td>{{korisnik.mail}}</td>
-                        <td>{{korisnik.password}}</td>
-                        <td><button type="button" class="btn btn-warning" @click="urediKorisnika(korisnik.id)"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                        <td><button type="button" class="btn btn-danger" @click="obrisiKorisnika(korisnik.id)"><span class="glyphicon glyphicon-trash"></span></button></td>
-                    </tr>
-                    <tr><td colspan="5" class="text-center"><a href="#" class="btn btn-success" data-toggle="modal" data-target="#dodajKorisnikaModal">Dodaj korisnika</a></td></tr>
-                    </tbody>
-                </table>
             </div>
+
         </div>
 
-    </div>
-
         <!-- KRAJ POPISA KORISNIKA -->
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 70px;">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header" id="ustanoveHeader">Ustanove</h1>
 
             <div class="row">
                 <div class="table-responsive table-bordered" id="popisUstanova">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon glyphicon glyphicon-search"></span>
-                        <input type="search" class="form-control" placeholder="Pretraga ustanova" v-model="searchString">
+                        <input type="search" class="form-control" placeholder="Pretraga ustanova"
+                               v-model="searchString">
                     </div>
                     <table class="table table-striped">
                         <thead>
@@ -145,58 +247,132 @@
                             <td>{{ustanova.address}}</td>
                             <td>{{ustanova.mail}}</td>
                             <td>{{ustanova.telephone}}</td>
-                            <td><button type="button" class="btn btn-warning" @click="urediUstanovu(ustanova.id)"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                            <td><button type="button" class="btn btn-danger" @click="obrisiUstanovu(ustanova.id)"><span class="glyphicon glyphicon-trash"></span></button></td>
+                            <td>
+                                <button type="button" class="btn btn-warning" @click="urediUstanovu(ustanova.id)"><span
+                                        class="glyphicon glyphicon-pencil"></span></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" @click="obrisiUstanovu(ustanova.id)"><span
+                                        class="glyphicon glyphicon-trash"></span></button>
+                            </td>
                         </tr>
-                        <tr><td colspan="5" class="text-center"><a href="#" class="btn btn-success" data-toggle="modal" data-target="#dodajUstanovuModal">Dodaj ustanovu</a></td></tr>
+                        <tr>
+                            <td colspan="5" class="text-center"><a href="#" class="btn btn-success" data-toggle="modal"
+                                                                   data-target="#dodajUstanovuModal">Dodaj ustanovu</a>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-         </div>
+        </div>
+        <!-- KRAJ POPISA USTANOVA -->
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header" id="redoviHeader">Redovi</h1>
+
+            <div class="row" id="popisRedova">
+
+                <ul class="list-group">
+                    <template v-for="ustanova in ustanove">
+                        <li class="list-group-item">
+                            <h4 class="text-primary" @click="noviRedUstanovaId = ustanova.id;">
+                                <a href="#noviRedHeader">{{ustanova.name}}</a>
+                            </h4>
+                            <ul class="list-group">
+                                <li class="list-group-item" v-for="red in ustanova.queues">
+                                    <span style="font-size: 1.2em;width: 15em; display: inline-block">{{red.name}}</span>
+                                    <button class="btn btn-warning" @click="urediRed(ustanova.id, red.id, ustanova.name, red.name)">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                    &nbsp;
+                                    <button class="btn btn-danger" @click="obrisiRed(ustanova.id, red.id)">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </li>
+                    </template>
+                    <li class="divider"></li>
+                    <li class="list-group-item" id="noviRedHeader">
+
+                        <h3>Novi red:</h3>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label>Naziv reda:
+                                    <input class="form-control" id="noviRedInput" type="text" placeholder="Naziv reda" v-model="noviRed" autofocus/>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Ustanova:
+                                    <select class="form-control" v-model="noviRedUstanovaId">
+                                        <option value="" disabled selected>Odaberite ustanovu...</option>
+                                        <option v-for="ustanova in ustanove" :value="ustanova.id" >{{ustanova.name}}</option>
+                                    </select>
+
+                                </label>
+                            </div>
+
+                                <button class="btn btn-success" @click="dodajRed"> Dodaj red </button>
+
+
+                        </form>
+                    </li>
+                </ul>
+
+
+            </div>
+        </div>
 
 
 
-
-</div>
+    </div>
 
     <!--modalni prozor za dodavanje korisnika-->
-<div class="modal fade" id="dodajKorisnikaModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">{{opcija}} korisnika</h4>
-            </div>
-            <div class="modal-body">
-                <form action="#">
-                    <div class="form-group">
-                        <label>Ime:</label>
-                        <input type="text" name="firstName" placeholder="First Name" class="form-control" v-model="firstName" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Prezime:</label>
-                        <input type="text" name="lastName" placeholder="Last Name" class="form-control" v-model="lastName" required/>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label>E-mail:</label>
-                        <input type="email" name="mail" placeholder="E-mail" class="form-control" v-model="mail" id="mailInput" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Lozinka:</label>
-                        <input type="text" name="password" placeholder="Lozinka" class="form-control" v-model="password" required/>
-                    </div>
+    <div class="modal fade" id="dodajKorisnikaModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">{{opcija}} korisnika</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="form-group">
+                            <label>Ime:</label>
+                            <input type="text" name="firstName" placeholder="First Name" class="form-control"
+                                   v-model="firstName" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Prezime:</label>
+                            <input type="text" name="lastName" placeholder="Last Name" class="form-control"
+                                   v-model="lastName" required/>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label>E-mail:</label>
+                            <input type="email" name="mail" placeholder="E-mail" class="form-control" v-model="mail"
+                                   id="mailInput" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Lozinka:</label>
+                            <input type="text" name="password" placeholder="Lozinka" class="form-control"
+                                   v-model="password" required/>
+                        </div>
 
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
-                <button type="button" class="btn btn-primary" @click="spremi()" id="spremiKorisnikaBtn">Spremi promjene</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+                    <button type="button" class="btn btn-primary" @click="spremi()" id="spremiKorisnikaBtn">Spremi
+                        promjene
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
     <!--kraj modalnog prozora-->
 
 
@@ -205,33 +381,40 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                    </button>
                     <h4 class="modal-title">{{opcija}} ustanovu</h4>
                 </div>
                 <div class="modal-body">
                     <form action="#">
                         <div class="form-group">
                             <label>Naziv:</label>
-                            <input type="text" name="naziv" placeholder="Naziv ustanove" class="form-control" v-model="name" required/>
+                            <input type="text" name="naziv" placeholder="Naziv ustanove" class="form-control"
+                                   v-model="name" required/>
                         </div>
                         <div class="form-group">
                             <label>Adresa:</label>
-                            <input type="text" name="adresa" placeholder="Adresa" class="form-control" v-model="address" required/>
+                            <input type="text" name="adresa" placeholder="Adresa" class="form-control" v-model="address"
+                                   required/>
                         </div>
                         <div class="form-group has-feedback">
                             <label>E-mail:</label>
-                            <input type="email" name="mail" placeholder="E-mail" class="form-control" v-model="mail" id="mailInputUstanova" required/>
+                            <input type="email" name="mail" placeholder="E-mail" class="form-control" v-model="mail"
+                                   id="mailInputUstanova" required/>
                         </div>
                         <div class="form-group">
                             <label>Telefon:</label>
-                            <input type="text" name="telephone" placeholder="Telefon" class="form-control" v-model="telephone" required/>
+                            <input type="text" name="telephone" placeholder="Telefon" class="form-control"
+                                   v-model="telephone" required/>
                         </div>
 
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
-                    <button type="button" class="btn btn-primary" @click="spremi()" id="spremiUstanovuBtn">Spremi promjene</button>
+                    <button type="button" class="btn btn-primary" @click="spremi()" id="spremiUstanovuBtn">Spremi
+                        promjene
+                    </button>
                 </div>
             </div>
         </div>
