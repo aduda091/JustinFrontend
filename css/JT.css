@@ -4,6 +4,7 @@ body {
     /*margin: 5px auto;*/
     font-family: Calibri, sans-serif;
     background-color:rgba(223, 228, 255, 0.15);
+    padding-bottom: 70px;
 
 }
 
@@ -137,15 +138,21 @@ h3 {
 }
 
 footer {
-    font-size: 20px;
+    font-size: 30px;
     color: white;
     background-color: #8f0d80;
     position: fixed;
+    /*display:block;*/
     bottom: 0;
     width: 100%;
     text-align: center;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
 
+}
+
+footer .ikona {
+    display: inline-block;
+    text-align: center;
 }
 
 footer a {
