@@ -59,6 +59,7 @@ h3 {
 
 .list-group-item a {
     color:rgba(93, 17, 77, 0.85);
+    font-size: 16px;
 }
 
 .input-group-addon {
