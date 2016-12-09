@@ -9,21 +9,21 @@ body {
 }
 
 
-.theme-dropdown .dropdown-menu {
-    position: static;
-    display: block;
-    margin-outside: 20px;
-    color: rgba(4, 3, 57, 0.87);
-}
+/*.theme-dropdown .dropdown-menu {*/
+    /*position: static;*/
+    /*display: block;*/
+    /*margin-outside: 20px;*/
+    /*color: rgba(4, 3, 57, 0.87);*/
+/*}*/
 
-.theme-showcase > p > .btn {
-    margin: 5px 0;
-}
+/*.theme-showcase > p > .btn {*/
+    /*margin: 5px 0;*/
+/*}*/
 
-.theme-showcase .navbar .container {
-    width:70px;
+/*.theme-showcase .navbar .container {*/
+    /*width:70px;*/
 
-}
+/*}*/
 
 h1 {
     font-variant-caps: all-petite-caps;
@@ -57,9 +57,18 @@ h3 {
     font-size: 15px; font-variant-caps: titling-caps;
 }
 
+.list-group-item {
+    margin-top: 15px;
+}
+
 .list-group-item a {
     color:rgba(93, 17, 77, 0.85);
     font-size: 20px;
+
+}
+
+.input-group {
+    padding: 2px;
 }
 
 .input-group-addon {
@@ -77,14 +86,12 @@ h3 {
 .badge {
     background:linear-gradient(to left,rgba(214, 12, 210, 0.33) ,rgba(33, 121, 214, 0.33));
     color: black;
-    font-size: 21px;
+    font-size: 18px;
 
 }
 
-.input-group {
-    padding: 2px;
-}
 
+/*Navigacija*/
 .navbar-default .navbar-toggle {
     border-color: transparent;
 }
@@ -94,53 +101,53 @@ h3 {
     background-color: transparent;
 }
 
-/*slike na pocetnoj stranici*/
-#photos {
-    /* Prevent vertical gaps */
-    line-height: 0;
+/*!*slike na pocetnoj stranici*!*/
+/*#photos {*/
+    /*!* Prevent vertical gaps *!*/
+    /*line-height: 0;*/
 
-    -webkit-column-count: 5;
-    -webkit-column-gap:   0px;
-    -moz-column-count:    5;
-    -moz-column-gap:      0px;
-    column-count:         5;
-    column-gap:           0px;
-}
+    /*-webkit-column-count: 5;*/
+    /*-webkit-column-gap:   0px;*/
+    /*-moz-column-count:    5;*/
+    /*-moz-column-gap:      0px;*/
+    /*column-count:         5;*/
+    /*column-gap:           0px;*/
+/*}*/
 
-#photos img {
-    /* Just in case there are inline attributes */
-    width: 100% !important;
-    height: auto !important;
-}
+/*#photos img {*/
+    /*!* Just in case there are inline attributes *!*/
+    /*width: 100% !important;*/
+    /*height: auto !important;*/
+/*}*/
 
-@media (max-width: 1200px) {
-    #photos {
-        -moz-column-count:    4;
-        -webkit-column-count: 4;
-        column-count:         4;
-    }
-}
-@media (max-width: 1000px) {
-    #photos {
-        -moz-column-count:    3;
-        -webkit-column-count: 3;
-        column-count:         3;
-    }
-}
-@media (max-width: 800px) {
-    #photos {
-        -moz-column-count:    2;
-        -webkit-column-count: 2;
-        column-count:         2;
-    }
-}
-@media (max-width: 400px) {
-    #photos {
-        -moz-column-count:    1;
-        -webkit-column-count: 1;
-        column-count:         1;
-    }
-}
+/*@media (max-width: 1200px) {*/
+    /*#photos {*/
+        /*-moz-column-count:    4;*/
+        /*-webkit-column-count: 4;*/
+        /*column-count:         4;*/
+    /*}*/
+/*}*/
+/*@media (max-width: 1000px) {*/
+    /*#photos {*/
+        /*-moz-column-count:    3;*/
+        /*-webkit-column-count: 3;*/
+        /*column-count:         3;*/
+    /*}*/
+/*}*/
+/*@media (max-width: 800px) {*/
+    /*#photos {*/
+        /*-moz-column-count:    2;*/
+        /*-webkit-column-count: 2;*/
+        /*column-count:         2;*/
+    /*}*/
+/*}*/
+/*@media (max-width: 400px) {*/
+    /*#photos {*/
+        /*-moz-column-count:    1;*/
+        /*-webkit-column-count: 1;*/
+        /*column-count:         1;*/
+    /*}*/
+/*}*/
 
 footer {
     font-size: 22px;
@@ -178,5 +185,28 @@ footer a:link, footer a:visited, footer a:hover footer a:active {
     padding-bottom: 25px;
 
 }
+
+.veliki {
+    background-image: url("../images/bg-pattern.png");
+    background-repeat: repeat;
+    background-color: #8f0d80;
+    padding: 20px;
+    text-align: center;
+}
+.veliki h1, .veliki h4, .veliki p {
+    margin: 0 auto;
+    padding: 5px;
+}
+.veliki.tamni {
+    color: floralwhite;
+}
+.veliki.tamni h1, .veliki.tamni h2 {
+    color: floralwhite;
+}
+
+.veliki.svjetli {
+    color: #111111;
+}
+.veliki.ta
 
 

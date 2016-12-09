@@ -36,8 +36,8 @@
         <div class="input-group">
 
 
-            <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-            <input type="search" v-model="searchString" placeholder="Pretraga ustanova..." class="form-control"/>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true" style="width: 50px; font-size: 16px;"></span></span>
+            <input type="search" v-model="searchString" placeholder="Pretraga ustanova..." class="form-control" style="height:50px; font-size: 16px;"/>
         </div> <br>
 
         <ul class="list-group">
@@ -48,7 +48,7 @@
                 <a :href="'Ustanova_info.html?ustanova_id=' + ustanova.id"
                    :title="'Informacije o ustanovi ' + ustanova.name"
                    class="glyphicon glyphicon-info-sign pull-right"
-                   style="display: inline-block; width: 40px;font-size: 1.4em;" >
+                   style="display: inline-block; width: 40px;font-size: 25px;" >
                 </a>
             </li>
         </ul>
