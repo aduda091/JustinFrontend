@@ -503,7 +503,7 @@ $(function () {
             },
             urediRed: function (ustanova_id, red_id, ustanova_naziv, red_naziv) {
                 var novoIme = prompt("Unesi novo ime za red " + red_naziv + " koji pripada ustanovi " + ustanova_naziv, red_naziv);
-                if(novoIme != "") {
+                if(novoIme != null && novoIme != "") {
                     var url = "https://justin-time.herokuapp.com/facility/";
                     url += ustanova_id;
                     url += "/update/queue/";
