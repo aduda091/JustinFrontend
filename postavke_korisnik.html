@@ -25,7 +25,7 @@
 <div id="postavke">
 <div id="navigacija"></div>
 <div class="container">
-<h1>{{firstName}} {{lastName}}</h1>
+<h1>{{firstName}} {{lastName}} <a href="#" class="btn btn-alert" @click="logout">Odjava</a></h1>
 
 <h2>Osobne informacije:</h2>
 <h3>Izmijeni osobne informacije ovdje</h3>
@@ -47,10 +47,10 @@
                 <input type="text" class="form-control" :value="email" aria-describedby="sizing-addon1">
                 </div>
 
-                <div class="input-group">
-                    <label class="input-group-addon" style="width: 13ex"><b>Šifra:</b> </label>
-                <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1">
-                    </div>
+                <!--<div class="input-group">-->
+                    <!--<label class="input-group-addon" style="width: 13ex"><b>Šifra:</b> </label>-->
+                <!--<input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1">-->
+                    <!--</div>-->
             </div>
             <br>
             <h2>Obavijesti:</h2>
@@ -91,6 +91,8 @@
         <!--</div>-->
 
 
+
+
 </div>
 
 <p style="text-align: center;margin-top: 2em;"><button type="submit" class="btn btn-primary" style="text-align: center"> Pošalji
@@ -108,14 +110,27 @@
     var postavke = new Vue({
         el: '#postavke',
         data: {
-            firstName : "",
-            lastName : "",
-            email : ""
+            firstName : sessionStorage.firstName,
+            lastName : sessionStorage.lastName,
+            email : sessionStorage.mail
+        },
+        methods: {
+            logout: function () {
+                //obriši lokalno spremljene podatke
+                sessionStorage.removeItem("id");
+                sessionStorage.removeItem("firstName");
+                sessionStorage.removeItem("lastName");
+                sessionStorage.removeItem("mail");
+
+                //preusmjeri korisnika na login stranicu nakon logouta
+                window.location = "login.html";
+            }
         }
     });
 
+    /*
     var url = 'https://justin-time.herokuapp.com/user/';
-    //var email = $.urlParam('email');//izvući iz adrese GET
+    //var email = $.urlParam('email');//izvući iz adrese GET ili bolje pročitati iz storage?
     var email = "aduda@unipu.hr";
     url += email;
     $(".loader").addClass("is-active");
@@ -133,7 +148,7 @@
         console.log( textStatus + " " + error);
     }).always(function () {
         $(".loader").removeClass("is-active");
-    });
+    });*/
 
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');

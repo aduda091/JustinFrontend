@@ -22,6 +22,24 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
 <body>
+
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '562233563985613',
+            xfbml      : true,
+            version    : 'v2.6'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/hr_HR/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 <!--<div id="navigacija"></div>-->
 <div class="container">
 
@@ -41,8 +59,12 @@
     </div>
     <div>
     <br>
-        <button type="button" class="btn btn-lg" onclick="window.location.href='postavke_korisnik.html'">Potvrdi</button> <br>
+        <button type="button" class="btn btn-lg" onclick="window.location.href='postavke_korisnik.html'">Potvrdi</button>
 
+        <br><br>
+
+        <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false"
+             data-auto-logout-link="true" data-scope="public_profile,email" data-onlogin="checkLoginState();"></div>
     </div>
 </div>
 
@@ -51,6 +73,32 @@
 <script>
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');
+
+    // facebook login
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            console.log(response);
+            //provjeri i je li već ulogiran u aplikaciju
+            if (response.status === 'connected' && !sessionStorage.getItem("id")) {
+                //korisnik je ulogiran u aplikaciju i facebook
+                FB.api('/me/?fields=first_name,last_name,email', function(odgovor) {
+                    if (odgovor && !odgovor.error) {
+                        console.log(JSON.stringify(odgovor));
+                        sessionStorage.setItem("id", odgovor.id);
+                        sessionStorage.setItem("firstName", odgovor.first_name);
+                        sessionStorage.setItem("lastName", odgovor.last_name);
+                        sessionStorage.setItem("mail", odgovor.email);
+
+                        //preusmjeri korisnika na drugu stranicu nakon logina
+                        window.location = "ustanova.html";
+                    }
+                });
+
+            }
+        });
+    }
+
+
 
 </script>
 </body>
