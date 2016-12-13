@@ -23,23 +23,23 @@
 </head>
 <body>
 
-<script>
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : '562233563985613',
-            xfbml      : true,
-            version    : 'v2.6'
-        });
-    };
+<!--<script>-->
+    <!--window.fbAsyncInit = function() {-->
+        <!--FB.init({-->
+            <!--appId      : '562233563985613',-->
+            <!--xfbml      : true,-->
+            <!--version    : 'v2.6'-->
+        <!--});-->
+    <!--};-->
 
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/hr_HR/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
+    <!--(function(d, s, id){-->
+        <!--var js, fjs = d.getElementsByTagName(s)[0];-->
+        <!--if (d.getElementById(id)) {return;}-->
+        <!--js = d.createElement(s); js.id = id;-->
+        <!--js.src = "//connect.facebook.net/hr_HR/sdk.js";-->
+        <!--fjs.parentNode.insertBefore(js, fjs);-->
+    <!--}(document, 'script', 'facebook-jssdk'));-->
+<!--</script>-->
 <!--<div id="navigacija"></div>-->
 <div class="container">
 
@@ -59,7 +59,7 @@
     </div>
     <div>
     <br>
-        <button type="button" class="btn btn-lg" onclick="window.location.href='postavke_korisnik.html'">Potvrdi</button>
+        <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='postavke_korisnik.html'">Prijava</button>
 
         <br><br>
 
@@ -74,20 +74,30 @@
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');
 
+    $.getScript('//connect.facebook.net/hr_HR/sdk.js', function(){
+        FB.init({
+            appId      : '562233563985613',
+            xfbml      : true,
+            version    : 'v2.6'
+        });
+
+        checkLoginState();
+    });
+
     // facebook login
     function checkLoginState() {
         FB.getLoginStatus(function(response) {
             console.log(response);
             //provjeri i je li već ulogiran u aplikaciju
-            if (response.status === 'connected' && !sessionStorage.getItem("id")) {
+            if (response.status === 'connected' && !localStorage.getItem("id")) {
                 //korisnik je ulogiran u aplikaciju i facebook
                 FB.api('/me/?fields=first_name,last_name,email', function(odgovor) {
                     if (odgovor && !odgovor.error) {
                         console.log(JSON.stringify(odgovor));
-                        sessionStorage.setItem("id", odgovor.id);
-                        sessionStorage.setItem("firstName", odgovor.first_name);
-                        sessionStorage.setItem("lastName", odgovor.last_name);
-                        sessionStorage.setItem("mail", odgovor.email);
+                        localStorage.setItem("id", odgovor.id);
+                        localStorage.setItem("firstName", odgovor.first_name);
+                        localStorage.setItem("lastName", odgovor.last_name);
+                        localStorage.setItem("mail", odgovor.email);
 
                         //preusmjeri korisnika na drugu stranicu nakon logina
                         window.location = "ustanova.html";

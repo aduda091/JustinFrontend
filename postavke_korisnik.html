@@ -25,7 +25,7 @@
 <div id="postavke">
 <div id="navigacija"></div>
 <div class="container">
-<h1>{{firstName}} {{lastName}} <a href="#" class="btn btn-alert" @click="logout">Odjava</a></h1>
+<h1>{{firstName}} {{lastName}} <a href="#" class="btn" style="background-color: #8f0d80; color: white;" @click="logout">Odjava</a></h1>
 
 <h2>Osobne informacije:</h2>
 <h3>Izmijeni osobne informacije ovdje</h3>
@@ -106,24 +106,44 @@
     var preloader = '<div class="loader loader-default"></div>';
     $('body').append(preloader);
 
+    //facebook sdk
+    $.getScript('//connect.facebook.net/hr_HR/sdk.js', function(){
+        FB.init({
+            appId      : '562233563985613',
+            xfbml      : true,
+            version    : 'v2.6'
+        });
+    });
+
 
     var postavke = new Vue({
         el: '#postavke',
         data: {
-            firstName : sessionStorage.firstName,
-            lastName : sessionStorage.lastName,
-            email : sessionStorage.mail
+            firstName : localStorage.firstName,
+            lastName : localStorage.lastName,
+            email : localStorage.mail
         },
         methods: {
             logout: function () {
+
                 //obriši lokalno spremljene podatke
-                sessionStorage.removeItem("id");
-                sessionStorage.removeItem("firstName");
-                sessionStorage.removeItem("lastName");
-                sessionStorage.removeItem("mail");
+                localStorage.removeItem("id");
+                localStorage.removeItem("firstName");
+                localStorage.removeItem("lastName");
+                localStorage.removeItem("mail");
+
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        //korisnik je ulogiran preko facebooka, odlogiraj ga
+                        FB.logout(function(odgovor) {
+                            document.location = "ustanova.html";
+                        });
+                    }
+                });
+
 
                 //preusmjeri korisnika na login stranicu nakon logouta
-                window.location = "login.html";
+                //window.location = "login.html";
             }
         }
     });

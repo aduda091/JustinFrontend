@@ -23,9 +23,9 @@
 
 <script>
    //login provjera i promjena relevantnih stvari
-   if(sessionStorage.firstName) {
+   if(localStorage.firstName) {
        $('#adresaProfila').attr("href", "postavke_korisnik.html");
-       $('#imeKorisnika').text(sessionStorage.firstName);
+       $('#imeKorisnika').text(localStorage.firstName);
    }
 
 

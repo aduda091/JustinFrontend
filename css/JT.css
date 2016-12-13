@@ -75,7 +75,7 @@ h3 {
     color:#000000;
     background:linear-gradient(to left,rgba(214, 12, 210, 0.33) ,rgba(33, 121, 214, 0.33));
 }
-.btn {
+.btn.btn-primary {
     background:linear-gradient(to left,rgba(214, 12, 210, 0.33) ,rgba(33, 121, 214, 0.33));
     color: black;
 }
