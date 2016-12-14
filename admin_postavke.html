@@ -17,9 +17,9 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!--custom css-->
-        <link rel="stylesheet" type="text/css" href="css/JT.css">
+
         <!--sidebar-->
-        <link rel="stylesheet" type="text/css" href="css/admin.css">
+        <link rel="stylesheet" type="text/css" href="css/admin1.css">
 
         <!-- Vue.js -->
         <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -35,20 +35,22 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-                <a href="index.html">
-                    Justin Time
+                <a href="#" style="font-size: 25px;color:#1ab7ea">
+                    MUP -osobne
                 </a>
             </li>
             <li>
-                <a href="admin.html">Početna</a>
+                <a href="admin1.html">Početna</a>
             </li>
             <li>
                 <a href="admin_postavke.html">Postavke</a>
             </li>
             <li>
-                <a href="#">Log-out</a>
+                <a href="#">Support</a>
             </li>
-
+            <li>
+                <a href="#">Log out</a>
+            </li>
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -56,32 +58,86 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
+
+
             <h2>Postavke</h2>
-            <div></div>
-            <fieldset>
-                <legend>Izaberite koje funkcionalnosti želite</legend>
-                <input type="checkbox" />Sat <br />
-                <input type="checkbox" />Prikaz prosječnog vremena čekanja <br />
-                <input type="checkbox" />Prikaz mogućih klijenata <br />
-                <input type="checkbox" />Prikaz popisa klijenata <br />
-                <input type="checkbox" />Prikaz preostalog vremena <br />
-            </fieldset>
-        </div>
-        <div>
-        <br>
-        <br>
-        <fieldset>
-            <legend>Radni dani</legend>
-            <input type="checkbox" />Ponedjeljak <br />
-            <input type="checkbox" />Utorak <br />
-            <input type="checkbox" />Srijeda <br />
-            <input type="checkbox" />Četvrtak<br />
-            <input type="checkbox" />Petak <br />
-        </fieldset>
+            <!--<div></div>-->
+            <!--<fieldset>-->
+                <!--<legend>Izaberite koje funkcionalnosti želite</legend>-->
+                <!--<input type="checkbox" />Sat <br />-->
+                <!--<input type="checkbox" />Prikaz prosječnog vremena čekanja <br />-->
+                <!--<input type="checkbox" />Prikaz mogućih klijenata <br />-->
+                <!--<input type="checkbox" />Prikaz popisa klijenata <br />-->
+                <!--<input type="checkbox" />Prikaz preostalog vremena <br />-->
+            <!--</fieldset>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<br>-->
+        <!--<br>-->
+            <div class="container">
+                <div class="row">
+
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+                                <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">Radni dani</div>
+
+                            <!-- List group -->
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    Ponedjeljak
+                                    <div class="material-switch pull-right">
+                                        <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
+                                        <label for="someSwitchOptionDefault" class="label-default"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Utorak
+                                    <div class="material-switch pull-right">
+                                        <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
+                                        <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Srijeda
+                                    <div class="material-switch pull-right">
+                                        <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
+                                        <label for="someSwitchOptionSuccess" class="label-success"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Četvrtak
+                                    <div class="material-switch pull-right">
+                                        <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox"/>
+                                        <label for="someSwitchOptionInfo" class="label-info"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Petak
+                                    <div class="material-switch pull-right">
+                                        <input id="someSwitchOptionWarning" name="someSwitchOption001" type="checkbox"/>
+                                        <label for="someSwitchOptionWarning" class="label-warning"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Subota
+                                    <div class="material-switch pull-right">
+                                        <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox"/>
+                                        <label for="someSwitchOptionDanger" class="label-danger"></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
         <div>
+
             <br>
             <br>
+
+
 
                 <legend>Radno vrijeme</legend>
             <form >
