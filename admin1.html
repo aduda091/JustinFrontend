@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Administracija - Justin Time</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- JQuery-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--custom css-->
+    <!--<link rel="stylesheet" type="text/css" href="css/JT.css">-->
+    <!--admin-->
+    <link rel="stylesheet" type="text/css" href="css/admin1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://use.fontawesome.com/75c0c19277.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#" style="font-size: 25px;color: #d99edf">
+                    <b>MUP</b> - osobne
+                </a>
+            </li>
+            <!--<li> <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a></li>-->
+            <li>
+                <a href="#">Početna</a>
+            </li>
+            <li>
+                <a href="#">Postavke</a>
+            </li>
+            <li>
+                <a href="#">Support</a>
+            </li>
+            <li>
+                <a href="#">Log out</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+
+
+
+                <!--<div class="col-lg-12">-->
+                    <!--<h1>Simple Sidebar</h1>-->
+                    <!--<p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>-->
+                    <!--<p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>-->
+                <!--</div>-->
+
+                <div class="container">
+                    <div class="row" style="margin-left: 60px">
+
+                        <div class="col-lg-2 col-sm-6">
+                            <div class="circle-tile ">
+                                <a href="#"><div class="circle-tile-heading green"><i class="fa fa-arrow-left fa-fw fa-3x"></i></div></a>
+                                <div class="circle-tile-content green">
+                                    <div class="circle-tile-description text-faded"> Prethodni</div>
+                                    <div class="circle-tile-number text-faded ">16</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-sm-6">
+                            <div class="circle-tile ">
+                                <a href="#"><div class="circle-tile-heading orange"><i class="fa fa-user fa-fw fa-3x"></i></div></a>
+                                <div class="circle-tile-content orange">
+                                    <div class="circle-tile-description text-faded"> Trenutno na redu</div>
+                                    <div class="circle-tile-number text-faded ">17</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-sm-6">
+                            <div class="circle-tile ">
+                                <a href="#"><div class="circle-tile-heading red"><i class="fa fa-arrow-right fa-fw fa-3x"></i></div></a>
+                                <div class="circle-tile-content red">
+                                    <div class="circle-tile-description text-faded"> Slijedeći</div>
+                                    <div class="circle-tile-number text-faded ">18</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-sm-6">
+                            <div class="circle-tile ">
+                                <a href="#"><div class="circle-tile-heading purple"><i class="fa fa-pause fa-fw fa-3x"></i></div></a>
+                                <div class="circle-tile-content purple">
+                                    <div class="circle-tile-description text-faded"> Pauza</div>
+                                    <div class="circle-tile-number text-faded ">15 min</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-sm-6">
+                            <div class="circle-tile ">
+                                <a href="#"><div class="circle-tile-heading dark-blue"><i class="fa fa-power-off fa-fw fa-3x"></i></div></a>
+                                <div class="circle-tile-content dark-blue">
+                                    <div class="circle-tile-description text-faded"> Kraj rada</div>
+                                    <div class="circle-tile-number text-faded ">*</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <div class="col-lg-6" style="margin-top: 60px">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Ime</th>
+                                    <th>Broj</th>
+                                    <th>Ukloni</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <td>Giacomo Guilizioni</td>
+                                    <td>16</td>
+                                    <td ><i class="fa fa-times" aria-hidden="true" style="font-size: 20px; color: #0a568c;"></i></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Marco Botto</td>
+                                    <td>17</td>
+                                    <td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Mariah Maclachlan</td>
+                                    <td>18</td>
+                                    <td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Valerie Liberty</td>
+                                    <td>19</td>
+                                    <td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Guido Jack Guilizzoni</td>
+                                    <td>20</td>
+                                    <td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>
+                                </tr>
+                                </tbody>
+                            </table></div>
+
+                    <div id="watch">
+                        <div class="frame-face"></div>
+                        <ul class="minute-marks">
+                            <li></li><li></li><li></li><li></li><li></li><li></li>
+                            <li></li><li></li><li></li><li></li><li></li><li></li>
+                            <li></li><li></li><li></li><li></li><li></li><li></li>
+                            <li></li><li></li><li></li><li></li><li></li><li></li>
+                            <li></li><li></li><li></li><li></li><li></li><li></li>
+                            <li></li><li></li><li></li><li></li><li></li><li></li>
+                            <li></li><li></li><li></li><li></li><li></li><li></li>
+                            <li></li><li></li><li></li><li></li><li></li><li></li>
+                        </ul>
+                        <div class="digital-wrap">
+                            <ul class="digit-hours">
+                                <li>23</li>
+                                <li>00</li><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li>
+                                <li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li>
+                                <li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li>
+                                <li>18</li><li>19</li><li>20</li><li>21</li><li>22</li>
+                            </ul>
+                            <ul class="digit-minutes">
+                                <li>10</li><li>11</li>
+                                <li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li>
+                                <li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li>
+                                <li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li>
+                                <li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li>
+                                <li>36</li><li>37</li><li>38</li><li>39</li><li>40</li><li>41</li>
+                                <li>42</li><li>43</li><li>44</li><li>45</li><li>46</li><li>47</li>
+                                <li>48</li><li>49</li><li>50</li><li>51</li><li>52</li><li>53</li>
+                                <li>54</li><li>55</li><li>56</li><li>57</li><li>58</li><li>59</li>
+                                <li>00</li><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li>
+                                <li>06</li><li>07</li><li>08</li><li>09</li>
+                            </ul>
+                            <ul class="digit-seconds">
+                                <li>20</li><li>21</li><li>22</li><li>23</li>
+                                <li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li>
+                                <li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li>
+                                <li>36</li><li>37</li><li>38</li><li>39</li><li>40</li><li>41</li>
+                                <li>42</li><li>43</li><li>44</li><li>45</li><li>46</li><li>47</li>
+                                <li>48</li><li>49</li><li>50</li><li>51</li><li>52</li><li>53</li>
+                                <li>54</li><li>55</li><li>56</li><li>57</li><li>58</li><li>59</li>
+                                <li>00</li><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li>
+                                <li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li>
+                                <li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li>
+                                <li>18</li><li>19</li>
+                            </ul>
+                        </div>
+                        <ul class="digits">
+                            <li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li>
+                            <li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li>
+                        </ul>
+                        <div class="hours-hand"></div>
+                        <div class="minutes-hand"></div>
+                        <div class="seconds-hand"></div>
+                    </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
+</body>
+
+</html>
