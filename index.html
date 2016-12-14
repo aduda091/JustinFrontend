@@ -15,7 +15,7 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<!--custom css-->
+    <!--custom css-->
     <link rel="stylesheet" type="text/css" href="css/JT.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-social.css">
 
@@ -30,13 +30,13 @@
 <div class="veliki svjetli" style="background-color: antiquewhite">
 <h2> Dosta ti je čekanja u redovima?</h2>
     <p style="font-size: 25px;"> Uzmi broj putem aplikacije te dođi točno na vrijeme :)</p>
-
-    <p> <img src="images/prazna.jpg.png"></p>
+    <p></p>
+    <!--<p> <img src="images/prazna.jpg"></p>-->
 
 </div>
 
 
-<div class="veliki tamni" style="background-color: indigo" .>
+<div class="veliki tamni" style="background-color: indigo">
     <h2>Prijava ili registracija</h2>
 
     <a class="btn btn-primary btn-lg" href="login.html" style=" background-color:#cc1aa0; color: #eff7ff; font-size: 35px; text-align: center">
@@ -51,7 +51,7 @@
                 <span class="fa fa-google"></span>
             </a>
 
-            <a class="btn btn-social-icon btn-lg btn-facebook">
+            <a class="btn btn-social-icon btn-lg btn-facebook" id="fbLogin">
                 <span class="fa fa-facebook"></span>
             </a>
 
@@ -66,6 +66,54 @@
 <script>
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');
+
+    //provjera je li korisnik prijavljen na stranicu na bilo koji način
+    if(localStorage.firstName) {
+        //ako je, nema potrebe da gleda početnu stranicu
+        window.location = "ustanova.html";
+    }
+
+    //facebook sdk
+    $.getScript('//connect.facebook.net/hr_HR/sdk.js', function(){
+        FB.init({
+            appId      : '562233563985613',
+            xfbml      : true,
+            version    : 'v2.6'
+        });
+
+        checkLoginState();
+    });
+
+    // facebook login
+
+    $("#fbLogin").click(function () {
+        FB.login(function(response) {
+            checkLoginState();
+        }, {scope: 'public_profile,email'});
+    });
+
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            console.log(response);
+            //provjeri i je li već ulogiran u aplikaciju
+            if (response.status === 'connected' && !localStorage.getItem("id")) {
+                //korisnik je ulogiran u aplikaciju i facebook
+                FB.api('/me/?fields=first_name,last_name,email,picture', function(odgovor) {
+                    if (odgovor && !odgovor.error) {
+                        console.log(JSON.stringify(odgovor));
+                        localStorage.setItem("id", odgovor.id);
+                        localStorage.setItem("firstName", odgovor.first_name);
+                        localStorage.setItem("lastName", odgovor.last_name);
+                        localStorage.setItem("mail", odgovor.email);
+                        localStorage.setItem("picture", odgovor.picture.data.url);
+                        //preusmjeri korisnika na drugu stranicu nakon logina
+                        window.location = "ustanova.html";
+                    }
+                });
+
+            }
+        });
+    }
 
 </script>
 </body>

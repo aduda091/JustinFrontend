@@ -132,18 +132,19 @@
                 localStorage.removeItem("lastName");
                 localStorage.removeItem("mail");
 
+                //facebook logout
                 FB.getLoginStatus(function(response) {
                     if (response.status === 'connected') {
                         //korisnik je ulogiran preko facebooka, odlogiraj ga
                         FB.logout(function(odgovor) {
-                            document.location = "ustanova.html";
+                            document.location = "index.html";
                         });
                     }
                 });
 
 
-                //preusmjeri korisnika na login stranicu nakon logouta
-                //window.location = "login.html";
+                //preusmjeri korisnika na početnu stranicu nakon logouta
+                //window.location = "index.html";
             }
         }
     });
