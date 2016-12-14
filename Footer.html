@@ -24,8 +24,9 @@
 <script>
    //login provjera i promjena relevantnih stvari
    if(localStorage.firstName) {
-       $('#adresaProfila').attr("href", "postavke_korisnik.html");
-       $('#imeKorisnika').text(localStorage.firstName);
+       var slika = "<img src='" + localStorage.picture + "' alt='profile picture' />";
+       $('#adresaProfila').attr("href", "postavke_korisnik.html");//.find("i").remove();
+       $('#imeKorisnika').text(localStorage.firstName);//.prepend(slika);
    }
 
 

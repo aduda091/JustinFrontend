@@ -91,14 +91,14 @@
             //provjeri i je li već ulogiran u aplikaciju
             if (response.status === 'connected' && !localStorage.getItem("id")) {
                 //korisnik je ulogiran u aplikaciju i facebook
-                FB.api('/me/?fields=first_name,last_name,email', function(odgovor) {
+                FB.api('/me/?fields=first_name,last_name,email,picture', function(odgovor) {
                     if (odgovor && !odgovor.error) {
                         console.log(JSON.stringify(odgovor));
                         localStorage.setItem("id", odgovor.id);
                         localStorage.setItem("firstName", odgovor.first_name);
                         localStorage.setItem("lastName", odgovor.last_name);
                         localStorage.setItem("mail", odgovor.email);
-
+                        localStorage.setItem("picture", odgovor.picture.data.url);
                         //preusmjeri korisnika na drugu stranicu nakon logina
                         window.location = "ustanova.html";
                     }
