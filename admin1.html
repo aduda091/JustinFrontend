@@ -25,6 +25,8 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <script src="https://use.fontawesome.com/75c0c19277.js"></script>
 
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
 </head>
 
@@ -34,7 +36,7 @@
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
+        <ul class="sidebar-nav" style="font-size: 22px">
             <li class="sidebar-brand">
                 <a href="#" style="font-size: 25px;color:#1ab7ea">
                     <b>MUP</b> - osobne
@@ -70,15 +72,15 @@
                     <!--<p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>-->
                 <!--</div>-->
 
-                <div class="container">
+                <div class="container" id="aplikacija">
                     <div class="row" style="margin-left: 60px">
 
                         <div class="col-lg-2 col-sm-6">
                             <div class="circle-tile ">
-                                <a href="#"><div class="circle-tile-heading green"><i class="fa fa-arrow-left fa-fw fa-3x"></i></div></a>
+                                <a href="#"><div class="circle-tile-heading green "@click="smanji"><i class="fa fa-arrow-left fa-fw fa-3x"></i></div></a>
                                 <div class="circle-tile-content green">
                                     <div class="circle-tile-description text-faded"> Prethodni</div>
-                                    <div class="circle-tile-number text-faded ">16</div>
+                                    <div class="circle-tile-number text-faded ">{{prethodni}}</div>
                                 </div>
                             </div>
                         </div>
@@ -88,17 +90,17 @@
                                 <a href="#"><div class="circle-tile-heading orange"><i class="fa fa-user fa-fw fa-3x"></i></div></a>
                                 <div class="circle-tile-content orange">
                                     <div class="circle-tile-description text-faded"> Trenutno na redu</div>
-                                    <div class="circle-tile-number text-faded ">17</div>
+                                    <div class="circle-tile-number text-faded ">{{trenutni}}</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-2 col-sm-6">
                             <div class="circle-tile ">
-                                <a href="#"><div class="circle-tile-heading red"><i class="fa fa-arrow-right fa-fw fa-3x"></i></div></a>
+                                <a href="#"><div class="circle-tile-heading red" @click="povecaj"><i class="fa fa-arrow-right fa-fw fa-3x"></i></div></a>
                                 <div class="circle-tile-content red">
-                                    <div class="circle-tile-description text-faded"> Slijedeći</div>
-                                    <div class="circle-tile-number text-faded ">18</div>
+                                    <div class="circle-tile-description text-faded"> Sljedeći</div>
+                                    <div class="circle-tile-number text-faded ">{{sljedeci}}</div>
                                 </div>
                             </div>
                         </div>
@@ -176,6 +178,8 @@
                      </div>
                 </div>
         </div>
+            </div>
+
 
     </div>
     <!-- /#page-content-wrapper -->
@@ -183,11 +187,7 @@
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
 
 <!-- Menu Toggle Script -->
 <script>
@@ -195,6 +195,34 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+
+    var brojevi = new Vue({
+        el : "#aplikacija",
+        data: {
+            trenutni: 0, prethodni:0, sljedeci:1
+        },
+        methods: {
+            povecaj: function () {
+                this.trenutni++;
+            },
+            smanji: function () {
+                this.trenutni--;
+            }
+        },
+        watch: {
+            trenutni: function() {
+                if (this.trenutni<=0) {
+                    this.prethodni=0;
+                    this.trenutni=0;
+
+                }
+                else {
+                    this.prethodni=this.trenutni-1;
+                    this.sljedeci=this.trenutni+1;
+                }
+            }
+        }
+    })
 </script>
 
 </body>

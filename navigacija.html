@@ -8,13 +8,15 @@
                 <div class="navbar-header" style="float: left; color: white">
                     <a class="navbar-brand" onclick="window.history.back()">
                         <span class="glyphicon glyphicon-triangle-left" aria-hidden="true" style=" font-size: 22px; color: white; align-content: flex-start"></span></a>
-                    <!--<a class="navbar-brand" href="ustanova.html" style="color: white" >-->
-                        <!--stranica </span></a>-->
 
                 </div>
+                <div id="naslovStranice" style="color: white; font-size: 20px;margin-top: 15px;padding-left: 40px; "></div>
 
 
 
                </div>
             </div>
         </nav>
+        <script>
+            $('#naslovStranice').text(document.title);
+        </script>

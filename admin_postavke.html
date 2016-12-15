@@ -2,29 +2,33 @@
 <html lang="en">
 
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Postavke</title>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <title>Postavke</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-        <!-- JQuery-->
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <!-- JQuery-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <!--custom css-->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <!--custom css-->
 
-        <!--sidebar-->
-        <link rel="stylesheet" type="text/css" href="css/admin1.css">
+    <!--sidebar-->
+    <link rel="stylesheet" type="text/css" href="css/admin1.css">
 
-        <!-- Vue.js -->
-        <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    </head>
-
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
 
 
 <body>
@@ -33,7 +37,7 @@
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
+        <ul class="sidebar-nav" style="font-size: 22px">
             <li class="sidebar-brand">
                 <a href="#" style="font-size: 25px;color:#1ab7ea">
                     MUP -osobne
@@ -46,7 +50,7 @@
                 <a href="admin_postavke.html">Postavke</a>
             </li>
             <li>
-                <a href="support.html">Support</a>
+                <a href="support.html">Podrška</a>
             </li>
             <li>
                 <a href="index.html">Log out</a>
@@ -60,26 +64,11 @@
         <div class="container-fluid">
 
 
-            <h2>Postavke</h2>
-            <!--<div></div>-->
-            <!--<fieldset>-->
-                <!--<legend>Izaberite koje funkcionalnosti želite</legend>-->
-                <!--<input type="checkbox" />Sat <br />-->
-                <!--<input type="checkbox" />Prikaz prosječnog vremena čekanja <br />-->
-                <!--<input type="checkbox" />Prikaz mogućih klijenata <br />-->
-                <!--<input type="checkbox" />Prikaz popisa klijenata <br />-->
-                <!--<input type="checkbox" />Prikaz preostalog vremena <br />-->
-            <!--</fieldset>-->
-        <!--</div>-->
-        <!--<div>-->
-        <!--<br>-->
-        <!--<br>-->
-            <div class="container">
+            <div class="container" >
                 <div class="row">
 
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-sm col-md">
-                                <div class="panel panel-default">
-                            <!-- Default panel contents -->
+                    <div class="col-xs-12 col-sm-6 col-md-5 col-sm col-md" >
+                        <div class="panel panel-default">
                             <div class="panel-heading">Radni dani</div>
 
                             <!-- List group -->
@@ -128,36 +117,32 @@
                                 </li>
                             </ul>
                         </div>
+                        </div>
+
+                    <div class="col-md-5">
+                        <div class="panel panel-default"
+                         style="margin-left:20px ">
+                        <div class="panel-heading">Radno vrijeme</div>
+                        <form style="text-align: center; padding: 10px;">
+                            OD: <input type="time" style="width:100px"><br><br>
+                            DO: <input type="time" style="width:100px"><br>
+                        </form>
+
                     </div>
-                </div>
-            </div>
-    </div>
-        <div>
-
-            <br>
-            <br>
+                    </div>
+                    </div>
 
 
 
-                <legend>Radno vrijeme</legend>
-            <form >
-                OD: <input type="time" name="fname"><br>
-                DO: <input type="time" name="lname"><br>
-                <input type="submit" value="Potvrdi">
-            </form>
-
-        </div>
-
-        </div>
-    </div>
-    <!-- /#page-content-wrappr -->
+                <button type="button" class="btn btn-info btn-block" style="clear: both;width: 90%">Potvrdi</button>
 
 
+</div>
 
 
-
-
-
+</div>
+</div>
+</div>
 </body>
 
 </html>

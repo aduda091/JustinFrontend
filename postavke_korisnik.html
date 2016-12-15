@@ -25,25 +25,25 @@
 <div id="postavke">
 <div id="navigacija"></div>
 <div class="container">
-<h1>{{firstName}} {{lastName}} <a href="#" class="btn" style="background-color: #8f0d80; color: white;" @click="logout">Odjava</a></h1>
+<h1>{{firstName}} {{lastName}} <a href="#" class="btn" style="background-color: #8f0d80; color: white; font-size: 20px" @click="logout">Odjava</a></h1>
 
 <h2>Osobne informacije:</h2>
-<h3>Izmijeni osobne informacije ovdje</h3>
+<h3 style="font-size: 20px">Izmijeni osobne informacije ovdje</h3>
         <div>
             <div class="input-group input-group-2">
 
                 <div class="input-group">
-                <label class="input-group-addon" style="width: 13ex"><b>Ime:</b> </label>
+                <label class="input-group-addon" style="width: 15ex;font-size:20px"><b>Ime:</b> </label>
                 <input type="text" class="form-control" :value="firstName" aria-describedby="sizing-addon1">
                 </div>
 
                 <div class="input-group">
-                    <label class="input-group-addon" style="width: 13ex"><b>Prezime:</b> </label>
+                    <label class="input-group-addon" style="width: 15ex;font-size:20px"><b>Prezime:</b> </label>
                 <input type="text" class="form-control" :value="lastName" aria-describedby="sizing-addon1">
                 </div>
 
                 <div class="input-group">
-                    <label class="input-group-addon" style="width: 13ex"><b>E-mail:</b> </label>
+                    <label class="input-group-addon" style="width: 15ex;font-size:20px"><b>E-mail:</b> </label>
                 <input type="text" class="form-control" :value="email" aria-describedby="sizing-addon1">
                 </div>
 
@@ -54,10 +54,10 @@
             </div>
             <br>
             <h2>Obavijesti:</h2>
-            <div>
+            <div style="font-size: 20px">
                 Obavjesti me kad sam &nbsp;&nbsp;
                 <input type="number" value="5"
-                       style="width: 5em; background: linear-gradient(to left,rgba(214, 12, 210, 0.33) ,rgba(33, 121, 214, 0.33));
+                       style="width: 5em; background-color: #8f0d80; color: white;
                             border-radius: 15px;
 
                             text-align: center;
@@ -67,12 +67,12 @@
 
         </div>
             <h2>Obavijesti me putem:</h2>
-            <div class="container">
-                <div class="row text-center">
-                    <label for="info" class="btn btn-info"> Alarm <input type="checkbox" id="info" class="badgebox"><span class="badge">&check;</span></label>
-                    <label for="success" class="btn btn-success">Notifikacija <input type="checkbox" id="success" class="badgebox"><span class="badge">&check;</span></label>
-                    <label for="warning" class="btn btn-warning">E-mail <input type="checkbox" id="warning" class="badgebox"><span class="badge">&check;</span></label>
-                </div>
+
+                <div class="row text-center" style="padding-bottom: 15px">
+                    <label for="info" class="btn btn-info" style="background: #8f0d80; color: white;font-size: 20px"> Alarm <input type="checkbox" id="info" class="badgebox"><span class="badge">&check;</span></label>
+                    <label for="success" class="btn btn-success" style="background: #8f0d80; font-size: 20px;">Notifikacija <input type="checkbox" id="success" class="badgebox"><span class="badge">&check;</span></label>
+                    <label for="warning" class="btn btn-warning" style="background: #8f0d80; font-size: 20px;">E-mail <input type="checkbox" id="warning" class="badgebox"><span class="badge">&check;</span></label>
+
             </div>
 
 
@@ -80,8 +80,8 @@
 
 </div>
 
-<p style="text-align: center;margin-top: 2em;"><button type="submit" class="btn btn-primary" style="text-align: center"> Pošalji
-</button></p>
+    <button type="button" class="btn btn-info btn-block" style="color: white; font-size: 20px">Potvrdi</button>
+
 </div>
 <div id="footer"></div>
 

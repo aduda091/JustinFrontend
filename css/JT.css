@@ -56,11 +56,16 @@ h3 {
 }
 
 .input-group-addon {
-    color:#000000;
-    background:linear-gradient(to left,rgba(214, 12, 210, 0.33) ,rgba(33, 121, 214, 0.33));
+    color:#fff;
+    background-color: #8f0d80;
 }
 .btn.btn-primary {
     background:linear-gradient(to left,rgba(214, 12, 210, 0.33) ,rgba(33, 121, 214, 0.33));
+    color: black;
+}
+
+.btn.btn-info {
+    background: #8f0d80;
     color: black;
 }
 .btn:active {
@@ -129,6 +134,7 @@ footer a:link, footer a:visited, footer a:hover footer a:active {
     background-color: #8f0d80;
     padding: 20px;
     text-align: center;
+
 }
 .veliki h1, .veliki h4, .veliki p {
     margin: 0 auto;
@@ -136,6 +142,8 @@ footer a:link, footer a:visited, footer a:hover footer a:active {
 }
 .veliki.tamni {
     color: floralwhite;
+    height: 50vh;
+    margin-bottom: 0%;
 }
 .veliki.tamni h1, .veliki.tamni h2 {
     color: floralwhite;
@@ -143,6 +151,7 @@ footer a:link, footer a:visited, footer a:hover footer a:active {
 
 .veliki.svjetli {
     color: #111111;
+    height: 70vh;
 }
 
 /*checkbox */
