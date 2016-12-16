@@ -59,12 +59,12 @@
     </div>
     <div>
     <br>
-        <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='postavke_korisnik.html'" style="background-color: #8f0d80; color: #eff7ff">Prijava</button>
+        <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='postavke_korisnik.html'" style="background: indigo; color: white">Prijava</button>
 
         <br><br>
 
-        <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false"
-             data-auto-logout-link="true" data-scope="public_profile,email" data-onlogin="checkLoginState();"></div>
+        <!--<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false"-->
+             <!--data-auto-logout-link="true" data-scope="public_profile,email" data-onlogin="checkLoginState();"></div>-->
     </div>
 </div>
 
@@ -74,39 +74,39 @@
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');
 
-    $.getScript('//connect.facebook.net/hr_HR/sdk.js', function(){
-        FB.init({
-            appId      : '562233563985613',
-            xfbml      : true,
-            version    : 'v2.6'
-        });
-
-        checkLoginState();
-    });
+//    $.getScript('//connect.facebook.net/hr_HR/sdk.js', function(){
+//        FB.init({
+//            appId      : '562233563985613',
+//            xfbml      : true,
+//            version    : 'v2.6'
+//        });
+//
+//        checkLoginState();
+//    });
 
     // facebook login
-    function checkLoginState() {
-        FB.getLoginStatus(function(response) {
-            console.log(response);
-            //provjeri i je li već ulogiran u aplikaciju
-            if (response.status === 'connected' && !localStorage.getItem("id")) {
-                //korisnik je ulogiran u aplikaciju i facebook
-                FB.api('/me/?fields=first_name,last_name,email,picture', function(odgovor) {
-                    if (odgovor && !odgovor.error) {
-                        console.log(JSON.stringify(odgovor));
-                        localStorage.setItem("id", odgovor.id);
-                        localStorage.setItem("firstName", odgovor.first_name);
-                        localStorage.setItem("lastName", odgovor.last_name);
-                        localStorage.setItem("mail", odgovor.email);
-                        localStorage.setItem("picture", odgovor.picture.data.url);
-                        //preusmjeri korisnika na drugu stranicu nakon logina
-                        window.location = "ustanova.html";
-                    }
-                });
-
-            }
-        });
-    }
+//    function checkLoginState() {
+//        FB.getLoginStatus(function(response) {
+//            console.log(response);
+//            //provjeri i je li već ulogiran u aplikaciju
+//            if (response.status === 'connected' && !localStorage.getItem("id")) {
+//                //korisnik je ulogiran u aplikaciju i facebook
+//                FB.api('/me/?fields=first_name,last_name,email,picture', function(odgovor) {
+//                    if (odgovor && !odgovor.error) {
+//                        console.log(JSON.stringify(odgovor));
+//                        localStorage.setItem("id", odgovor.id);
+//                        localStorage.setItem("firstName", odgovor.first_name);
+//                        localStorage.setItem("lastName", odgovor.last_name);
+//                        localStorage.setItem("mail", odgovor.email);
+//                        localStorage.setItem("picture", odgovor.picture.data.url);
+//                        //preusmjeri korisnika na drugu stranicu nakon logina
+//                        window.location = "ustanova.html";
+//                    }
+//                });
+//
+//            }
+//        });
+//    }
 
 
 

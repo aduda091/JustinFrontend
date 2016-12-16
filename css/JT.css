@@ -33,12 +33,16 @@ h2 {
     color: black;
 }
 
-h2::first-letter{
-    font-family: 'Helvetica Neue', sans-serif; font-size: 30px;
-}
+/*h2::first-letter{*/
+    /*font-family: 'Helvetica Neue', sans-serif; font-size: 30px;*/
+/*}*/
 
 h3 {
     font-size: 15px; font-variant-caps: titling-caps;
+}
+
+h5 {
+    font-size: 20px;
 }
 
 .list-group-item {
@@ -57,7 +61,7 @@ h3 {
 
 .input-group-addon {
     color:#fff;
-    background-color: #8f0d80;
+    background-color: indigo;
 }
 .btn.btn-primary {
     background:linear-gradient(to left,rgba(214, 12, 210, 0.33) ,rgba(33, 121, 214, 0.33));
@@ -65,11 +69,11 @@ h3 {
 }
 
 .btn.btn-info {
-    background: #8f0d80;
+    background: indigo;
     color: black;
 }
 .btn:active {
-    background: #8f0d80;
+    background: indigo;
 }
 
 .badge {
@@ -93,7 +97,7 @@ h3 {
 footer {
     font-size: 22px;
     color: white;
-    background-color: #8f0d80;
+    background-color: indigo;
     position: fixed;
     /*display:block;*/
     bottom: 0;
@@ -131,7 +135,7 @@ footer a:link, footer a:visited, footer a:hover footer a:active {
 .veliki {
     background-image: url("../images/bg-pattern.png");
     background-repeat: repeat;
-    background-color: #8f0d80;
+    background-color: indigo;
     padding: 20px;
     text-align: center;
 
@@ -142,7 +146,7 @@ footer a:link, footer a:visited, footer a:hover footer a:active {
 }
 .veliki.tamni {
     color: floralwhite;
-    height: 50vh;
+    height: 50%;
     margin-bottom: 0%;
 }
 .veliki.tamni h1, .veliki.tamni h2 {
@@ -151,7 +155,7 @@ footer a:link, footer a:visited, footer a:hover footer a:active {
 
 .veliki.svjetli {
     color: #111111;
-    height: 70vh;
+    height: 60%;
 }
 
 /*checkbox */
