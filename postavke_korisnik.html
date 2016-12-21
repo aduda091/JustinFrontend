@@ -20,6 +20,11 @@
 
     <!-- Vue.js -->
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <!--google login -->
+    <script src="https://apis.google.com/js/api:client.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="732044600317-e69j15getlg1kilemu2uj3d24tob2abj.apps.googleusercontent.com">
 </head>
 <body>
 <div id="postavke">
@@ -100,6 +105,20 @@
         });
     });
 
+    //google
+    var startApp = function() {
+        gapi.load('auth2', function(){
+            // Retrieve the singleton for the GoogleAuth library and set up the client.
+            auth2 = gapi.auth2.init({
+                client_id: '732044600317-e69j15getlg1kilemu2uj3d24tob2abj.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                // Request scopes in addition to 'profile' and 'email'
+                //scope: 'additional_scope'
+            });
+
+        });
+    };
+
 
     var postavke = new Vue({
         el: '#postavke',
@@ -116,20 +135,29 @@
                 localStorage.removeItem("firstName");
                 localStorage.removeItem("lastName");
                 localStorage.removeItem("mail");
+                localStorage.removeItem("picture");
+
+                //google logout
+                var GoogleAuth = gapi.auth2.getAuthInstance();
+                if( GoogleAuth.isSignedIn.get()) {
+                    //korisnik je prijavljen u google
+                    GoogleAuth.signOut();
+
+                }
 
                 //facebook logout
                 FB.getLoginStatus(function(response) {
                     if (response.status === 'connected') {
                         //korisnik je ulogiran preko facebooka, odlogiraj ga
                         FB.logout(function(odgovor) {
-                            document.location = "index.html";
+                            //document.location = "index.html";
                         });
                     }
                 });
 
 
                 //preusmjeri korisnika na početnu stranicu nakon logouta
-                //window.location = "index.html";
+                window.location = "index.html";
             }
         }
     });
@@ -158,6 +186,8 @@
 
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');
+
+    startApp();
 
 </script>
 
