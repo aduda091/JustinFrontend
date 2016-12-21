@@ -95,7 +95,6 @@
     };
 
     function attachSignin(element) {
-        console.log(element.id);
         auth2.attachClickHandler(element, {},
                 function(googleUser) {
 
@@ -144,7 +143,7 @@
         FB.getLoginStatus(function(response) {
             console.log(response);
             //provjeri i je li već ulogiran u aplikaciju
-            if (response.status === 'connected' && !localStorage.getItem("id")) {
+            if (response.status === 'connected') {
                 //korisnik je ulogiran u aplikaciju i facebook
                 FB.api('/me/?fields=first_name,last_name,email,picture', function(odgovor) {
                     if (odgovor && !odgovor.error) {
