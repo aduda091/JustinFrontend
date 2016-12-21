@@ -111,7 +111,8 @@
                     localStorage.setItem("mail", profile.getEmail());
                     localStorage.setItem("picture", profile.getImageUrl());
                     //preusmjeri korisnika na drugu stranicu nakon logina
-                    window.location = "ustanova.html";
+                    //window.location = "ustanova.html";
+                    location.reload(true);
                 }, function(error) {
                     alert(JSON.stringify(error, undefined, 2));
                 });
@@ -154,7 +155,8 @@
                         localStorage.setItem("mail", odgovor.email);
                         localStorage.setItem("picture", odgovor.picture.data.url);
                         //preusmjeri korisnika na drugu stranicu nakon logina
-                        window.location = "ustanova.html";
+                        //window.location = "ustanova.html";
+                        location.reload(true);
                     }
                 });
 
