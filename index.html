@@ -23,6 +23,11 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
     <script src="https://use.fontawesome.com/75c0c19277.js"></script>
+
+    <!--google login -->
+    <script src="https://apis.google.com/js/api:client.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="732044600317-e69j15getlg1kilemu2uj3d24tob2abj.apps.googleusercontent.com">
 </head>
 <body style="padding-bottom: 0">
 
@@ -48,7 +53,7 @@
     <div>
 
 
-            <a class="btn  btn-social-icon btn-lg btn-google" style="font-size: 35px; width: 100px;height: 100px;">
+            <a class="btn  btn-social-icon btn-lg btn-google" id="googleLogin" style="font-size: 35px; width: 100px;height: 100px;">
                 <span class="fa fa-google" style="line-height: 100px;"></span>
             </a>
 
@@ -73,6 +78,48 @@
         //ako je, nema potrebe da gleda početnu stranicu
         window.location = "ustanova.html";
     }
+
+    //google login
+    var googleUser = {};
+    var startApp = function() {
+        gapi.load('auth2', function(){
+            // Retrieve the singleton for the GoogleAuth library and set up the client.
+            auth2 = gapi.auth2.init({
+                client_id: '732044600317-e69j15getlg1kilemu2uj3d24tob2abj.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                // Request scopes in addition to 'profile' and 'email'
+                //scope: 'additional_scope'
+            });
+            attachSignin(document.getElementById('googleLogin'));
+        });
+    };
+
+    function attachSignin(element) {
+        console.log(element.id);
+        auth2.attachClickHandler(element, {},
+                function(googleUser) {
+
+                    var profile = googleUser.getBasicProfile();
+                    /*
+                    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                    console.log('Name: ' + profile.getName());
+                    console.log('Image URL: ' + profile.getImageUrl());
+                    console.log('Email: ' + profile.getEmail());*/
+
+                    localStorage.setItem("id", profile.getId());
+                    localStorage.setItem("firstName", profile.getGivenName());
+                    localStorage.setItem("lastName", profile.getFamilyName());
+                    localStorage.setItem("mail", profile.getEmail());
+                    localStorage.setItem("picture", profile.getImageUrl());
+                    //preusmjeri korisnika na drugu stranicu nakon logina
+                    window.location = "ustanova.html";
+                }, function(error) {
+                    alert(JSON.stringify(error, undefined, 2));
+                });
+    }
+
+    startApp();//wrapper za google login
+
 
     //facebook sdk
     $.getScript('//connect.facebook.net/hr_HR/sdk.js', function(){
