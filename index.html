@@ -89,9 +89,19 @@
                     <div class="form-group">
                         <div class="input-group input-group-lg">
                             <span class="input-group-addon" id="sizing-addon2" style="width: 7ex"><b>$</b></span>
-                            <input type="text" class="form-control" placeholder="Password" aria-describedby="sizing-addon1">
+                            <input :type="lozinkaTip" class="form-control" placeholder="Password" aria-describedby="sizing-addon1">
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div style="font-size: 16px; font-weight: normal">
+                            <label>
+                                <input type="checkbox" v-model="prikaziLozinku"  />
+                                Prikaži lozinku
+                            </label>
+                        </div>
+                    </div>
+
                     <p style="font-size: 18px;">Nemaš račun? Registriraj se <a href="registracija.html" style="color: #53046f;">ovdje!</a> </p>
 
                     <div class="form-group">
@@ -112,6 +122,19 @@
 <script>
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');
+
+    var JTLogin = new Vue({
+        el: '#loginModal',
+        data: {
+            prikaziLozinku : false,
+        },
+        computed: {
+            lozinkaTip : function () {
+                //ternarni operator jer ga nisam dugo koristio :D
+                return this.prikaziLozinku ? "text" : "password";
+            }
+        }
+    });
 
     //provjera je li korisnik prijavljen na stranicu na bilo koji način
     if(localStorage.firstName) {
