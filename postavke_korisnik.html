@@ -30,7 +30,13 @@
 <div id="postavke">
 <div id="navigacija"></div>
 <div class="container">
-<h1>{{firstName}} {{lastName}} <button class="btn btn-primary btn-lg" style="background: indigo; color: white; font-size: 20px; margin-left: 2em;" @click="logout">Odjava</button></h1>
+<h1>
+    {{firstName}} {{lastName}}
+    <button class="btn btn-primary btn-lg" style="background: indigo; color: white; font-size: 20px; margin-left: 2em;" @click="logout">Odjava</button>
+    <button class="btn btn-primary btn-lg" style="background: indigo; color: white; font-size: 20px; margin-left: 2em;" @click="googleLogout">Google odjava</button>
+    <button class="btn btn-primary btn-lg" style="background: indigo; color: white; font-size: 20px; margin-left: 2em;" @click="facebookLogout">Facebook odjava</button>
+
+</h1>
 
 <h2>Osobne informacije:</h2>
 <h3 style="font-size: 20px">Izmijeni osobne informacije ovdje</h3>
@@ -39,23 +45,20 @@
 
                 <div class="input-group">
                 <label class="input-group-addon" style="width: 15ex;font-size:20px"><b>Ime:</b> </label>
-                <input type="text" class="form-control" :value="firstName" aria-describedby="sizing-addon1">
+                <input type="text" class="form-control" :value="firstName" />
                 </div>
 
                 <div class="input-group">
                     <label class="input-group-addon" style="width: 15ex;font-size:20px"><b>Prezime:</b> </label>
-                <input type="text" class="form-control" :value="lastName" aria-describedby="sizing-addon1">
+                <input type="text" class="form-control" :value="lastName" />
                 </div>
 
                 <div class="input-group">
                     <label class="input-group-addon" style="width: 15ex;font-size:20px"><b>E-mail:</b> </label>
-                <input type="text" class="form-control" :value="email" aria-describedby="sizing-addon1">
+                <input type="text" class="form-control" :value="email" />
                 </div>
 
-                <!--<div class="input-group">-->
-                    <!--<label class="input-group-addon" style="width: 13ex"><b>Šifra:</b> </label>-->
-                <!--<input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1">-->
-                    <!--</div>-->
+                <!-- todo: možda korisnik treba potvrditi lozinkom učinjene izmjene? omogućiti mu izmjenu lozinke samo ako unese postojeću -->
             </div>
             <br>
             <h2>Obavijesti:</h2>
@@ -137,27 +140,29 @@
                 localStorage.removeItem("mail");
                 localStorage.removeItem("picture");
 
-                //google logout
-                var GoogleAuth = gapi.auth2.getAuthInstance();
-//                if( GoogleAuth.isSignedIn.get()) {
-//                    //korisnik je prijavljen u google
-//                    GoogleAuth.signOut();
-//
-//                }
-
-                //facebook logout
-                /*FB.getLoginStatus(function(response) {
-                    if (response.status === 'connected') {*/
-                        //korisnik je ulogiran preko facebooka, odlogiraj ga
-//                FB.logout(function(odgovor) {
-//                    //document.location = "index.html";
-//                });
-                /*    }
-                });*/
-
-
                 //preusmjeri korisnika na početnu stranicu nakon logouta
                 window.location = "index.html";
+            },
+            googleLogout: function () {
+
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.disconnect();//signOut ne čini previše pa je ovo "flaster" do daljnjeg
+                auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                });
+            },
+
+            facebookLogout: function () {
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        //korisnik je ulogiran preko facebooka, odlogiraj ga
+                        FB.logout(function (odgovor) {
+                            console.log("Korisnik je prijavljen u Facebook, odjavljujem ga");
+                            console.log("Odgovor: " + odgovor);
+                            //document.location = "index.html";
+                        });
+                    }
+                });
             }
         }
     });
