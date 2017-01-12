@@ -33,7 +33,7 @@
 
 
 <div class="veliki svjetli" style="background-color: antiquewhite">
-<h2> Dosta ti je čekanja u redovima?</h2>
+    <h2> Dosta ti je čekanja u redovima?</h2>
     <img src="images/logo.png" alt="..." width="300px" style="margin-bottom: 30px;">
     <p style="font-size: 25px;"> Uzmi broj putem aplikacije te dođi točno na vrijeme :)</p>
     <p></p>
@@ -45,7 +45,7 @@
 <div class="veliki tamni" style="background-color: indigo">
     <h2>Prijava ili registracija</h2>
 
-    <a class="btn btn-primary btn-lg" href="login.html" style=" background-color:#cc1aa0; color: #eff7ff; font-size: 60px; text-align: center; height: 100px; width: 100px;line-height: 80px;font-weight: bold;">
+    <a class="btn btn-primary btn-lg" href="#" data-toggle="modal" data-target="#loginModal" style=" background-color:#cc1aa0; color: #eff7ff; font-size: 60px; text-align: center; height: 100px; width: 100px;line-height: 80px;font-weight: bold;">
         JT
     </a>
     <p style="font-size: 20px">ili putem društvenih mreža</p>
@@ -53,21 +53,60 @@
     <div>
 
 
-            <a class="btn  btn-social-icon btn-lg btn-google" id="googleLogin" style="font-size: 35px; width: 100px;height: 100px;">
-                <span class="fa fa-google" style="line-height: 100px;"></span>
-            </a>
+        <a class="btn  btn-social-icon btn-lg btn-google" id="googleLogin" style="font-size: 35px; width: 100px;height: 100px;">
+            <span class="fa fa-google" style="line-height: 100px;"></span>
+        </a>
 
-            <a class="btn btn-social-icon btn-lg btn-facebook" id="fbLogin" style="font-size: 35px; width: 100px;height: 100px;">
-                <span class="fa fa-facebook" style="line-height: 100px;"></span>
-            </a>
+        <a class="btn btn-social-icon btn-lg btn-facebook" id="fbLogin" style="font-size: 35px; width: 100px;height: 100px;">
+            <span class="fa fa-facebook" style="line-height: 100px;"></span>
+        </a>
 
-            <a class="btn  btn-social-icon btn-lg btn-twitter" style="font-size: 35px; width: 100px;height: 100px;">
-                <span class="fa fa-twitter" style="line-height: 100px;"></span>
-            </a>
+        <a class="btn  btn-social-icon btn-lg btn-twitter" style="font-size: 35px; width: 100px;height: 100px;">
+            <span class="fa fa-twitter" style="line-height: 100px;"></span>
+        </a>
 
     </div>
 
 </div>
+
+<!--modalni prozor za login korisnika-->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Prijava korisnika</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#">
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="sizing-addon1" style="width: 7ex"><b>@</b></span>
+                            <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="sizing-addon2" style="width: 7ex"><b>$</b></span>
+                            <input type="text" class="form-control" placeholder="Password" aria-describedby="sizing-addon1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>-->
+                        <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='postavke_korisnik.html'" style="background: indigo; color: white">Prijava</button>
+                    </div>
+
+                </form>
+            </div>
+            <!--<div class="modal-footer">-->
+
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+<!--kraj modalnog prozora-->
 
 <script>
     $('#footer').load('Footer.html');
@@ -100,10 +139,10 @@
 
                     var profile = googleUser.getBasicProfile();
                     /*
-                    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                    console.log('Name: ' + profile.getName());
-                    console.log('Image URL: ' + profile.getImageUrl());
-                    console.log('Email: ' + profile.getEmail());*/
+                     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                     console.log('Name: ' + profile.getName());
+                     console.log('Image URL: ' + profile.getImageUrl());
+                     console.log('Email: ' + profile.getEmail());*/
 
                     localStorage.setItem("id", profile.getId());
                     localStorage.setItem("firstName", profile.getGivenName());
