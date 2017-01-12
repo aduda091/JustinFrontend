@@ -31,10 +31,11 @@
 <div id="navigacija"></div>
 <div class="container">
 <h1>
-    {{firstName}} {{lastName}}
-    <button class="btn btn-primary btn-lg" style="background: indigo; color: white; font-size: 20px; margin-left: 2em;" @click="logout">Odjava</button>
-    <button class="btn btn-primary btn-lg" style="background: indigo; color: white; font-size: 20px; margin-left: 2em;" @click="googleLogout">Google odjava</button>
-    <button class="btn btn-primary btn-lg" style="background: indigo; color: white; font-size: 20px; margin-left: 2em;" @click="facebookLogout">Facebook odjava</button>
+    {{firstName}} {{lastName}} <br>
+    <button class="btn btn-primary btn-lg" style="background: indigo; color: white; font-size: 20px;" @click="logout">Odjava</button> <br>
+    <!--todo: donja dva gumba se trebaju prikazivati samo u slučaju da je korisnik zbilja prijavljen preko tih mreža -->
+    <button class="btn btn-primary btn-lg" style="background: indigo; color: white; font-size: 20px;" @click="googleLogout">Google odjava</button> <br>
+    <button class="btn btn-primary btn-lg" style="background: indigo; color: white; font-size: 20px;" @click="facebookLogout">Facebook odjava</button> <br>
 
 </h1>
 
