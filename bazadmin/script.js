@@ -1,5 +1,8 @@
 $(function () {
 
+
+    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODQ2NjE0NjUsInVzZXJfbmFtZSI6InRwZXJrb3ZpY0B1bmlwdS5ociIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiMWE2ZTk0YWYtNzU1Ny00ZWU5LTlmMmUtMzI2ZDBmYTY2YmIwIiwiY2xpZW50X2lkIjoidHJ1c3RlZC1jbGllbnQiLCJzY29wZSI6WyJ0cnVzdCJdfQ.2jvu07oWmwG01eOIvCR_iFQW6TRvMLqI-nELZOaB024";
+
     $('.sidebar').hide();
     //preloader
     var preloader = '<div class="loader loader-default"></div>';
@@ -10,6 +13,33 @@ $(function () {
     $(document).ajaxComplete(function () {
         $(".loader").removeClass("is-active");
     });
+
+    function autorizacija() {
+        // btoa() za base-64 enkcode? jednog dana?
+         var url = "https://justin-time.herokuapp.com/oauth/token?grant_type=password&username=tperkovic@unipu.hr&password=123456";
+        //var url = "https://trusted-client:secret@justin-time.herokuapp.com/oauth/token?grant_type=password&username=tperkovic@unipu.hr&password=123456";
+        $.ajax({
+            method: "GET",
+            contentType: 'application/json',
+            dataType: "json",
+            cache: true,
+            beforeSend: function (request)
+            {
+                request.withCredentials = true;
+                request.setRequestHeader("Authorization", "Basic " +  "trusted-client:secret");
+            },
+            url: url
+        }).done(function( data ) {
+            console.log(data);
+            token = data.access_token;
+        }).fail(function(jqxhr, textStatus, error) {
+            console.log("Error! Koji?");
+            //console.log(jqxhr);
+            console.log( textStatus + " " + error);
+        });
+    }
+
+    // autorizacija();
 
 
     var korisnici = new Vue({
@@ -49,7 +79,10 @@ $(function () {
                     contentType: 'application/json',
                     dataType: "json",
                     cache: true,
-                    url: url
+                    url: url,
+                    data: {
+                        "access_token": token
+                    }
                 }).done(function( data ) {
                     app.korisnici = data;
                 }).fail(function(jqxhr, textStatus, error) {
@@ -282,7 +315,10 @@ $(function () {
                     contentType: 'application/json',
                     dataType: "json",
                     cache: true,
-                    url: url
+                    url: url,
+                    data: {
+                        "access_token": token
+                    }
                 }).done(function( data ) {
                     app.ustanove = data;
                 }).fail(function(jqxhr, textStatus, error) {
@@ -494,7 +530,10 @@ $(function () {
                     contentType: 'application/json',
                     dataType: "json",
                     cache: true,
-                    url: url
+                    url: url,
+                    data: {
+                        "access_token": token
+                    }
                 }).done(function (data) {
                     app.ustanove = data;
                 }).fail(function (jqxhr, textStatus, error) {

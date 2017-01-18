@@ -99,7 +99,10 @@
         contentType: 'application/json',
         dataType: "json",
         cache: true,
-        url: url
+        url: url,
+        data: {
+            "access_token" : localStorage.getItem("token")
+        }
     }).done(function( data ) {
         postaviUstanovu(data);
     }).fail(function(jqxhr, textStatus, error) {

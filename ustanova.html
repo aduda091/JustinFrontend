@@ -67,8 +67,6 @@
     $('body').append(preloader);
 
     window.postaviUstanove = function (data) {
-//        console.log("Dohvacene ustanove: ");
-//        console.log(data);
         //postavi ustanove na dohvaćene podatke iz ajax requesta
         ustanove.ustanove = data;
     };
@@ -103,25 +101,19 @@
         }
     });
 
-
-
-//    var url = 'http://duda-toshiba:8080/facility/read-all';
-    //var url = "http://localhost:3000/ustanove";
     var url = "https://justin-time.herokuapp.com/facility/read-all";
     $(".loader").addClass("is-active");
     $.ajax({
         method: "GET",
         contentType: 'application/json',
-        //jsonp : true,
         dataType: "json",
-        //crossDomain : true,
-        //jsonpCallback: "postaviUstanove",
         cache: true,
-        url: url
+        url: url,
+        data: {
+            "access_token" : localStorage.getItem("token")
+        }
     }).done(function( data ) {
         $(".loader").removeClass("is-active");
-//        console.log("Funkcija done kaže:");
-//        console.log(data);
         postaviUstanove(data);
     }).fail(function(jqxhr, textStatus, error) {
         $(".loader").removeClass("is-active");

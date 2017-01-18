@@ -83,13 +83,13 @@
                     <div class="form-group">
                         <div class="input-group input-group-lg">
                             <span class="input-group-addon" id="sizing-addon1" style="width: 7ex"><b>@</b></span>
-                            <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+                            <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" v-model="mail" />
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group input-group-lg">
                             <span class="input-group-addon" id="sizing-addon2" style="width: 7ex"><b>$</b></span>
-                            <input :type="lozinkaTip" class="form-control" placeholder="Password" aria-describedby="sizing-addon1">
+                            <input :type="lozinkaTip" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" v-model="password" />
                         </div>
                     </div>
 
@@ -106,7 +106,7 @@
 
                     <div class="form-group">
                         <!--<button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>-->
-                        <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='postavke_korisnik.html'" style="background: indigo; color: white">Prijava</button>
+                        <button type="button" class="btn btn-primary btn-lg" @click="getToken" style="background: indigo; color: white">Prijava</button>
                     </div>
 
                 </form>
@@ -127,6 +127,78 @@
         el: '#loginModal',
         data: {
             prikaziLozinku : false,
+            mail : "",
+            password : ""
+        },
+        methods: {
+            getToken : function () {
+              var url = "https://justin-time.herokuapp.com/oauth/token";
+                var app = this;
+              $.ajax({
+                  type: 'GET',
+                  cache: true,
+                  dataType: 'json',
+                  beforeSend: function (xhr) {
+                      xhr.setRequestHeader('Authorization', 'Basic ' + btoa('trusted-client' + ':' + 'secret'));
+                  },
+                  data: {
+                      "grant_type" : "password",
+                      "username" : "tperkovic@unipu.hr",//app.mail,
+                      "password" : "123456"//app.password
+                  },
+                  url: url,
+                  statusCode: {
+                      403: function() {
+                          alert( "Prijava neuspješna" );
+                      },
+                      400: function () {
+                          alert("Prijava neuspješna");
+                      },
+                      500: function () {
+                          alert("Greška servera");
+                      }
+                  }
+              }).done(function (data) {
+                  console.log(JSON.stringify(data));
+                  var token = data.access_token;
+                  app.login(token);
+
+              });
+          },
+            login : function (token) {
+                var app = this;
+                /* todo: hardkodiranje
+                $.ajax({
+                    type: 'GET',
+                    cache: true,
+                    dataType: 'json',
+                    data: {
+                        "mail" : app.mail,
+                        "access_token": token
+                    },
+                    url: 'https://justin-time.herokuapp.com/user/mail',
+                    statusCode: {
+                        403: function() {
+                            alert( "Autorizacija neuspješna" );
+                        },
+                        400: function () {
+                            alert("Autorizacija neuspješna");
+                        },
+                        500: function () {
+                            alert("Greška servera");
+                        }
+                    }
+                }).done(function (data) {
+                    console.log(JSON.stringify(data));
+                });*/
+                localStorage.setItem("id", "58257ffeeb299517802f7e0b");
+                localStorage.setItem("firstName", "Tedi");
+                localStorage.setItem("lastName", "Perković");
+                localStorage.setItem("mail", "tperkovic@unipu.hr");
+                localStorage.setItem("token", token);
+                location.reload(true);
+
+            }
         },
         computed: {
             lozinkaTip : function () {

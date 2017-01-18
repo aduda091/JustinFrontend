@@ -97,7 +97,10 @@
                 contentType: 'application/json',
                 dataType: "json",
                 cache: true,
-                url: url
+                url: url,
+                data: {
+                    "access_token" : localStorage.getItem("token")
+                }
             }).done(function( data ) {
                 $(".loader").removeClass("is-active");
                 app.postaviRed(data);
