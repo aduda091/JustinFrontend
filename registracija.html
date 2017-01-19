@@ -120,6 +120,7 @@
                     return;
                 }
                 var url = "https://justin-time.herokuapp.com/user/create";
+                //todo: ovo zamijeniti s data {}
                 url += "?firstName=" + this.firstName;
                 url += "&lastName=" + this.lastName;
                 url += "&mail=" + this.mail;
@@ -127,14 +128,19 @@
                 $(".loader").addClass("is-active");
                 var app = this;
                 $.ajax({
-                    method: "GET",
+                    method: "POST",
                     contentType: 'application/json',
                     dataType: "json",
                     cache: true,
-                    url: url
+                    url: url,
+                    statusCode: {
+                        409: function () {
+                            alert("Korisnik s tom email adresom već postoji!");
+                        }
+                    }
                 }).done(function( data ) {
                     alert("Hvala na registraciji");
-                    window.location ="login.html";
+                    window.location ="index.html";
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
                     alert("Greška prilikom registracije: \n" +error);

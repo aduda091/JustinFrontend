@@ -1,21 +1,21 @@
 <script src="https://use.fontawesome.com/75c0c19277.js"></script>
 <footer>
 
-<div class="ikona">
+<div class="ikona" id="ustanoveIkona">
     <a href="ustanova.html" > <i class="fa fa-sign-in" aria-hidden="true"></i>
-        Uzmi broj
+        Ustanove
     </a>
 </div>
 
-<div class="ikona">
+<div class="ikona" id="trenutni">
     <a href="trenutni.html" > <i class="fa fa-ticket" aria-hidden="true"> </i>
         Moj broj
     </a>
 </div>
 
-<div class="ikona">
-    <a id="adresaProfila" href="login.html"><i class="fa fa-cogs" aria-hidden="true"></i>
-        <span id="imeKorisnika">Profil</span>
+<div class="ikona" id="profil">
+    <a id="adresaProfila" href="index.html"><i class="fa fa-cogs" aria-hidden="true"></i>
+        <span id="imeKorisnika">Prijava</span>
     </a>
 </div>
 
@@ -24,9 +24,13 @@
 <script>
    //login provjera i promjena relevantnih stvari
    if(localStorage.firstName) {
-       var slika = "<img src='" + localStorage.picture + "' alt='profile picture' />";
+       //var slika = "<img src='" + localStorage.picture + "' alt='profile picture' />";
        $('#adresaProfila').attr("href", "postavke_korisnik.html");//.find("i").remove();
        $('#imeKorisnika').text(localStorage.firstName);//.prepend(slika);
+   } else {
+       //ako korisnik nije prijavljen, skriva "moj broj" i širi preostale dvije ikone
+       $("#trenutni").hide();
+       $(".ikona").css("width", "50%");
    }
 
 

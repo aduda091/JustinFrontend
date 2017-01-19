@@ -143,8 +143,8 @@
                   },
                   data: {
                       "grant_type" : "password",
-                      "username" : "tperkovic@unipu.hr",//app.mail,
-                      "password" : "123456"//app.password
+                      "username" : app.mail,//"tperkovic@unipu.hr"
+                      "password" : app.password //"123456"
                   },
                   url: url,
                   statusCode: {
@@ -167,16 +167,16 @@
           },
             login : function (token) {
                 var app = this;
-                /* todo: hardkodiranje
+
                 $.ajax({
                     type: 'GET',
                     cache: true,
                     dataType: 'json',
                     data: {
-                        "mail" : app.mail,
+                        //"mail" : app.mail,
                         "access_token": token
                     },
-                    url: 'https://justin-time.herokuapp.com/user/mail',
+                    url: 'https://justin-time.herokuapp.com/user/me',
                     statusCode: {
                         403: function() {
                             alert( "Autorizacija neuspješna" );
@@ -190,13 +190,14 @@
                     }
                 }).done(function (data) {
                     console.log(JSON.stringify(data));
-                });*/
-                localStorage.setItem("id", "58257ffeeb299517802f7e0b");
-                localStorage.setItem("firstName", "Tedi");
-                localStorage.setItem("lastName", "Perković");
-                localStorage.setItem("mail", "tperkovic@unipu.hr");
-                localStorage.setItem("token", token);
-                location.reload(true);
+                    localStorage.setItem("firstName", data.firstName);
+                    localStorage.setItem("lastName", data.lastName);
+                    localStorage.setItem("mail", data.mail);
+                    localStorage.setItem("token", token);
+                    localStorage.setItem("role", data.role);
+                    //todo: dodati i vrijeme isteka, npr trenutno vrijeme u sekundama + expire time iz jsona
+                    location.reload(true);
+                });
 
             }
         },
