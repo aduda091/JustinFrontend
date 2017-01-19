@@ -108,6 +108,7 @@
         },
         methods: {
             postaviRed : function (data) {
+                console.log(data);
                 this.idUstanove = data.id;
                 this.nazivUstanove = data.name;
                 var redovi = data.queues;
@@ -137,7 +138,10 @@
                 contentType: 'application/json',
                 dataType: "json",
                 cache: true,
-                url: url
+                url: url,
+                data: {
+                    "access_token" : localStorage.getItem("token")
+                }
             }).done(function( data ) {
                 $(".loader").removeClass("is-active");
                 app.postaviRed(data);
