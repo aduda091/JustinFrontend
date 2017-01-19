@@ -33,7 +33,7 @@
         <ul class="list-group" >
             <template v-for="red in redovi">
                 <li class="list-group-item">
-                    <span class="badge">14</span><!-- todo: pročitati broj ljudi u redu iz baze kad bude dostupan -->
+                    <span class="badge">{{brojLjudi(red.id}}</span><!-- todo: pročitati broj ljudi u redu iz baze kad bude dostupan -->
                     <a :href="'trenutni.html?ustanova_id=' +idUstanove + '&red_id=' + red.id "> {{red.name}}</a>
                 </li>
             </template>
@@ -77,6 +77,30 @@
                 this.idUstanove = data.id;
                 this.nazivUstanove = data.name;
                 this.redovi = data.queues;
+//                for(var i=0; i<this.redovi.size;i++) {
+//
+//                }
+            },
+            brojLjudi : function (idReda) {
+                var url = 'https://justin-time.herokuapp.com/queue/' + idReda;
+                $.ajax({
+                    method: "GET",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url,
+                    data: {
+                        //"access_token" : localStorage.getItem("token")
+                    }
+                }).done(function( data ) {
+                    console.log("Broj ljudi vraca:");
+                    console.log(data);
+                    return data.priority;
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.log( textStatus + " " + error);
+                    return 0;
+                });
+
             }
         },
         created: function () {
