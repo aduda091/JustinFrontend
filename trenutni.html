@@ -119,6 +119,7 @@
                     console.log(data);
                     app.uRedu = true;
                     app.brojLjudi++;
+                    localStorage.setItem(app.idReda, true);
 
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
@@ -145,6 +146,7 @@
                     console.log(data);
                     app.uRedu = false;
                     app.brojLjudi--;
+                    localStorage.setItem(app.idReda, false);
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
                 });
@@ -153,7 +155,6 @@
         created: function () {
             var url = 'https://justin-time.herokuapp.com/facility/';
             var idUstanove = $.urlParam('ustanova_id');//izvući iz adrese GET
-
             if(idUstanove == null) {
                 //nije proslijeđen id ustanove, vrati na popis ustanova
                 //window.location = "ustanova.html";
@@ -180,6 +181,7 @@
                 app.nazivUstanove = data.name;
                 var redovi = data.queues;
                 app.idReda = $.urlParam('red_id');
+                app.uRedu = localStorage.getItem(app.idReda);
                 for(var i = 0; i<data.queues.length;i++) {
                     if(data.queues[i].id == app.idReda) app.red = data.queues[i];
                 }

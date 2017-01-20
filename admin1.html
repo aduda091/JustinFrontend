@@ -39,7 +39,7 @@
         <ul class="sidebar-nav" style="font-size: 22px">
             <li class="sidebar-brand">
                 <a href="#" style="font-size: 25px;color:#1ab7ea">
-                    <b>MUP</b> - osobne
+                    <b>MUP</b> - putovnice
                 </a>
             </li>
             <!--<li> <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a></li>-->
@@ -63,14 +63,6 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
-
-
-
-                <!--<div class="col-lg-12">-->
-                    <!--<h1>Simple Sidebar</h1>-->
-                    <!--<p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>-->
-                    <!--<p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>-->
-                <!--</div>-->
 
                 <div class="container" id="aplikacija">
                     <div class="row" style="margin-left: 60px">
@@ -138,35 +130,45 @@
                                 </thead>
 
                                 <tbody>
-                                <tr>
-                                    <td>Giacomo Guilizioni</td>
-                                    <td>1</td>
-                                    <td ><i class="fa fa-times" aria-hidden="true" style="font-size: 20px; color: #0a568c;"></i></td>
+                                <template v-for="korisnik in ljudiURedu">
+                                    <tr>
+                                        <td>{{korisnik.firstName}} {{korisnik.lastName}}</td>
+                                        <td>1</td>
+                                        <td>
+                                            <i class="fa fa-times" aria-hidden="true" style="font-size: 20px; color: #0a568c;" @click="ukloni(korisnik.mail)"></i>
+                                        </td>
+                                    </tr>
+                                </template>
 
-                                </tr>
-                                <tr>
-                                    <td>Marco Botto</td>
-                                    <td>2</td>
-                                    <td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>
+                                <!--<tr>-->
+                                    <!--<td>Giacomo Guilizioni</td>-->
+                                    <!--<td>1</td>-->
+                                    <!--<td ><i class="fa fa-times" aria-hidden="true" style="font-size: 20px; color: #0a568c;"></i></td>-->
 
-                                </tr>
-                                <tr>
-                                    <td>Mariah Maclachlan</td>
-                                    <td>3</td>
-                                    <td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>Marco Botto</td>-->
+                                    <!--<td>2</td>-->
+                                    <!--<td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>-->
 
-                                </tr>
-                                <tr>
-                                    <td>Valerie Liberty</td>
-                                    <td>4</td>
-                                    <td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>Mariah Maclachlan</td>-->
+                                    <!--<td>3</td>-->
+                                    <!--<td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>-->
 
-                                </tr>
-                                <tr>
-                                    <td>Guido Jack Guilizzoni</td>
-                                    <td>5</td>
-                                    <td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>
-                                </tr>
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>Valerie Liberty</td>-->
+                                    <!--<td>4</td>-->
+                                    <!--<td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>-->
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>Guido Jack Guilizzoni</td>-->
+                                    <!--<td>5</td>-->
+                                    <!--<td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>-->
+                                <!--</tr>-->
                                 </tbody>
                             </table></div>
 
@@ -196,10 +198,13 @@
         $("#wrapper").toggleClass("toggled");
     });
 
-    var brojevi = new Vue({
+    var admin = new Vue({
         el : "#aplikacija",
         data: {
-            trenutni: 0, prethodni:0, sljedeci:1
+            trenutni: 0, prethodni:0, sljedeci:1,
+            idUstanove : "5829f97b21ad6507d041f480",//mup
+            idReda : "5878cf40b3646416b86ba1ab", //mup - osobne iskaznice
+            ljudiURedu : []
         },
         methods: {
             povecaj: function () {
@@ -207,6 +212,28 @@
             },
             smanji: function () {
                 this.trenutni--;
+            },
+            ukloni: function (mail) {
+                var app = this;
+                var url = 'https://justin-time.herokuapp.com/queue/removeUser/';
+                url+= this.idUstanove;
+                url+="/" + this.idReda + "/" +mail;
+                url += "?access_token=" + localStorage.getItem("token");
+                $.ajax({
+                    method: "DELETE",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url,
+                    data: {
+                        //"access_token" : localStorage.getItem("token")
+                    }
+                }).done(function( data ) {
+                    console.log(data);
+
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.log( textStatus + " " + error);
+                });
             }
         },
         watch: {
@@ -221,6 +248,27 @@
                     this.sljedeci=this.trenutni+1;
                 }
             }
+        },
+        created: function () {
+            var app = this;
+            var url = 'https://justin-time.herokuapp.com/queue/getAllUsers/' + this.idReda;
+            $.ajax({
+                method: "GET",
+                contentType: 'application/json',
+                dataType: "json",
+                cache: true,
+                url: url,
+                data: {
+                    "access_token" : localStorage.getItem("token")
+                }
+            }).done(function( data ) {
+                console.log(data);
+                for(var i=0;i<data.length;i++) {
+                    app.ljudiURedu.push(data[i].user);
+                }
+            }).fail(function(jqxhr, textStatus, error) {
+                console.log( textStatus + " " + error);
+            });
         }
     })
 </script>

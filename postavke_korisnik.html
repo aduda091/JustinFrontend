@@ -136,13 +136,14 @@
             logout: function () {
 
                 //obriši lokalno spremljene podatke
-                localStorage.removeItem("id");
-                localStorage.removeItem("firstName");
-                localStorage.removeItem("lastName");
-                localStorage.removeItem("mail");
-                localStorage.removeItem("picture");
-                localStorage.removeItem("token");
+//                localStorage.removeItem("id");
+//                localStorage.removeItem("firstName");
+//                localStorage.removeItem("lastName");
+//                localStorage.removeItem("mail");
+//                localStorage.removeItem("picture");
+//                localStorage.removeItem("token");
 
+                localStorage.clear();
                 //preusmjeri korisnika na početnu stranicu nakon logouta
                 window.location = "index.html";
             },
