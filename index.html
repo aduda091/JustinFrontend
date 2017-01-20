@@ -196,7 +196,8 @@
                     localStorage.setItem("token", token);
                     localStorage.setItem("role", data.role);
                     //todo: dodati i vrijeme isteka, npr trenutno vrijeme u sekundama + expire time iz jsona
-                    location.reload(true);
+                    if(data.role == "ROLE_ADMIN") window.location = "admin1.html";
+                    else location.reload(true);
                 });
 
             }
