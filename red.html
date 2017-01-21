@@ -33,7 +33,7 @@
         <ul class="list-group" >
             <template v-for="red in redovi">
                 <li class="list-group-item">
-                    <span class="badge">{{red.broj}}</span><!-- todo: pročitati broj ljudi u redu iz baze kad bude dostupan -->
+                    <span class="badge" :id="'red_' + red.id">Učitavam...</span>
                     <a :href="'trenutni.html?ustanova_id=' +idUstanove + '&red_id=' + red.id "> {{red.name}}</a>
                 </li>
             </template>
@@ -75,6 +75,7 @@
 
             brojLjudi : function (idReda) {
                 var url = 'https://justin-time.herokuapp.com/queue/' + idReda;
+                var selektor = "#red_" + idReda;
                 $.ajax({
                     method: "GET",
                     contentType: 'application/json',
@@ -85,12 +86,14 @@
                         //"access_token" : localStorage.getItem("token")
                     }
                 }).done(function( data ) {
-                    console.log("Broj ljudi vraca:");
+                    console.log("Broj vraca:");
                     console.log(data);
-                    console.log("Broj ljudi u redu " + data.name + " je " + data.priority);
+                    console.log("Broj u redu " + data.name + " je " + data.priority);
+                    $(selektor).text(data.priority);
                     return data.priority;
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
+                    $(selektor).text(data.priority);
                     return "0";
                 });
                 //return Math.floor(Math.random()*10);
@@ -105,7 +108,7 @@
                     var red = {};
                     red.name = data.queues[i].name;
                     red.id = data.queues[i].id;
-                    red.broj = this.brojLjudi(red.id);
+                    this.brojLjudi(red.id);
                     this.redovi.push(red);
                 }
             }
