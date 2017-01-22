@@ -33,7 +33,7 @@
 <body>
 
 <div id="wrapper">
-
+<div id="aplikacija">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav" style="font-size: 22px">
@@ -64,7 +64,7 @@
         <div class="container-fluid">
             <div class="row">
 
-                <div class="container" id="aplikacija">
+                <div class="container">
                     <div class="row" style="margin-left: 60px">
 
                         <div class="col-lg-2 col-sm-6">
@@ -109,7 +109,7 @@
 
                         <div class="col-lg-2 col-sm-6">
                             <div class="circle-tile ">
-                                <a href="#"><div class="circle-tile-heading dark-blue"><i class="fa fa-power-off fa-fw fa-3x"></i></div></a>
+                                <a href="#"><div class="circle-tile-heading dark-blue" @click="reset"><i class="fa fa-power-off fa-fw fa-3x"></i></div></a>
                                 <div class="circle-tile-content dark-blue">
                                     <div class="circle-tile-description text-faded"> Kraj rada</div>
                                     <div class="circle-tile-number text-faded ">*</div>
@@ -124,8 +124,8 @@
                                 <thead>
                                 <tr>
                                     <th>Ime</th>
-                                    <th>Broj</th>
-                                    <th>Ukloni</th>
+                                    <th style="text-align: center">Broj</th>
+                                    <th style="text-align: center">Ukloni</th>
                                 </tr>
                                 </thead>
 
@@ -133,42 +133,13 @@
                                 <template v-for="korisnik in ljudiURedu">
                                     <tr>
                                         <td>{{korisnik.firstName}} {{korisnik.lastName}}</td>
-                                        <td>1</td>
-                                        <td>
-                                            <i class="fa fa-times" aria-hidden="true" style="font-size: 20px; color: #0a568c;" @click="ukloni(korisnik.mail)"></i>
+                                        <td style="text-align: center">{{korisnik.broj}}</td>
+                                        <td style="text-align: center">
+                                            <i class="fa fa-times" aria-hidden="true" style="font-size: 20px; color: #0a568c; cursor: pointer;" @click="ukloni(korisnik.mail)"></i>
                                         </td>
                                     </tr>
                                 </template>
 
-                                <!--<tr>-->
-                                    <!--<td>Giacomo Guilizioni</td>-->
-                                    <!--<td>1</td>-->
-                                    <!--<td ><i class="fa fa-times" aria-hidden="true" style="font-size: 20px; color: #0a568c;"></i></td>-->
-
-                                <!--</tr>-->
-                                <!--<tr>-->
-                                    <!--<td>Marco Botto</td>-->
-                                    <!--<td>2</td>-->
-                                    <!--<td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>-->
-
-                                <!--</tr>-->
-                                <!--<tr>-->
-                                    <!--<td>Mariah Maclachlan</td>-->
-                                    <!--<td>3</td>-->
-                                    <!--<td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>-->
-
-                                <!--</tr>-->
-                                <!--<tr>-->
-                                    <!--<td>Valerie Liberty</td>-->
-                                    <!--<td>4</td>-->
-                                    <!--<td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>-->
-
-                                <!--</tr>-->
-                                <!--<tr>-->
-                                    <!--<td>Guido Jack Guilizzoni</td>-->
-                                    <!--<td>5</td>-->
-                                    <!--<td style="font-size: 20px; color: #0a568c"><i class="fa fa-times" aria-hidden="true"></i></td>-->
-                                <!--</tr>-->
                                 </tbody>
                             </table></div>
 
@@ -185,7 +156,7 @@
 
     </div>
     <!-- /#page-content-wrapper -->
-
+</div>
 </div>
 <!-- /#wrapper -->
 
@@ -201,7 +172,7 @@
     var admin = new Vue({
         el : "#aplikacija",
         data: {
-            trenutni: 0, prethodni:0, sljedeci:1,
+            trenutni: 1, prethodni:0, sljedeci:2,
             idUstanove : "5829f97b21ad6507d041f480",//mup
             idReda : "5878cf40b3646416b86ba1ab", //mup - osobne iskaznice
             ljudiURedu : []
@@ -234,6 +205,31 @@
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
                 });
+            },
+            reset: function () {
+                if(!confirm("Sigurno želite resetirati redove?")) return;
+
+                var url = 'https://justin-time.herokuapp.com/queue/resetQueue';
+
+                url += "?access_token=" + localStorage.getItem("token");
+                $.ajax({
+                    method: "DELETE",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url,
+                    data: {
+                        //"access_token" : localStorage.getItem("token")
+                    }
+                }).done(function( data ) {
+                    console.log(data);
+                    alert("Redovi resetirani");
+
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.log( textStatus + " " + error);
+                    alert("Greška prilikom resetiranja redova!");
+                });
+
             }
         },
         watch: {
@@ -264,7 +260,9 @@
             }).done(function( data ) {
                 console.log(data);
                 for(var i=0;i<data.length;i++) {
-                    app.ljudiURedu.push(data[i].user);
+                    var korisnik = data[i].user;
+                    korisnik.broj = i+1;
+                    app.ljudiURedu.push(korisnik);
                 }
             }).fail(function(jqxhr, textStatus, error) {
                 console.log( textStatus + " " + error);

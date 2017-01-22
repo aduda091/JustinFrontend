@@ -1,7 +1,7 @@
 $(function () {
 
 
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODQ2NjE0NjUsInVzZXJfbmFtZSI6InRwZXJrb3ZpY0B1bmlwdS5ociIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiMWE2ZTk0YWYtNzU1Ny00ZWU5LTlmMmUtMzI2ZDBmYTY2YmIwIiwiY2xpZW50X2lkIjoidHJ1c3RlZC1jbGllbnQiLCJzY29wZSI6WyJ0cnVzdCJdfQ.2jvu07oWmwG01eOIvCR_iFQW6TRvMLqI-nELZOaB024";
+    var token = localStorage.getItem("token");
 
     $('.sidebar').hide();
     //preloader
@@ -39,7 +39,7 @@ $(function () {
         });
     }
 
-    // autorizacija();
+    //autorizacija();
 
 
     var korisnici = new Vue({
