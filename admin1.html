@@ -38,9 +38,23 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav" style="font-size: 22px">
             <li class="sidebar-brand">
-                <a href="#" style="font-size: 25px;color:#1ab7ea">
-                    <b>MUP</b> - putovnice
-                </a>
+                <!--<a href="#" style="font-size: 25px;color:#1ab7ea">-->
+                    <!--<b>MUP</b> - putovnice-->
+                <!--</a>-->
+                <label style="font-size: 25px;color:#1ab7ea" for="red">
+                    Šalteromat
+                </label>
+            </li>
+
+            <li>
+                <select name="red" id="red" class="form-control" style="width: 90%;margin-left: auto;margin-right: auto;" v-model="idReda">
+                    <option value="" disabled selected>Odaberite red...</option>
+                    <template v-for="ustanova in sveUstanove">
+                        <optgroup :label="ustanova.name">
+                            <option v-for="red in ustanova.queues" :value="red.id">{{red.name}}</option>
+                        </optgroup>
+                    </template>
+                </select>
             </li>
             <!--<li> <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a></li>-->
             <li>
@@ -120,7 +134,8 @@
 
 
                         <div class="col-lg-6" style="margin-top: 60px; margin-left: 60px; font-size: 20px">
-                            <table class="table table-hover">
+                            <h2>{{nazivReda}}</h2>
+                            <table class="table table-hover" v-if="ljudiURedu.length > 0">
                                 <thead>
                                 <tr>
                                     <th>Ime</th>
@@ -141,7 +156,9 @@
                                 </template>
 
                                 </tbody>
-                            </table></div>
+                            </table>
+                            <h3 v-else>U ovom redu trenutno nema ljudi</h3>
+                        </div>
 
 
                     <!--sat-->
@@ -174,10 +191,45 @@
         data: {
             trenutni: 1, prethodni:0, sljedeci:2,
             idUstanove : "5829f97b21ad6507d041f480",//mup
-            idReda : "5878cf40b3646416b86ba1ab", //mup - osobne iskaznice
-            ljudiURedu : []
+            idReda : "5878cf40b3646416b86ba1ab", //mup - osobne iskaznice,
+            nazivReda: "",
+            ljudiURedu : [],
+            sveUstanove : []
         },
         methods: {
+            ucitajLjude: function () {
+                var app = this;
+                var url = 'https://justin-time.herokuapp.com/queue/getAllUsers/' + this.idReda;
+                $.ajax({
+                    method: "GET",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url,
+                    data: {
+                        "access_token" : localStorage.getItem("token")
+                    },
+                    statusCode: {
+                        401: function () {
+                            alert("Sesija istekla, ponovno se prijavite!");
+                        },
+                        404: function () {
+                            app.ljudiURedu = [];
+                        }
+                    }
+                }).done(function( data ) {
+                    console.log(data);
+                    app.ljudiURedu = [];
+                    app.nazivReda = data[0].queuePriority.name;
+                    for(var i=0;i<data.length;i++) {
+                        var korisnik = data[i].user;
+                        korisnik.broj = i+1;
+                        app.ljudiURedu.push(korisnik);
+                    }
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.log( textStatus + " " + error);
+                });
+            },
             povecaj: function () {
                 this.trenutni++;
             },
@@ -243,31 +295,65 @@
                     this.prethodni=this.trenutni-1;
                     this.sljedeci=this.trenutni+1;
                 }
+            },
+            idReda: function () {
+                this.ucitajLjude();
             }
         },
         created: function () {
+            //duplicirani kod jer zbog watch idReda ne učitava defaultni id prilikom pokretanja
             var app = this;
-            var url = 'https://justin-time.herokuapp.com/queue/getAllUsers/' + this.idReda;
+            this.ucitajLjude();
+//            var url = 'https://justin-time.herokuapp.com/queue/getAllUsers/' + this.idReda;
+//            $.ajax({
+//                method: "GET",
+//                contentType: 'application/json',
+//                dataType: "json",
+//                cache: true,
+//                url: url,
+//                data: {
+//                    "access_token" : localStorage.getItem("token")
+//                },
+//                statusCode: {
+//                    401: function () {
+//                        alert("Sesija istekla, ponovno se prijavite!");
+//                    },
+//                    404: function () {
+//                        app.ljudiURedu = [];
+//                    }
+//                }
+//            }).done(function( data ) {
+//                console.log(data);
+//                app.ljudiURedu = [];
+//                for(var i=0;i<data.length;i++) {
+//                    var korisnik = data[i].user;
+//                    korisnik.broj = i+1;
+//                    app.ljudiURedu.push(korisnik);
+//                }
+//            }).fail(function(jqxhr, textStatus, error) {
+//                console.log( textStatus + " " + error);
+//            });
+
+            //ustanove i redovi
             $.ajax({
                 method: "GET",
                 contentType: 'application/json',
                 dataType: "json",
                 cache: true,
-                url: url,
+                url: "https://justin-time.herokuapp.com/facility/read-all",
                 data: {
-                    "access_token" : localStorage.getItem("token")
+                    "access_token": localStorage.getItem("token")
                 }
             }).done(function( data ) {
-                console.log(data);
-                for(var i=0;i<data.length;i++) {
-                    var korisnik = data[i].user;
-                    korisnik.broj = i+1;
-                    app.ljudiURedu.push(korisnik);
-                }
+                app.sveUstanove = data;
             }).fail(function(jqxhr, textStatus, error) {
                 console.log( textStatus + " " + error);
             });
+
+            this.idReda = "5878cf40b3646416b86ba1ab";
+
         }
+
     })
 </script>
 
