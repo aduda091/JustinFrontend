@@ -6,32 +6,6 @@ $(function () {
     $('.sidebar').hide();
 
 
-    function autorizacija() {
-        // btoa() za base-64 enkcode? jednog dana?
-         var url = "https://justin-time.herokuapp.com/oauth/token?grant_type=password&username=tperkovic@unipu.hr&password=123456";
-        //var url = "https://trusted-client:secret@justin-time.herokuapp.com/oauth/token?grant_type=password&username=tperkovic@unipu.hr&password=123456";
-        $.ajax({
-            method: "GET",
-            contentType: 'application/json',
-            dataType: "json",
-            cache: true,
-            beforeSend: function (request)
-            {
-                request.withCredentials = true;
-                request.setRequestHeader("Authorization", "Basic " +  "trusted-client:secret");
-            },
-            url: url
-        }).done(function( data ) {
-            console.log(data);
-            token = data.access_token;
-        }).fail(function(jqxhr, textStatus, error) {
-            console.log("Error! Koji?");
-            //console.log(jqxhr);
-            console.log( textStatus + " " + error);
-        });
-    }
-
-    //autorizacija();
 
 
     var korisnici = new Vue({
@@ -84,10 +58,11 @@ $(function () {
             obrisiKorisnika: function (id) {
                 var url = "https://justin-time.herokuapp.com/user/delete/";
                 url += id;
+                url += "?access_token=" +token;
                 var potvrdi = confirm("Potvrdi brisanje korisnika?");
                 if(potvrdi==true) {
                     $.ajax({
-                        method: "GET",
+                        method: "DELETE",
                         contentType: 'application/json',
                         dataType: "json",
                         cache: true,
@@ -102,8 +77,8 @@ $(function () {
                     });
                 }
             },
-            urediKorisnika: function (id) {
-                korisnik.pronadjiKorisnika(id);
+            urediKorisnika: function (mail) {
+                korisnik.pronadjiKorisnika(mail);
                 korisnik.opcija = "Uredi";
                 $('#dodajKorisnikaModal').modal('show');
             }
@@ -126,16 +101,20 @@ $(function () {
             opcija: "Dodaj"
         },
         methods: {
-            pronadjiKorisnika: function (id) {
-                var url = "https://justin-time.herokuapp.com/user/id/";
-                url += id;
+            pronadjiKorisnika: function (mail) {
+                var url = "https://justin-time.herokuapp.com/user/";
+                url += mail;
+
                 var app = this;
                 $.ajax({
                     method: "GET",
                     contentType: 'application/json',
                     dataType: "json",
                     cache: true,
-                    url: url
+                    url: url,
+                    data: {
+                        "access_token" : token
+                    }
                 }).done(function( data ) {
                     app.id = data.id;
                     app.firstName = data.firstName;
@@ -159,7 +138,7 @@ $(function () {
                 uvjet = uvjet && this.lastName != "";
                 uvjet = uvjet && this.mail != "";
                 uvjet = uvjet && this.provjeriMail();
-                uvjet = uvjet && this.password != "";
+                //uvjet = uvjet && this.password != "";
                 if(!uvjet) {
                     alert("Nisu (ispravno) popunjena sva polja!");
                     return;
@@ -169,10 +148,11 @@ $(function () {
                 url += "?firstName=" + this.firstName;
                 url += "&lastName=" + this.lastName;
                 url += "&mail=" + this.mail;
-                url += "&password=" + this.password;
+                //url += "&password=" + this.password;
+                url += "&access_token=" + token;
                 var app = this;
                 $.ajax({
-                    method: "GET",
+                    method: "PUT",
                     contentType: 'application/json',
                     dataType: "json",
                     cache: true,
@@ -207,11 +187,16 @@ $(function () {
                 url += "&password=" + this.password;
                 var app = this;
                 $.ajax({
-                    method: "GET",
+                    method: "POST",
                     contentType: 'application/json',
                     dataType: "json",
                     cache: true,
-                    url: url
+                    url: url,
+                    statusCode: {
+                        409: function () {
+                            alert("Već postoji korisnik s tim emailom!");
+                        }
+                    }
                 }).done(function( data ) {
                     alert("Podaci spremljeni");
                     //app.id = data.id;
@@ -320,10 +305,12 @@ $(function () {
             obrisiUstanovu: function (id) {
                 var url = "https://justin-time.herokuapp.com/facility/delete/";
                 url += id;
+                url += "?access_token=" +token;
+
                 var potvrdi = confirm("Potvrdi brisanje ustanove?");
                 if(potvrdi==true) {
                     $.ajax({
-                        method: "GET",
+                        method: "DELETE",
                         contentType: 'application/json',
                         dataType: "json",
                         cache: true,
@@ -407,9 +394,10 @@ $(function () {
                 url += "&address=" + this.address;
                 url += "&mail=" + this.mail;
                 url += "&telephone=" + this.telephone;
+                url += "&access_token=" + token;
                 var app = this;
                 $.ajax({
-                    method: "GET",
+                    method: "PUT",
                     contentType: 'application/json',
                     dataType: "json",
                     cache: true,
@@ -442,9 +430,10 @@ $(function () {
                 url += "&address=" + this.address;
                 url += "&mail=" + this.mail;
                 url += "&telephone=" + this.telephone;
+                url += "&access_token=" + token;
                 var app = this;
                 $.ajax({
-                    method: "GET",
+                    method: "POST",
                     contentType: 'application/json',
                     dataType: "json",
                     cache: true,
@@ -535,14 +524,15 @@ $(function () {
             urediRed: function (ustanova_id, red_id, ustanova_naziv, red_naziv) {
                 var novoIme = prompt("Unesi novo ime za red " + red_naziv + " koji pripada ustanovi " + ustanova_naziv, red_naziv);
                 if(novoIme != null && novoIme != "") {
-                    var url = "https://justin-time.herokuapp.com/facility/";
+                    var url = "https://justin-time.herokuapp.com/queue/update/";
                     url += ustanova_id;
-                    url += "/update/queue/";
+                    url += "/";
                     url += red_id;
                     url += "?name=" + novoIme;
+                    url += "&access_token=" + token;
 
                     $.ajax({
-                        method: "GET",
+                        method: "PUT",
                         contentType: 'application/json',
                         dataType: "json",
                         cache: true,
@@ -558,14 +548,15 @@ $(function () {
                 }
             },
             obrisiRed: function (ustanova_id, red_id) {
-                var url = "https://justin-time.herokuapp.com/facility/";
+                var url = "https://justin-time.herokuapp.com/queue/delete/";
                 url += ustanova_id;
-                url += "/delete/queue/";
+                url += "/";
                 url += red_id;
+                url += "?access_token=" +token;
                 var potvrdi = confirm("Potvrdi brisanje reda?");
                 if(potvrdi==true) {
                     $.ajax({
-                        method: "GET",
+                        method: "DELETE",
                         contentType: 'application/json',
                         dataType: "json",
                         cache: true,
@@ -581,14 +572,14 @@ $(function () {
                 }
             },
             dodajRed: function () {
-                var url = "https://justin-time.herokuapp.com/facility/";
+                var url = "https://justin-time.herokuapp.com/queue/create/";
                 url += this.noviRedUstanovaId;
-                url += "/create/queue?name=";
-                url += this.noviRed;
+                url += "?name=" + this.noviRed;
+                url += "&access_token=" + token;
                 var app = this;
                 if(this.noviRedUstanovaId != "" && this.noviRed != "") {
                     $.ajax({
-                        method: "GET",
+                        method: "POST",
                         contentType: 'application/json',
                         dataType: "json",
                         cache: true,
