@@ -66,9 +66,6 @@
 
 <script>
 
-    var preloader = '<div class="loader loader-default"></div>';
-    $('body').append(preloader);
-
     // pronalazi GET parametre iz url-a
     $.urlParam = function(name){
         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -162,7 +159,6 @@
 
             url += idUstanove;
 
-            $(".loader").addClass("is-active");//ručno animiraj preloader
 
             var app = this;
             $.ajax({
@@ -175,7 +171,6 @@
                     //"access_token" : localStorage.getItem("token")
                 }
             }).done(function( data ) {
-                $(".loader").removeClass("is-active");
                 console.log(data);
                 app.idUstanove = data.id;
                 app.nazivUstanove = data.name;
@@ -206,7 +201,6 @@
                 });
             }).fail(function(jqxhr, textStatus, error) {
                 console.log( textStatus + " " + error);
-                $(".loader").removeClass("is-active");
             });
 
         }

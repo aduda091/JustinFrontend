@@ -44,9 +44,6 @@
 <div id="footer"></div>
 <script>
 
-    var preloader = '<div class="loader loader-default"></div>';
-    $('body').append(preloader);
-
     function postaviUstanovu(data) {
         ustanovaInfo.name = data.name;
         ustanovaInfo.address = data.address;
@@ -93,7 +90,6 @@
 
     url += idUstanove;
 
-    $(".loader").addClass("is-active");//ručno animiraj preloader
     $.ajax({
         method: "GET",
         contentType: 'application/json',
@@ -108,7 +104,6 @@
     }).fail(function(jqxhr, textStatus, error) {
         console.log( textStatus + " " + error);
     }).always(function () {
-        $(".loader").removeClass("is-active");
     });
 
     $('#navigacija').load('navigacija.html');

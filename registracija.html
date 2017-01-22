@@ -91,8 +91,7 @@
 
 <script>
 
-    var preloader = '<div class="loader loader-default"></div>';
-    $('body').append(preloader);
+
 
 
     var regForma = new Vue({
@@ -125,7 +124,7 @@
                 url += "&lastName=" + this.lastName;
                 url += "&mail=" + this.mail;
                 url += "&password=" + this.password;
-                $(".loader").addClass("is-active");
+
                 var app = this;
                 $.ajax({
                     method: "POST",
@@ -145,7 +144,7 @@
                     console.log( textStatus + " " + error);
                     alert("Greška prilikom registracije: \n" +error);
                 }).always(function () {
-                    $(".loader").removeClass("is-active");
+
                 });
             }
         },

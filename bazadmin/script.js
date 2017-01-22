@@ -4,15 +4,7 @@ $(function () {
     var token = localStorage.getItem("token");
 
     $('.sidebar').hide();
-    //preloader
-    var preloader = '<div class="loader loader-default"></div>';
-    $('body').append(preloader);
-    $(document).ajaxStart(function () {
-        $(".loader").addClass("is-active");
-    });
-    $(document).ajaxComplete(function () {
-        $(".loader").removeClass("is-active");
-    });
+
 
     function autorizacija() {
         // btoa() za base-64 enkcode? jednog dana?

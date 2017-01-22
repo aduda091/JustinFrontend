@@ -63,8 +63,6 @@
 
 
 <script>
-    var preloader = '<div class="loader loader-default"></div>';
-    $('body').append(preloader);
 
     window.postaviUstanove = function (data) {
         //postavi ustanove na dohvaćene podatke iz ajax requesta
@@ -102,7 +100,6 @@
     });
 
     var url = "https://justin-time.herokuapp.com/facility/read-all";
-    $(".loader").addClass("is-active");
     $.ajax({
         method: "GET",
         contentType: 'application/json',
@@ -113,10 +110,8 @@
             //"access_token" : localStorage.getItem("token")
         }
     }).done(function( data ) {
-        $(".loader").removeClass("is-active");
         postaviUstanove(data);
     }).fail(function(jqxhr, textStatus, error) {
-        $(".loader").removeClass("is-active");
         console.log( textStatus + " " + error);
     });
 

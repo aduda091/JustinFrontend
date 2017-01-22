@@ -97,8 +97,6 @@
 </div>
 
 <script>
-    var preloader = '<div class="loader loader-default"></div>';
-    //$('body').append(preloader);
 
     //facebook sdk
     $.getScript('//connect.facebook.net/hr_HR/sdk.js', function(){
@@ -189,7 +187,7 @@
                 url += "&lastName=" + this.lastName;
                 url += "&mail=" + this.email;
                 url += "&access_token=" + localStorage.getItem("token");
-                $(".loader").addClass("is-active");
+
 
                 $.ajax({
                     method: "PUT",
@@ -213,7 +211,7 @@
                     console.log( textStatus + " " + error);
                     alert("Došlo je do pogreške, podaci nisu spremljeni!");
                 }).always(function () {
-                    $(".loader").removeClass("is-active");
+
                 });
             }
         }
@@ -224,7 +222,7 @@
     //var email = $.urlParam('email');//izvući iz adrese GET ili bolje pročitati iz storage?
     var email = "aduda@unipu.hr";
     url += email;
-    $(".loader").addClass("is-active");
+
     $.ajax({
         method: "GET",
         contentType: 'application/json',
@@ -238,7 +236,7 @@
     }).fail(function(jqxhr, textStatus, error) {
         console.log( textStatus + " " + error);
     }).always(function () {
-        $(".loader").removeClass("is-active");
+
     });*/
 
     $('#footer').load('Footer.html');
