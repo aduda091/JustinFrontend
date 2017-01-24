@@ -191,6 +191,18 @@
         }
     });
 
+    $.ajax({
+        method: "GET",
+        contentType: 'application/json',
+        dataType: "json",
+        cache: true,
+        url: "https://justin-time.herokuapp.com/queue/getQueuedUser",
+        data: {
+            "access_token" : localStorage.getItem("token")
+        }
+    }).done(function( data ) {
+        console.log(data);
+    });
 
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');

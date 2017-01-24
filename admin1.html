@@ -237,10 +237,10 @@
                 this.trenutni--;
             },
             reset: function () {
-                if(!confirm("Sigurno želite resetirati redove?")) return;
+                if(!confirm("Sigurno želite resetirati red?")) return;
 
-                var url = 'https://justin-time.herokuapp.com/queue/resetQueue';
-
+                var url = 'https://justin-time.herokuapp.com/queue/resetQueue/';
+                url += this.idReda;
                 url += "?access_token=" + localStorage.getItem("token");
                 $.ajax({
                     method: "DELETE",
@@ -253,11 +253,11 @@
                     }
                 }).done(function( data ) {
                     console.log(data);
-                    alert("Redovi resetirani");
+                    alert("Red resetiran");
 
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
-                    alert("Greška prilikom resetiranja redova!");
+                    alert("Greška prilikom resetiranja reda!");
                 });
 
             }
