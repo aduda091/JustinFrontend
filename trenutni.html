@@ -30,19 +30,21 @@
 <div>
 
     <div id="navigacija"></div>
-<div class="container" id="redPodaci">
+<div class="container" id="mojiRedovi">
     <h2>Moj red</h2>
 
-    <div class="row">
+
+    <template v-for="ustanova in sve">
+    <div class="row" v-for="red in ustanova.queues">
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
                 <div class="caption">
-                    <h3 style="position: absolute; top: 2px; padding-bottom: 15px; font-size: 20px;"><b>MUP</b> - Putovnice</h3>
+                    <h3 style="position: absolute; top: 2px; padding-bottom: 15px; font-size: 20px;"><b>{{ustanova.name}}</b> - {{red.name}}</h3>
                     <button type="button" class="btn btn-primary" style="position: absolute; top: 10px; right: 30px;" @click="ukloni"><i class="fa fa-times" aria-hidden="true" style="font-size: 1.6em"></i>
                     </button>
                     <div style="display: inline-block; margin-right: 20px; margin-left: 15px;">
                         <p style="font-size: 6em; text-align: left; color: indigo; margin-top: 45px">
-                            <b >17</b>
+                            <b >{{red.priority}}</b>
                         </p>
                     </div>
 
@@ -54,28 +56,28 @@
             </div>
         </div>
     </div>
+    </template>
+    <!--<div class="row">-->
+        <!--<div class="col-sm-6 col-md-4">-->
+            <!--<div class="thumbnail">-->
+                <!--<div class="caption">-->
+                    <!--<h3 style="position: absolute; top: 2px; padding-bottom: 15px; font-size: 20px;"><b>FET</b> - Referada</h3>-->
+                    <!--<button type="button" class="btn btn-primary" style="position: absolute; top: 10px; right: 30px;" @click="ukloni"><i class="fa fa-times" aria-hidden="true" style="font-size: 1.6em"></i>-->
+                    <!--</button>-->
+                    <!--<div style="display: inline-block; margin-right: 20px; margin-left: 15px;">-->
+                        <!--<p style="font-size: 6em; text-align: left; color: indigo; margin-top: 45px">-->
+                            <!--<b >5</b>-->
+                        <!--</p>-->
+                    <!--</div>-->
 
-    <div class="row">
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <div class="caption">
-                    <h3 style="position: absolute; top: 2px; padding-bottom: 15px; font-size: 20px;"><b>FET</b> - Referada</h3>
-                    <button type="button" class="btn btn-primary" style="position: absolute; top: 10px; right: 30px;" @click="ukloni"><i class="fa fa-times" aria-hidden="true" style="font-size: 1.6em"></i>
-                    </button>
-                    <div style="display: inline-block; margin-right: 20px; margin-left: 15px;">
-                        <p style="font-size: 6em; text-align: left; color: indigo; margin-top: 45px">
-                            <b >5</b>
-                        </p>
-                    </div>
+                    <!--<div style="display: inline-block;">-->
+                        <!--<p style="text-align: right;font-size: 20px;"><b><i class="fa fa-hourglass-start" aria-hidden="true" style="font-size: 22px"></i></b> 10 minuta <br>-->
+                            <!--Trenutni broj: 3</div>-->
 
-                    <div style="display: inline-block;">
-                        <p style="text-align: right;font-size: 20px;"><b><i class="fa fa-hourglass-start" aria-hidden="true" style="font-size: 22px"></i></b> 10 minuta <br>
-                            Trenutni broj: 3</div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
 
 
@@ -99,14 +101,10 @@
     };
 
 
-    var redPodaci = new Vue({
-        el: '#redPodaci',
+    var mojiRedovi = new Vue({
+        el: '#mojiRedovi',
         data: {
-            nazivUstanove : "MUP",
-            idUstanove : "",
-            idReda : "",
-            red : [],
-            brojLjudi : "",
+            sve :""
 
         },
         methods: {
@@ -135,74 +133,35 @@
             }
         },
         created: function () {
-            var url = 'https://justin-time.herokuapp.com/facility/';
-            var idUstanove = $.urlParam('ustanova_id');//izvući iz adrese GET
-            if(idUstanove == null) {
-                //nije proslijeđen id ustanove, vrati na popis ustanova
-                //window.location = "ustanova.html";
-            }
-
-            url += idUstanove;
-
-
             var app = this;
             $.ajax({
                 method: "GET",
                 contentType: 'application/json',
                 dataType: "json",
                 cache: true,
-                url: url,
+                url: "https://justin-time.herokuapp.com/queue/getQueuedUser",
                 data: {
-                    //"access_token" : localStorage.getItem("token")
+                    "access_token" : localStorage.getItem("token")
                 }
             }).done(function( data ) {
                 console.log(data);
-                app.idUstanove = data.id;
-                app.nazivUstanove = data.name;
-                var redovi = data.queues;
-                app.idReda = $.urlParam('red_id');
-                app.uRedu = localStorage.getItem(app.idReda);
-                for(var i = 0; i<data.queues.length;i++) {
-                    if(data.queues[i].id == app.idReda) app.red = data.queues[i];
+                //var arr = Object.keys(data.queuedFacilities).map(function (key) { return data.queuedFacilities[key]; });
+                var arr = Object.keys(data.queuedFacilities).map(function (key) { return data.queuedFacilities[key]; });
+                for(var i=0;i<arr.length;i++) {
+                    arr[i].queues = Object.keys(arr[i].queues).map(function (key) {
+                        return arr[i].queues[key];
+                    });
                 }
-                var url = 'https://justin-time.herokuapp.com/queue/' + app.idReda;
-                $.ajax({
-                    method: "GET",
-                    contentType: 'application/json',
-                    dataType: "json",
-                    cache: true,
-                    url: url,
-                    data: {
-                        //"access_token" : localStorage.getItem("token")
-                    }
-                }).done(function( data ) {
-                    console.log("Broj ljudi vraca:");
-                    console.log(data);
-                    console.log("Broj ljudi u redu " + data.name + " je " + data.priority);
-                    app.brojLjudi = data.priority;
-                }).fail(function(jqxhr, textStatus, error) {
-                    console.log( textStatus + " " + error);
-                    app.brojLjudi = 0;
-                });
-            }).fail(function(jqxhr, textStatus, error) {
-                console.log( textStatus + " " + error);
+                app.sve = arr;
+
             });
 
+
+
         }
     });
 
-    $.ajax({
-        method: "GET",
-        contentType: 'application/json',
-        dataType: "json",
-        cache: true,
-        url: "https://justin-time.herokuapp.com/queue/getQueuedUser",
-        data: {
-            "access_token" : localStorage.getItem("token")
-        }
-    }).done(function( data ) {
-        console.log(data);
-    });
+
 
     $('#footer').load('Footer.html');
     $('#navigacija').load('navigacija.html');
