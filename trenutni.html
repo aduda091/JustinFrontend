@@ -40,7 +40,7 @@
             <div class="thumbnail">
                 <div class="caption">
                     <h3 style="position: absolute; top: 2px; padding-bottom: 15px; font-size: 20px;"><b>{{ustanova.name}}</b> - {{red.name}}</h3>
-                    <button type="button" class="btn btn-primary" style="position: absolute; top: 10px; right: 30px;" @click="ukloni"><i class="fa fa-times" aria-hidden="true" style="font-size: 1.6em"></i>
+                    <button type="button" class="btn btn-primary" style="position: absolute; top: 10px; right: 30px;" @click="ukloni(ustanova.id, red.id)"><i class="fa fa-times" aria-hidden="true" style="font-size: 1.6em"></i>
                     </button>
                     <div style="display: inline-block; margin-right: 20px; margin-left: 15px;">
                         <p style="font-size: 6em; text-align: left; color: indigo; margin-top: 45px">
@@ -57,27 +57,7 @@
         </div>
     </div>
     </template>
-    <!--<div class="row">-->
-        <!--<div class="col-sm-6 col-md-4">-->
-            <!--<div class="thumbnail">-->
-                <!--<div class="caption">-->
-                    <!--<h3 style="position: absolute; top: 2px; padding-bottom: 15px; font-size: 20px;"><b>FET</b> - Referada</h3>-->
-                    <!--<button type="button" class="btn btn-primary" style="position: absolute; top: 10px; right: 30px;" @click="ukloni"><i class="fa fa-times" aria-hidden="true" style="font-size: 1.6em"></i>-->
-                    <!--</button>-->
-                    <!--<div style="display: inline-block; margin-right: 20px; margin-left: 15px;">-->
-                        <!--<p style="font-size: 6em; text-align: left; color: indigo; margin-top: 45px">-->
-                            <!--<b >5</b>-->
-                        <!--</p>-->
-                    <!--</div>-->
 
-                    <!--<div style="display: inline-block;">-->
-                        <!--<p style="text-align: right;font-size: 20px;"><b><i class="fa fa-hourglass-start" aria-hidden="true" style="font-size: 22px"></i></b> 10 minuta <br>-->
-                            <!--Trenutni broj: 3</div>-->
-
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
 
 
 
@@ -108,12 +88,12 @@
 
         },
         methods: {
-            ukloni : function () {
+            ukloni : function (idUstanove, idReda) {
                 var app = this;
                 var mail = localStorage.getItem("mail");
                 var url = 'https://justin-time.herokuapp.com/queue/removeUser/';
-                url+= this.idUstanove;
-                url+="/" + this.idReda;// + "/" +mail;
+                url+= idUstanove;
+                url+="/" + idReda;// + "/" +mail;
                 url += "?access_token=" + localStorage.getItem("token");
                 $.ajax({
                     method: "DELETE",
@@ -126,7 +106,8 @@
                     }
                 }).done(function( data ) {
                     console.log(data);
-                    app.brojLjudi--;
+                    alert("Napustili ste red.");
+                    location.reload(true);
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
                 });
