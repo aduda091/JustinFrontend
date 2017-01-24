@@ -140,7 +140,7 @@
                                 <tr>
                                     <th>Ime</th>
                                     <th style="text-align: center">Broj</th>
-                                    <th style="text-align: center">Ukloni</th>
+                                    <!--<th style="text-align: center">Ukloni</th>-->
                                 </tr>
                                 </thead>
 
@@ -149,9 +149,9 @@
                                     <tr>
                                         <td>{{korisnik.firstName}} {{korisnik.lastName}}</td>
                                         <td style="text-align: center">{{korisnik.broj}}</td>
-                                        <td style="text-align: center">
-                                            <i class="fa fa-times" aria-hidden="true" style="font-size: 20px; color: #0a568c; cursor: pointer;" @click="ukloni(korisnik.mail)"></i>
-                                        </td>
+                                        <!--<td style="text-align: center">-->
+                                            <!--<i class="fa fa-times" aria-hidden="true" style="font-size: 20px; color: #0a568c; cursor: pointer;" @click="ukloni(korisnik.mail)"></i>-->
+                                        <!--</td>-->
                                     </tr>
                                 </template>
 
@@ -235,28 +235,6 @@
             },
             smanji: function () {
                 this.trenutni--;
-            },
-            ukloni: function (mail) {
-                var app = this;
-                var url = 'https://justin-time.herokuapp.com/queue/removeUser/';
-                url+= this.idUstanove;
-                url+="/" + this.idReda + "/" +mail;
-                url += "?access_token=" + localStorage.getItem("token");
-                $.ajax({
-                    method: "DELETE",
-                    contentType: 'application/json',
-                    dataType: "json",
-                    cache: true,
-                    url: url,
-                    data: {
-                        //"access_token" : localStorage.getItem("token")
-                    }
-                }).done(function( data ) {
-                    console.log(data);
-
-                }).fail(function(jqxhr, textStatus, error) {
-                    console.log( textStatus + " " + error);
-                });
             },
             reset: function () {
                 if(!confirm("Sigurno želite resetirati redove?")) return;

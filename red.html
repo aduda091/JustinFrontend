@@ -34,7 +34,8 @@
             <template v-for="red in redovi">
                 <li class="list-group-item">
                     <span class="badge" :id="'red_' + red.id">Učitavam...</span>
-                    <a :href="'trenutni.html?ustanova_id=' +idUstanove + '&red_id=' + red.id "> {{red.name}}</a>
+                    <!--<a :href="'trenutni.html?ustanova_id=' +idUstanove + '&red_id=' + red.id "> {{red.name}}</a>-->
+                    <a href="#" @click="rezerviraj(red.id)"> {{red.name}}</a>
                 </li>
             </template>
 
@@ -92,7 +93,7 @@
                     return data.priority;
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
-                    $(selektor).text(data.priority);
+                    $(selektor).text("0");
                     return "0";
                 });
                 //return Math.floor(Math.random()*10);
@@ -110,6 +111,37 @@
                     this.brojLjudi(red.id);
                     this.redovi.push(red);
                 }
+            },
+            rezerviraj : function (idReda) {
+                var app = this;
+                var mail = localStorage.getItem("mail");
+                var url = 'https://justin-time.herokuapp.com/queue/addUser/';
+                url+= this.idUstanove;
+                url+="/" + idReda;// + "/" +mail;
+                url += "?access_token=" + localStorage.getItem("token");
+                $.ajax({
+                    method: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url,
+                    data: {
+                        //"access_token" : localStorage.getItem("token")
+                    },
+                    statusCode : {
+                        409: function () {
+                            alert("Već ste u tom redu");
+                        }
+                    }
+                }).done(function( data ) {
+                    console.log(data);
+                    window.location = "trenutni.html";
+
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.log( textStatus + " " + error);
+                    window.location = "trenutni.html";
+                });
+
             }
         },
         created: function () {
