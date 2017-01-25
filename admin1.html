@@ -50,7 +50,7 @@
                 <select name="red" id="red" class="form-control" style="width: 90%;margin-left: auto;margin-right: auto;" v-model="idReda">
                     <option value="" disabled selected>Odaberite red...</option>
                     <template v-for="ustanova in sveUstanove">
-                        <optgroup :label="ustanova.name">
+                        <optgroup :label="ustanova.name" :id="ustanova.id">
                             <option v-for="red in ustanova.queues" :value="red.id">{{red.name}}</option>
                         </optgroup>
                     </template>
@@ -339,6 +339,9 @@
                 }
             },
             idReda: function () {
+                this.idUstanove = $("option:selected").parent()[0].id;
+
+
                 this.ucitajLjude();
             }
         },
