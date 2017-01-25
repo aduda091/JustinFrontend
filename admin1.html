@@ -148,10 +148,9 @@
                                 <template v-for="korisnik in ljudiURedu">
                                     <tr>
                                         <td>{{korisnik.firstName}} {{korisnik.lastName}}</td>
-                                        <td style="text-align: center" :id="'broj_' +korisnik.id">{{korisnikovBroj(korisnik.id, korisnik.mail)}}</td>
-                                        <!--<td style="text-align: center">-->
-                                            <!--<i class="fa fa-times" aria-hidden="true" style="font-size: 20px; color: #0a568c; cursor: pointer;" @click="ukloni(korisnik.mail)"></i>-->
-                                        <!--</td>-->
+                                        <!--<td style="text-align: center" :id="'broj_' +korisnik.id">{{korisnikovBroj(korisnik.id, korisnik.mail)}}</td>-->
+                                        <td style="text-align: center">{{korisnik.broj}}</td>
+
                                     </tr>
                                 </template>
 
@@ -307,7 +306,7 @@
             },
             next : function () {
                 var app = this;
-                var url = 'https://justin-time.herokuapp.com/nextUser/';
+                var url = 'https://justin-time.herokuapp.com/queue/nextUser/';
                 url += app.idUstanove;
                 url += "/";
                 url += app.idReda;
@@ -322,7 +321,8 @@
                     app.ucitajLjude();
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
-                    alert("Neuspješno prebacivanje na sljedećeg korisnika!");
+//                    alert("Neuspješno prebacivanje na sljedećeg korisnika!");
+                    app.ucitajLjude();
                 });
             }
         },

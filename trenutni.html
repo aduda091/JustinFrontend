@@ -44,13 +44,13 @@
                     </button>
                     <div style="display: inline-block; margin-right: 20px; margin-left: 15px;">
                         <p style="font-size: 6em; text-align: left; color: indigo; margin-top: 45px">
-                            <b >{{red.priority}}</b>
+                            <b :id="'moj_' +red.id">{{red.priority}}</b>
                         </p>
                     </div>
 
                    <div style="display: inline-block;">
-                    <p style="text-align: right;font-size: 20px;"><b><i class="fa fa-hourglass-start" aria-hidden="true" style="font-size: 22px"></i></b> 15 minuta <br>
-                       Trenutni broj: <span :id="'trenutni_' +red.id ">{{trenutniBroj(red.id)}}</span></div>
+                    <p style="text-align: right;font-size: 20px;"><b><i class="fa fa-hourglass-start" aria-hidden="true" style="font-size: 22px"></i></b> <span :id="'minute_' +red.id">15 minuta</span> <br>
+                       <span :id="'text_' +red.id">Trenutni broj:</span> <span :id="'trenutni_' +red.id ">{{trenutniBroj(red.id)}}</span></div>
 
                 </div>
             </div>
@@ -128,11 +128,36 @@
                     console.log("Broj vraca:");
                     console.log(data);
                     console.log("Trenutni broj je " + data.currentNumber);
-                    $(selektor).text(data.number);
-                    return data.priority;
+                    $(selektor).text(data.currentNumber);
+
+                    selektor = "#minute_" +idReda;
+                    var trenutni = data.currentNumber;
+                    var mojSelektor = "#moj_" +idReda;
+                    var moj = $(mojSelektor).text();
+                    moj = parseInt(moj);
+                    trenutni = parseInt(trenutni);
+                    var string = (moj-trenutni)*5;
+                    switch (string) {
+                        case 2:
+                        case 3:
+                        case 4: string += " minute";break;
+
+                        default: string += " minuta";
+                    }
+                    $(selektor).text(string);
+
+
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
-                    $(selektor).text("0");
+
+                    $(selektor).text("Čekanje na službenika");
+                    selektor = "#text_" +idReda;
+                    console.log(selektor);
+                    $(selektor).empty();
+                    $(selektor).text("");
+
+                    selektor = "#minute_" +idReda;
+                    $(selektor).text("");
                     return "0";
                 });
                 //return Math.floor(Math.random()*10);
