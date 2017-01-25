@@ -141,7 +141,9 @@
                         case 2:
                         case 3:
                         case 4: string += " minute";break;
-
+                        case 0: string += " vi ste na redu!";
+                            alert("Na redu ste!");
+                            break;
                         default: string += " minuta";
                     }
                     $(selektor).text(string);
