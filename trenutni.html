@@ -50,7 +50,7 @@
 
                    <div style="display: inline-block;">
                     <p style="text-align: right;font-size: 20px;"><b><i class="fa fa-hourglass-start" aria-hidden="true" style="font-size: 22px"></i></b> 15 minuta <br>
-                       Trenutni broj: 14</div>
+                       Trenutni broj: <span :id="'trenutni_' +red.id ">{{trenutniBroj(red.id)}}</span></div>
 
                 </div>
             </div>
@@ -111,6 +111,32 @@
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
                 });
+            },
+            trenutniBroj : function (idReda) {
+                var url = 'https://justin-time.herokuapp.com/queue/currentUser/' + idReda;
+                var selektor = "#trenutni_" + idReda;
+                $.ajax({
+                    method: "GET",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url,
+                    data: {
+                        //"access_token" : localStorage.getItem("token")
+                    }
+                }).done(function( data ) {
+                    console.log("Broj vraca:");
+                    console.log(data);
+                    console.log("Trenutni broj je " + data.currentNumber);
+                    $(selektor).text(data.number);
+                    return data.priority;
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.log( textStatus + " " + error);
+                    $(selektor).text("0");
+                    return "0";
+                });
+                //return Math.floor(Math.random()*10);
+
             }
         },
         created: function () {
@@ -132,6 +158,7 @@
                     arr[i].queues = Object.keys(arr[i].queues).map(function (key) {
                         return arr[i].queues[key];
                     });
+
                 }
                 app.sve = arr;
 
@@ -141,6 +168,12 @@
 
         }
     });
+
+    setInterval(function(){
+
+        location.reload(true);
+
+    }, 10000);
 
 
 

@@ -83,7 +83,7 @@
 
                         <div class="col-lg-2 col-sm-6">
                             <div class="circle-tile ">
-                                <a href="#"><div class="circle-tile-heading green "@click="smanji"><i class="fa fa-arrow-left fa-fw fa-3x"></i></div></a>
+                                <a href="#"><div class="circle-tile-heading green"><i class="fa fa-arrow-left fa-fw fa-3x"></i></div></a>
                                 <div class="circle-tile-content green">
                                     <div class="circle-tile-description text-faded"> Prethodni</div>
                                     <div class="circle-tile-number text-faded ">{{prethodni}}</div>
@@ -103,7 +103,7 @@
 
                         <div class="col-lg-2 col-sm-6">
                             <div class="circle-tile ">
-                                <a href="#"><div class="circle-tile-heading red" @click="povecaj"><i class="fa fa-arrow-right fa-fw fa-3x"></i></div></a>
+                                <a href="#"><div class="circle-tile-heading red" @click="next"><i class="fa fa-arrow-right fa-fw fa-3x"></i></div></a>
                                 <div class="circle-tile-content red">
                                     <div class="circle-tile-description text-faded"> Sljedeći</div>
                                     <div class="circle-tile-number text-faded ">{{sljedeci}}</div>
@@ -148,7 +148,7 @@
                                 <template v-for="korisnik in ljudiURedu">
                                     <tr>
                                         <td>{{korisnik.firstName}} {{korisnik.lastName}}</td>
-                                        <td style="text-align: center">{{korisnik.broj}}</td>
+                                        <td style="text-align: center" :id="'broj_' +korisnik.id">{{korisnikovBroj(korisnik.id, korisnik.mail)}}</td>
                                         <!--<td style="text-align: center">-->
                                             <!--<i class="fa fa-times" aria-hidden="true" style="font-size: 20px; color: #0a568c; cursor: pointer;" @click="ukloni(korisnik.mail)"></i>-->
                                         <!--</td>-->
@@ -260,6 +260,70 @@
                     alert("Greška prilikom resetiranja reda!");
                 });
 
+            },
+            korisnikovBroj: function (id, mail) {
+                var app = this;
+                var selektor = "#broj_" + id;
+                var url = 'https://justin-time.herokuapp.com/queue/getUser/' +mail;
+                url += "?access_token=" + localStorage.getItem("token");
+                $.ajax({
+                    method: "GET",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url,
+                    data: {
+                        //"access_token" : localStorage.getItem("token")
+                    }
+                }).done(function( data ) {
+                    console.log(data);
+                    var sve = data.queuedFacilities;
+                    var ustanova = app.idUstanove;
+                    var red = app.idReda;
+
+                    var arr = Object.keys(data.queuedFacilities).map(function (key) { return data.queuedFacilities[key]; });
+                    for(var i=0;i<arr.length;i++) {
+                        arr[i].queues = Object.keys(arr[i].queues).map(function (key) {
+                            return arr[i].queues[key];
+                        });
+
+                    }
+                    for(i=0;i<arr.length;i++) {
+                        for(var j=0;j<arr[i].queues.length;j++) {
+                            if(arr[i].queues[j].id = red) {
+                                $(selektor).text(arr[i].queues[j].priority);
+                            }
+                        }
+
+                    }
+
+
+                    return 1;
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.log( textStatus + " " + error);
+                    $(selektor).text("0");
+                    return "0";
+                });
+            },
+            next : function () {
+                var app = this;
+                var url = 'https://justin-time.herokuapp.com/nextUser/';
+                url += app.idUstanove;
+                url += "/";
+                url += app.idReda;
+                url += "?access_token=" + localStorage.getItem("token");
+                $.ajax({
+                    method: "GET",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: true,
+                    url: url
+                }).done(function( data ) {
+                    app.ucitajLjude();
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.log( textStatus + " " + error);
+                    alert("Neuspješno prebacivanje na sljedećeg korisnika!");
+                });
             }
         },
         watch: {
@@ -282,35 +346,12 @@
             //duplicirani kod jer zbog watch idReda ne učitava defaultni id prilikom pokretanja
             var app = this;
             this.ucitajLjude();
-//            var url = 'https://justin-time.herokuapp.com/queue/getAllUsers/' + this.idReda;
-//            $.ajax({
-//                method: "GET",
-//                contentType: 'application/json',
-//                dataType: "json",
-//                cache: true,
-//                url: url,
-//                data: {
-//                    "access_token" : localStorage.getItem("token")
-//                },
-//                statusCode: {
-//                    401: function () {
-//                        alert("Sesija istekla, ponovno se prijavite!");
-//                    },
-//                    404: function () {
-//                        app.ljudiURedu = [];
-//                    }
-//                }
-//            }).done(function( data ) {
-//                console.log(data);
-//                app.ljudiURedu = [];
-//                for(var i=0;i<data.length;i++) {
-//                    var korisnik = data[i].user;
-//                    korisnik.broj = i+1;
-//                    app.ljudiURedu.push(korisnik);
-//                }
-//            }).fail(function(jqxhr, textStatus, error) {
-//                console.log( textStatus + " " + error);
-//            });
+
+            setInterval(function(){
+
+                app.ucitajLjude();
+
+            }, 10000);
 
             //ustanove i redovi
             $.ajax({
