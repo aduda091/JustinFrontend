@@ -235,6 +235,7 @@
     function attachSignin(element) {
         auth2.attachClickHandler(element, {},
                 function(googleUser) {
+                    console.log(googleUser);
 
                     var profile = googleUser.getBasicProfile();
                     /*
@@ -242,7 +243,7 @@
                      console.log('Name: ' + profile.getName());
                      console.log('Image URL: ' + profile.getImageUrl());
                      console.log('Email: ' + profile.getEmail());*/
-
+/********************************************************
                     localStorage.setItem("id", profile.getId());
                     localStorage.setItem("firstName", profile.getGivenName());
                     localStorage.setItem("lastName", profile.getFamilyName());
@@ -250,7 +251,8 @@
                     localStorage.setItem("picture", profile.getImageUrl());
                     //preusmjeri korisnika na drugu stranicu nakon logina
                     //window.location = "ustanova.html";
-                    location.reload(true);
+                    //location.reload(true);
+ */////////////////////////////////////
                 }, function(error) {
                     alert(JSON.stringify(error, undefined, 2));
                 });
