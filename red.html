@@ -88,8 +88,8 @@
                 }).done(function( data ) {
                     console.log("Broj vraca:");
                     console.log(data);
-                    console.log("Broj ljudi u redu je " + data.number);
-                    $(selektor).text(data.number);
+                    console.log("Broj ljudi u redu je " + data.priority);
+                    $(selektor).text(data.priority);
                     return data.priority;
                 }).fail(function(jqxhr, textStatus, error) {
                     console.log( textStatus + " " + error);
